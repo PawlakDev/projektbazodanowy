@@ -31,9 +31,10 @@ public class MyFrame extends JFrame implements ActionListener {
         panel2.setBounds(160,-25,370,400);
 
         // Utwórz obiekt Image z obrazem
-        Image image = new ImageIcon("C:\\Users\\thepo\\Desktop\\Studia\\untitled\\src\\obrazek.png").getImage();
+        //Image image = new ImageIcon("C:\\Users\\thepo\\Desktop\\Studia\\untitled\\src\\obrazek.png").getImage();
+        Image image = new ImageIcon("src\\main\\java\\example\\obrazek.png").getImage();
 
-        ImageIcon icon = new ImageIcon("C:\\Users\\thepo\\Desktop\\Studia\\untitled\\src\\obrazek.png");
+        //ImageIcon icon = new ImageIcon("C:\\Users\\thepo\\Desktop\\Studia\\untitled\\src\\obrazek.png");
 
         // Ustaw właściwość SCALE_SMOOTH dla obrazu
         image = image.getScaledInstance(500, 400, Image.SCALE_SMOOTH);
