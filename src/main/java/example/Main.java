@@ -14,6 +14,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        MyFrame frame = new MyFrame();
+
         int choice;
         do {
             System.out.println("--------------------------------------------------------");
