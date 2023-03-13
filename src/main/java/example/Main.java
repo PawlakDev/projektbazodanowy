@@ -14,7 +14,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        MyFrame frame = new MyFrame();
+        login Login = new login();
 
         int choice;
         do {
