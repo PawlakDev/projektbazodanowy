@@ -45,8 +45,6 @@ public class login extends JFrame implements ActionListener {
         // Utwórz obiekt Image z obrazem
         Image image = new ImageIcon("src\\main\\java\\example\\obrazek.png").getImage();
 
-        //ImageIcon icon = new ImageIcon("C:\\Users\\thepo\\Desktop\\Studia\\untitled\\src\\obrazek.png");
-
         // Ustaw właściwość SCALE_SMOOTH dla obrazu
         image = image.getScaledInstance(500, 400, Image.SCALE_SMOOTH);
 
