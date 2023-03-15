@@ -63,8 +63,9 @@ public class MyFrame extends JFrame implements ActionListener {
 
         //Button1 - "Nowy Trening"
         button[0] = new JButton();
+        button[0].setText("Nowy Trening");
         button[0].addActionListener(this);
-        Button1Settings button1Settings = new Button1Settings(button[0],panel);
+        Button1Settings button1Settings = new Button1Settings(button[0],panel,20,20,130,100);
 
         //Button2 - "Edytuj trening"
         button[1] = new JButton();

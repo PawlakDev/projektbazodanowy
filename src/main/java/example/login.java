@@ -5,23 +5,29 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
+import java.util.WeakHashMap;
 
 public class login extends JFrame implements ActionListener {
     static boolean change = false;
-    JLabel label;
+    JLabel label,label2;
     JButton[] button = new JButton[7];
     //JButton button,button2,button3,button4,button5,button6;
-    JPanel panel,panel2;
+    JPanel panel,panel2,panel3,panel4,panel5;
     TextField textField;
 
-    static String Label="Label";
+    //static String Label="Label";
     public login(){
+
 
         //Tworzenie panelu
         panel = new JPanel();
@@ -37,7 +43,6 @@ public class login extends JFrame implements ActionListener {
         panel2.setBounds(160,-25,370,400);
 
         // Utwórz obiekt Image z obrazem
-        //Image image = new ImageIcon("C:\\Users\\thepo\\Desktop\\Studia\\untitled\\src\\obrazek.png").getImage();
         Image image = new ImageIcon("src\\main\\java\\example\\obrazek.png").getImage();
 
         //ImageIcon icon = new ImageIcon("C:\\Users\\thepo\\Desktop\\Studia\\untitled\\src\\obrazek.png");
@@ -70,7 +75,7 @@ public class login extends JFrame implements ActionListener {
         //Button1 - "Zaloguj"
         button[0] = new JButton();
         button[0].addActionListener(this);
-        Button1Settings button1Settings = new Button1Settings(button[0],panel);
+        Button1Settings button1Settings = new Button1Settings(button[0],panel,20,20,130,100);
         button[0].setText("Zaloguj");
 
         //Button2 - "Edytuj trening"
@@ -84,20 +89,6 @@ public class login extends JFrame implements ActionListener {
         button[2].addActionListener(this);
         Button3Settings button3Settings = new Button3Settings(button[2],panel);
 
-        //Button number 4 settings:
-        button[3] = new JButton();
-        Button4Settings button4Settings = new Button4Settings(button[3],panel);
-        button[3].addActionListener(this);
-
-        //Button number 5 settings:
-        button[4] = new JButton();
-        button[4].addActionListener(this);
-        Button5Settings button5Settings = new Button5Settings(button[4],panel);
-
-        //Button number 6 settings:
-        button[5] = new JButton();
-        button[5].addActionListener(this);
-        Button6Settings button6Settings1 = new Button6Settings(button[5],panel);
     }
 
     public void setLabel(){
@@ -107,71 +98,98 @@ public class login extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        //Ustawienia hibernate
+        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+
         if (e.getSource() == button[0]) {
-            SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Podaj imię użytkownika: ");
-            String name = scanner.nextLine();
 
-            Session session = sessionFactory.getCurrentSession();
-            session.beginTransaction();
+            //Wylaczam stare panely
+            panel.setVisible(false);
+            panel2.setVisible(false);
+            //
 
-            List<User> users = session.createQuery("from User", User.class).getResultList();
+            //label
+            label2 = new JLabel();
 
-            System.out.println("Użytkownicy w bazie danych:");
-            for (User user : users) {
-                if(user.getFirstName().equals(name)) {
-                    System.out.println(user);
-                }
-            }
+            //panel
+            panel3 = new JPanel();
+            panel3.setBackground(Color.white);
 
-            session.getTransaction().commit();
+            WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(label2,panel3);
+            this.add(panel3);
 
-            for(int i=0;i<3;i++){
-                button[i].setVisible(false);
-                panel.remove(button[i]);
-            }
 
-            for(int i=3;i<6;i++){
-                button[i].setVisible(true);
-                panel.add(button[i]);
-            }
+            //panel4
+            panel4 = new JPanel();
+            panel4.setBackground(Color.white);
+            panel4.setBounds(45,110,450,100);
+            panel4.setVisible(true);
+            //panel4.setBackground(Color.white);
+            this.add(panel4);
+
+            //panel5
+            panel5 = new JPanel();
+            panel5.setBackground(Color.white);
+            panel5.setBounds(80,210,355,50);
+            panel5.setVisible(true);
+            panel5.setLayout(null);
+            //panel5.setBackground(Color.white);
+            //panel.setBackground(Color.black);
+            this.add(panel5);
+
+            JTextArea textArea = new JTextArea();
+            textArea.setText("login");
+            textArea.setPreferredSize(new Dimension(210, 40)); // Ta komenda ustala wielkosc okna
+            //textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+
+            Border border = BorderFactory.createLineBorder(Color.BLACK); // ustaw styl obramowania
+            // Ustaw rozmiar dla JTextField
+            //panel4.setLayout(new GridBagLayout());
+            //textArea.setBackground(Color.gray);
+            textArea.setBorder(border);
+            textArea.setForeground(new Color(0x000000));
+            textArea.setFont(new Font("Consolas", Font.PLAIN,35));
+            textArea.setBounds(0, 0, 340, 60);
+
+            panel4.add(textArea);
+
+            //
+
+            JTextArea textArea2 = new JTextArea();
+            textArea2.setBorder(border);
+            textArea2.setText("haslo");
+            textArea2.setPreferredSize(new Dimension(210, 40)); // Ta komenda ustala wielkosc okna
+            //textArea.setLineWrap(true);
+            textArea2.setWrapStyleWord(true);
+
+            // Ustaw rozmiar dla JTextField
+            //panel4.setLayout(new GridBagLayout());
+            textArea2.setForeground(new Color(0x000000));
+            textArea2.setFont(new Font("Consolas", Font.PLAIN,35));
+            textArea2.setBounds(0, 0, 340, 60);
+
+            panel4.add(textArea2);
+            //
+
+            JButton jButton = new JButton();
+            jButton.setBackground(Color.white);
+            jButton.setVisible(true);
+            jButton.setLayout(null);
+            jButton.setBounds(140,0,100,50);
+            jButton.addActionListener(this);
+            jButton.setText("Zapisz");
+            jButton.setFocusable(false);
+            jButton.addActionListener(this);
+            jButton.setBorder(BorderFactory.createEtchedBorder());
+            panel5.add(jButton);
 
         }
         if (e.getSource() == button[2]) {
             if (change == false) {
                 System.exit(0);
             }
-        }
-        if (e.getSource() == button[5]) {
-            for(int i=3;i<6;i++){
-                button[i].setVisible(false);
-            }
-
-            for(int i=0;i<3;i++){
-                button[i].setVisible(true);
-                panel.add(button[i]);
-            }
-            button[4].setEnabled(true);
-        }
-        if(e.getSource() == button[4]){
-
-            button[5].setEnabled(false);
-
-            // Utwórz obiekt Calendar z bieżącą datą i godziną
-            Calendar calendar = Calendar.getInstance();
-
-            // Pobierz składowe daty z obiektu Calendar
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            int month = calendar.get(Calendar.MONTH) + 1; // Zwróć uwagę na to, że miesiące są liczone od 0
-            int year = calendar.get(Calendar.YEAR);
-
-            // Wyświetl wczytaną datę na konsoli
-            System.out.println(day + "/" + month + "/" + year);
-
-            button[4].setEnabled(false);
-
-            MyFrame2 frame2 = new MyFrame2(day,month,year);
         }
     }
 
