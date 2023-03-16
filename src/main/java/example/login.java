@@ -73,19 +73,19 @@ public class login extends JFrame implements ActionListener {
         //Button1 - "Zaloguj"
         button[0] = new JButton();
         button[0].addActionListener(this);
-        Button1Settings button1Settings = new Button1Settings(button[0],panel,20,20,130,100);
+        Button1Settings button1Settings = new Button1Settings(button[0],panel,20,20,130,100, true);
         button[0].setText("Zaloguj");
 
-        //Button2 - "Edytuj trening"
+        //Button2 - "zarejestruj"
         button[1] = new JButton();
         button[1].addActionListener(this);
-        Button2Settings button2Settings = new Button2Settings(button[1],panel);
-        button[1].setText("Zarejestruj");
+        Button2Settings button2Settings = new Button2Settings(button[1],panel, 20,130,130,100, "Zarejestruj");
+        //button[1].setText("Zarejestruj");
 
         //Button3 - "Wyjdz"
         button[2] = new JButton();
         button[2].addActionListener(this);
-        Button3Settings button3Settings = new Button3Settings(button[2],panel);
+        Button2Settings button3Settings = new Button2Settings(button[2],panel, 20,240,130,100, "Wyjdz");
 
     }
 

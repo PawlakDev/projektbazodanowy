@@ -3,8 +3,9 @@ package example;
 import javax.swing.*;
 import java.awt.*;
 
+//docelowo usunąc to setEnbled
 public class Button1Settings extends JFrame {
-    public Button1Settings(JButton button, JPanel panel, int x, int y, int width, int height) {
+    public Button1Settings(JButton button, JPanel panel, int x, int y, int width, int height, boolean setEnabled) {
 
         button.setBounds(x,y,width,height);
         button.setVisible(true);
@@ -12,7 +13,7 @@ public class Button1Settings extends JFrame {
         button.setHorizontalTextPosition(JButton.CENTER);
         button.setVerticalTextPosition(JButton.CENTER);
         button.setBorder(BorderFactory.createEtchedBorder());
-        button.setEnabled(true);
+        button.setEnabled(setEnabled);
         panel.add(button, BorderLayout.NORTH);
     }
 }
