@@ -5,66 +5,65 @@ import jakarta.persistence.*;
 //import javax.persistence.*;
 
 @Entity
-@Table(name = "student")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "Imie")
-    private String firstName;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name = "Nazwisko")
-    private String lastName;
+    @Column(name = "email")
+    private String email;
 
-    @Column(name = "Wiek")
-    private int age;
+    @Column(name = "password")
+    private String password;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
-
-    public void setAge(int age) {
-        this.age = age;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", age=" + age +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", pass=" + password +
                 '}';
     }
 }

@@ -69,7 +69,7 @@ public class Main {
 
         System.out.println("Użytkownicy w bazie danych:");
         for (User user : users) {
-            if(user.getFirstName().equals(name)) {
+            if(user.getUsername().equals(name)) {
                 System.out.println(user);
             }
         }
@@ -80,20 +80,19 @@ public class Main {
 
     private static void addUser(SessionFactory sessionFactory, Scanner scanner) {
 
-        System.out.println("Podaj imię użytkownika: ");
-        String firstName = scanner.nextLine();
+        System.out.println("Podaj login użytkownika: ");
+        String username = scanner.nextLine();
 
-        System.out.println("Podaj nazwisko użytkownika: ");
-        String lastName = scanner.nextLine();
+        System.out.println("Podaj email użytkownika: ");
+        String email = scanner.nextLine();
 
-        System.out.println("Podaj wiek użytkownika: ");
-        int age = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("Podaj hasło użytkownika: ");
+        String password = scanner.nextLine();
 
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
-        User user = new User(firstName, lastName, age);
+        User user = new User(username, email, password);
         session.save(user);
 
         session.getTransaction().commit();
@@ -130,26 +129,25 @@ public class Main {
 
         User user = session.get(User.class, id);
         if (user != null) {
-            System.out.println("Aktualne imię: " + user.getFirstName());
-            System.out.println("Podaj nowe imię (lub naciśnij enter, aby pominąć): ");
-            String firstName = scanner.nextLine();
-            if (!firstName.isBlank()) {
-                user.setFirstName(firstName);
+            System.out.println("Aktualny login: " + user.getUsername());
+            System.out.println("Podaj nowy login (lub naciśnij enter, aby pominąć): ");
+            String username = scanner.nextLine();
+            if (!username.isBlank()) {
+                user.setUsername(username);
             }
 
-            System.out.println("Aktualne nazwisko: " + user.getLastName());
-            System.out.println("Podaj nowe nazwisko (lub naciśnij enter, aby pominąć): ");
-            String lastName = scanner.nextLine();
-            if (!lastName.isBlank()) {
-                user.setLastName(lastName);
+            System.out.println("Aktualny Email: " + user.getEmail());
+            System.out.println("Podaj nowy Email (lub naciśnij enter, aby pominąć): ");
+            String email = scanner.nextLine();
+            if (!email.isBlank()) {
+                user.setEmail(email);
             }
 
-            System.out.println("Aktualny wiek: " + user.getAge());
-            System.out.println("Podaj nowy wiek (lub naciśnij enter, aby pominąć): ");
-            String ageString = scanner.nextLine();
-            if (!ageString.isBlank()) {
-                int age = Integer.parseInt(ageString);
-                user.setAge(age);
+            System.out.println("Aktualny haslo: " + user.getPassword());
+            System.out.println("Podaj nowe hasło (lub naciśnij enter, aby pominąć): ");
+            String pass = scanner.nextLine();
+            if (!pass.isBlank()) {
+                user.setPassword(pass);
             }
 
             session.getTransaction().commit();

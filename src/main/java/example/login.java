@@ -198,9 +198,9 @@ public class login extends JFrame implements ActionListener {
 
                 System.out.println("Użytkownicy w bazie danych:");
                 for (User user : users) {
-                    if(user.getFirstName().equals(text)) {
+                    if(user.getUsername().equals(text)) {
                         //System.out.println(user);
-                        if(user.getLastName().equals(text2)) {
+                        if(user.getPassword().equals(text2)) {
                             System.out.println(user);
                             label2.setText("Zalogowano !");
                             break;
