@@ -97,8 +97,7 @@ public class login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        //Ustawienia hibernate
-        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+
 
         if (e.getSource() == button[0]) {
 
@@ -182,6 +181,36 @@ public class login extends JFrame implements ActionListener {
             jButton.addActionListener(this);
             jButton.setBorder(BorderFactory.createEtchedBorder());
             panel5.add(jButton);
+
+            jButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                //Ustawienia hibernate
+                SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+
+                Session session = sessionFactory.getCurrentSession();
+                session.beginTransaction();
+
+                String text = textArea.getText();
+                String text2 = textArea2.getText();
+                System.out.println(text);
+                List<User> users = session.createQuery("from User", User.class).getResultList();
+
+                System.out.println("Użytkownicy w bazie danych:");
+                for (User user : users) {
+                    if(user.getFirstName().equals(text)) {
+                        //System.out.println(user);
+                        if(user.getLastName().equals(text2)) {
+                            System.out.println(user);
+                            label2.setText("Zalogowano !");
+                            break;
+                        }
+                    }
+                }
+
+                session.getTransaction().commit();
+            }
+        });
 
         }
         if (e.getSource() == button[2]) {
