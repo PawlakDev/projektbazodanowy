@@ -199,10 +199,18 @@ public class login extends JFrame implements ActionListener {
                 System.out.println("Użytkownicy w bazie danych:");
                 for (User user : users) {
                     if(user.getUsername().equals(text)) {
-                        //System.out.println(user);
+                        System.out.println(user);
                         if(user.getPassword().equals(text2)) {
-                            System.out.println(user);
                             label2.setText("Zalogowano !");
+                            panel3.setVisible(false);
+                            panel4.setVisible(false);
+                            panel5.setVisible(false);
+                            panel.setVisible(true);
+                            panel2.setVisible(true);
+
+                            button[0].setText("Nowy trening");
+                            button[1].setText("Edytuj trening");
+                            button[2].setText("Wpisz mi 3 z PB");
                             break;
                         }
                     }
