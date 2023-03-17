@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.WeakHashMap;
 
+import static example.Main.addUser;
+
 public class login extends JFrame implements ActionListener {
     static boolean change = false;
     JLabel label,label2;
@@ -30,7 +32,6 @@ public class login extends JFrame implements ActionListener {
 
     //static String Label="Label";
     public login(){
-
 
         //Tworzenie panelu
         panel = new JPanel();
@@ -76,20 +77,17 @@ public class login extends JFrame implements ActionListener {
         //Button1 - "Zaloguj"
         button[0] = new JButton();
         button[0].addActionListener(this);
-        Button1Settings button1Settings = new Button1Settings(button[0],panel,20,20,130,100, true);
-        button[0].setText("Zaloguj");
+        Button1Settings button1Settings = new Button1Settings(button[0],panel,20,20,130,100, true, "Zaloguj");
 
         //Button2 - "zarejestruj"
         button[1] = new JButton();
         button[1].addActionListener(this);
         Button2Settings button2Settings = new Button2Settings(button[1],panel, 20,130,130,100, "Zarejestruj");
-        //button[1].setText("Zarejestruj");
 
         //Button3 - "Wyjdz"
         button[2] = new JButton();
         button[2].addActionListener(this);
         Button2Settings button3Settings = new Button2Settings(button[2],panel, 20,240,130,100, "Wyjdz");
-
     }
 
     public void setLabel(){
@@ -100,34 +98,31 @@ public class login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-
-
+        //login
         if (e.getSource() == button[0]) {
 
             JButton jButton = new JButton();
-
             MyFrame2 frame2 = new MyFrame2(panel,panel2,this,jButton);
-
             jButton.addActionListener(this);
 
+            //why tu nie zamyka się ')' ?
             jButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
                     Session session = sessionFactory.getCurrentSession();
                     session.beginTransaction();
 
-                    boolean isFound = false ;
+                    boolean isFound = false;
                     String text = frame2.getTextArea().getText();
                     String text2 = frame2.getTextArea2().getText();
+
                     System.out.println(text);
                     List<User> users = session.createQuery("from User", User.class).getResultList();
 
                     for (User user : users) {
-                        if(user.getUsername().equals(text)) {
-                            if(user.getPassword().equals(text2)) {
+                        if (user.getUsername().equals(text)) {
+                            if (user.getPassword().equals(text2)) {
                                 //frame2.getLabel2().setText("Zalogowano !");
-
-                                //
 
                                 frame2.getPanel3().setVisible(false);
                                 frame2.getPanel4().setVisible(false);
@@ -136,10 +131,11 @@ public class login extends JFrame implements ActionListener {
                                 panel.setVisible(true);
                                 panel2.setVisible(true);
 
+                                //to są te same buttony ze zmieniona nazwa
                                 button[0].setText("Nowy trening");
                                 button[1].setText("Edytuj trening");
                                 button[2].setText("Wpisz mi 3 z PB");
-                                //
+
                                 break;
                             } else {
                                 frame2.getLabel2().setText("Bledne haslo !");
@@ -148,21 +144,45 @@ public class login extends JFrame implements ActionListener {
                             }
                         }
                     }
-                    if(isFound==false)
-                    frame2.getLabel2().setText("Bledny login !");
-                    isFound = false;
-                    session.getTransaction().commit();
+                    if (isFound == false) {
+                        frame2.getLabel2().setText("Bledny login !");
+                        isFound = false;
+                        session.getTransaction().commit();
+                    }
                 }
             });
-
-
-
         }
+
+        //signup - rejestracja
+        else if (e.getSource() == button[1]) {
+
+            JButton jButton = new JButton(); //panele do pozmieniania
+            MyFrame2 frame2 = new MyFrame2(panel,panel2,this,jButton);
+            jButton.addActionListener(this);
+
+            jButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+
+                    Session session = sessionFactory.getCurrentSession();
+                    session.beginTransaction();
+
+                    boolean isFound = false ; //panel rejestracji ogarnąć albo uporądkować tamte
+                    String text = frame2.getTextArea().getText();
+                    String text2 = frame2.getTextArea2().getText();
+                    String text3 = frame2.getTextArea3().getText();
+                    System.out.println(text);
+                    addUser(sessionFactory,text, text2, text3);
+                }
+            });
+        }
+
+        //wyjscie
         if (e.getSource() == button[2]) {
             if (change == false) {
                 System.exit(0);
             }
         }
     }
-
 }
+
+

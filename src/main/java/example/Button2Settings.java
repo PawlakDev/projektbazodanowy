@@ -1,6 +1,7 @@
 package example;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Button2Settings extends JFrame {
     public Button2Settings(JButton button, JPanel panel, int x, int y, int width, int height, String text) {
@@ -11,6 +12,6 @@ public class Button2Settings extends JFrame {
         button.setFocusable(false);
         button.setEnabled(true);
         button.setBorder(BorderFactory.createEtchedBorder());
-        panel.add(button);
+        panel.add(button , BorderLayout.NORTH);
     }
 }

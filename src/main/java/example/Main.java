@@ -77,7 +77,7 @@ public class Main {
         session.getTransaction().commit();
     }
 
-
+//chyba sie nie przyda pod tym robie modyfikacj potem do uporzadkowania i dania do klasy user
     private static void addUser(SessionFactory sessionFactory, Scanner scanner) {
 
         System.out.println("Podaj login użytkownika: ");
@@ -99,6 +99,18 @@ public class Main {
         System.out.println("Dodano użytkownika o ID: " + user.getId());
     }
 
+
+public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email) {
+
+    Session session = sessionFactory.getCurrentSession();
+    session.beginTransaction();
+
+    User user = new User(login, email, haslo);
+    session.save(user);
+
+    session.getTransaction().commit();
+    System.out.println("Dodano użytkownika o ID: " + user.getId());
+}
     private static void deleteUser(SessionFactory sessionFactory, Scanner scanner) {
         System.out.println("Podaj ID użytkownika do usunięcia: ");
         int id = scanner.nextInt();

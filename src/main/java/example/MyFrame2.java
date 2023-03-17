@@ -10,14 +10,21 @@ import java.awt.*;
 public class MyFrame2 extends JFrame {
 JLabel label2;
 JPanel panel3, panel4,panel5;
-JTextArea textArea,textArea2;
+JTextArea textArea,textArea2, textArea3; //3 jest do rejestraji - email
 
-    MyFrame2(JPanel panel,JPanel panel2, JFrame to,JButton jButton){
+    public JTextArea getTextArea3() {
+        return textArea3;
+    }
+
+    public void setTextArea3(JTextArea textArea3) {
+        this.textArea3 = textArea3;
+    }
+
+    MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton){
 
         //Wylaczam stare panely
             panel.setVisible(false);
             panel2.setVisible(false);
-        //
 
         //label
         label2 = new JLabel();
@@ -81,7 +88,17 @@ JTextArea textArea,textArea2;
 
             panel4.add(textArea2);
     //
-
+        textArea3 = new JTextArea();//kinda shitty i do uporzadkowania te text area w weekend sie tym zajme
+        textArea3 = new JTextArea();
+        textArea3.setText("email");
+        textArea3.setPreferredSize(new Dimension(210, 40)); // Ta komenda ustala wielkosc okna
+        //textArea.setLineWrap(true);
+        textArea3.setWrapStyleWord(true);
+        textArea3.setForeground(new Color(0x000000));
+        textArea3.setFont(new Font("Consolas", Font.PLAIN,35));
+        textArea3.setBounds(0, 0, 340, 60);
+//nowy panel trzeba dodac na rejesracje
+       // panel4.add(textArea3);
 
         jButton.setBackground(Color.white);
         jButton.setVisible(true);
