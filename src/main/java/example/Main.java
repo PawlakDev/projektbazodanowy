@@ -58,59 +58,6 @@ public class Main {
         } while (choice != 0);
     }
 
-    private static void searchUser(SessionFactory sessionFactory, Scanner scanner) {
-        System.out.println("Podaj imię użytkownika: ");
-        String name = scanner.nextLine();
-
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-
-        List<User> users = session.createQuery("from User", User.class).getResultList();
-
-        System.out.println("Użytkownicy w bazie danych:");
-        for (User user : users) {
-            if(user.getUsername().equals(name)) {
-                System.out.println(user);
-            }
-        }
-
-        session.getTransaction().commit();
-    }
-
-//chyba sie nie przyda pod tym robie modyfikacj potem do uporzadkowania i dania do klasy user
-    private static void addUser(SessionFactory sessionFactory, Scanner scanner) {
-
-        System.out.println("Podaj login użytkownika: ");
-        String username = scanner.nextLine();
-
-        System.out.println("Podaj email użytkownika: ");
-        String email = scanner.nextLine();
-
-        System.out.println("Podaj hasło użytkownika: ");
-        String password = scanner.nextLine();
-
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-
-        User user = new User(username, email, password);
-        session.save(user);
-
-        session.getTransaction().commit();
-        System.out.println("Dodano użytkownika o ID: " + user.getId());
-    }
-
-
-public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email) {
-
-    Session session = sessionFactory.getCurrentSession();
-    session.beginTransaction();
-
-    User user = new User(login, email, haslo);
-    session.save(user);
-
-    session.getTransaction().commit();
-    System.out.println("Dodano użytkownika o ID: " + user.getId());
-}
     private static void deleteUser(SessionFactory sessionFactory, Scanner scanner) {
         System.out.println("Podaj ID użytkownika do usunięcia: ");
         int id = scanner.nextInt();
@@ -128,6 +75,47 @@ public static void addUser(SessionFactory sessionFactory, String login, String h
         }
 
         session.getTransaction().commit();
+    }
+
+    private static void searchUser(SessionFactory sessionFactory, Scanner scanner) {
+        System.out.println("Podaj imię użytkownika: ");
+        String name = scanner.nextLine();
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        List<User> users = session.createQuery("from User", User.class).getResultList();
+
+        System.out.println("Użytkownicy w bazie danych:");
+        for (User user : users) {
+            if (user.getUsername().equals(name)) {
+                System.out.println(user);
+            }
+        }
+
+        session.getTransaction().commit();
+    }
+
+    //raczej do usuniecia
+    private static void addUser(SessionFactory sessionFactory, Scanner scanner) {
+
+        System.out.println("Podaj login użytkownika: ");
+        String username = scanner.nextLine();
+
+        System.out.println("Podaj email użytkownika: ");
+        String email = scanner.nextLine();
+
+        System.out.println("Podaj hasło użytkownika: ");
+        String password = scanner.nextLine();
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        User user = new User(username, email, password, true);
+        session.save(user);
+
+        session.getTransaction().commit();
+        System.out.println("Dodano użytkownika o ID: " + user.getId());
     }
 
 
@@ -183,4 +171,3 @@ public static void addUser(SessionFactory sessionFactory, String login, String h
         session.getTransaction().commit();
     }
 }
-
