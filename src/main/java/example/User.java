@@ -1,6 +1,10 @@
 package example;
 
 import jakarta.persistence.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import java.util.Scanner;
 
 //import javax.persistence.*;
 
@@ -21,13 +25,17 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "is_athlete") //true - zawodnik = mniejsze prawa, false - admin / trener = wieksze prawa
+    private boolean isAthlete;
+
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, boolean isAthlete) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.isAthlete = isAthlete;
     }
 
     public int getId() {
@@ -53,6 +61,7 @@ public class User {
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -63,7 +72,20 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", pass=" + password +
+                ", pass=" + password + '\'' +
+                ", athlete: " + isAthlete + '\'' +
                 '}';
+    }
+
+    public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isAthlete) {
+
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        User user = new User(login, email, haslo, isAthlete);
+        session.save(user);
+
+        session.getTransaction().commit();
+        System.out.println("Dodano użytkownika o ID: " + user.getId());
     }
 }
