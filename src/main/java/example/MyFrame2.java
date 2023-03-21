@@ -3,7 +3,10 @@ package example;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.JToggleButton;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class MyFrame2 extends JFrame {
 JLabel label2;
@@ -12,7 +15,7 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
 
     MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton){
 
-        //Wylaczam stare panely
+        //Wylaczam stare pazalnely
             panel.setVisible(false);
             panel2.setVisible(false);
 
@@ -26,18 +29,29 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
         WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(label2,panel3);
         to.add(panel3);
 
+
         //panel4
-        panel4 = new JPanel();
-        panel4.setBackground(Color.white);
-        panel4.setBounds(45,110,450,100);
+
+        panel4 = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(getBackground());
+                g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+            }
+        };
+        panel4.setBackground(new Color(200, 230, 255));
+        panel4.setBounds(45, 110, 450, 100);
+        panel4.setOpaque(false);
+        panel4.setBorder(new LineBorder(new Color(100, 150, 200), 2, true));
         panel4.setVisible(true);
-        //panel4.setBackground(Color.white);
         to.add(panel4);
+
 
         //panel5
         panel5 = new JPanel();
         panel5.setBackground(Color.white);
-        panel5.setBounds(80,210,355,50);
+        panel5.setBounds(80,210,355,80);
         panel5.setVisible(true);
         panel5.setLayout(null);
         //panel5.setBackground(Color.white);
@@ -46,6 +60,25 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
 
         //textArea - login
         textArea = createTextArea("login");
+        textArea.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
+        textArea.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                    if(textArea.getText().equals("")) {
+                        textArea.setText("login");
+                        textArea.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
+                    }
+            }
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textArea.getText().equals("login")) {
+                    textArea.setText("");
+                    textArea.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu
+                }
+            }
+
+
+        });
 
         //Border border = BorderFactory.createLineBorder(Color.BLACK); // ustaw styl obramowania
 
@@ -64,15 +97,19 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
         //TickButton czyZawodnik = TickButton("");
         //panel4.add(textArea3);
 
-        //jButton = createButton("Zaloguj")
-        jButton.setBackground(Color.white);
+        // JButton - Zaloguj
+        //JButton jButton = new JButton();
+        jButton.setBackground(new Color(200, 230, 255));
         jButton.setVisible(true);
         jButton.setLayout(null);
-        jButton.setBounds(140,0,100,50);
-        //jButton.addActionListener(to);
+        jButton.setBounds(140, 20, 100, 50);
         jButton.setText("Zaloguj");
         jButton.setFocusable(false);
-        jButton.setBorder(BorderFactory.createEtchedBorder());
+        jButton.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        jButton.setFont(new Font("Arial", Font.BOLD, 14));
         panel5.add(jButton);
     }
     private JTextArea createTextArea(String text) {
