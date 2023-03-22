@@ -9,7 +9,8 @@ import java.awt.event.FocusEvent;
 public class MyFrame2 extends JFrame {
 JLabel label2;
 JPanel panel3, panel4, panel5;
-JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - email, 4 - funkcja
+JTextArea textArea,  textArea3, textArea4; // textArea2, 1 - login, 2 - haslo 3 - email, 4 - funkcja
+JPasswordField textArea2;
 
     MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton){
 
@@ -75,7 +76,6 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
                 }
             }
 
-
         });
 
         //Border border = BorderFactory.createLineBorder(Color.BLACK); // ustaw styl obramowania
@@ -84,6 +84,12 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
         panel4.setLayout(new GridBagLayout());
 
         panel4.add(textArea);
+
+
+        textArea2 = new JPasswordField();
+        textArea2.setEchoChar('*');
+        textArea2.setPreferredSize(new Dimension(210,40));
+        textArea2.setFont(new Font("MV Boli", 0, 32));
 
         //haslo
         textArea2.setText("haslo");
@@ -179,5 +185,10 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
 
     public JPanel getPanel5() {
         return panel5;
+    }
+    public String getTextArea2() {
+        char[] passwordChars = textArea2.getPassword();
+        String passwordString = new String(passwordChars);
+        return passwordString;
     }
 }
