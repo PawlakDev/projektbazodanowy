@@ -2,6 +2,7 @@ package example;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.swing.*;
@@ -89,6 +90,8 @@ public class login extends JFrame implements ActionListener {
         button[2] = new JButton();
         button[2].addActionListener(this);
         Button2Settings button3Settings = new Button2Settings(button[2],panel, 20,240,130,100, "Wyjdz");
+
+
     }
 
     public void setLabel(){
@@ -109,13 +112,15 @@ public class login extends JFrame implements ActionListener {
             jButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
+                    Transaction transaction = null;
                     Session session = sessionFactory.getCurrentSession();
                     session.beginTransaction();
 
                     boolean isFound = false;
                     String text = frame2.getTextArea().getText();
-                    String text2 = frame2.getTextArea2().getText();
+                    //JPasswordField text2 = new JPasswordField(frame2.getTextArea2().getPassword());
 
+                    String text2 = new String(frame2.getTextArea2());
                     System.out.println(text);
                     List<User> users = session.createQuery("from User", User.class).getResultList();
 
@@ -157,6 +162,7 @@ public class login extends JFrame implements ActionListener {
                         isFound = false;
                         session.getTransaction().commit();
                     }
+                    session.getTransaction().commit();
                 }
             });
         }
@@ -177,6 +183,8 @@ public class login extends JFrame implements ActionListener {
                     session.beginTransaction();
 
                     //panel rejestracji ogarnąć albo uporądkować tamte
+
+
                     String text = frame2.getTextArea().getText();
                     String text2 = frame2.getTextArea2().getText();
                     String text3 = frame2.getTextArea3().getText();

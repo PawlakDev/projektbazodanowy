@@ -10,52 +10,56 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        final int debugMode = 0;//final to stala
+
+        login Login = new login();
+
+        if(debugMode == 1) {
         SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
         Scanner scanner = new Scanner(System.in);
 
-        login Login = new login();
+            int choice;
+            do {
+                System.out.println("--------------------------------------------------------");
+                System.out.println("------------------        MENU:        -----------------");
+                System.out.println("--------------------------------------------------------");
+                System.out.println("1. Dodaj studenta do bazy danych");
+                System.out.println("2. Usuń studenta z bazy danych");
+                System.out.println("3. Zaktualizuj studenta w bazie danych");
+                System.out.println("4. Wyświetl wszystkich studentów z bazy danych");
+                System.out.println("5. Wyszukaj danego studenta z bazy danych");
+                System.out.println("0. Wyście");
+                System.out.println("--------------------------------------------------------");
+                System.out.println("--------------------------------------------------------");
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-        int choice;
-        do {
-            System.out.println("--------------------------------------------------------");
-            System.out.println("------------------        MENU:        -----------------");
-            System.out.println("--------------------------------------------------------");
-            System.out.println("1. Dodaj studenta do bazy danych");
-            System.out.println("2. Usuń studenta z bazy danych");
-            System.out.println("3. Zaktualizuj studenta w bazie danych");
-            System.out.println("4. Wyświetl wszystkich studentów z bazy danych");
-            System.out.println("5. Wyszukaj danego studenta z bazy danych");
-            System.out.println("0. Wyście");
-            System.out.println("--------------------------------------------------------");
-            System.out.println("--------------------------------------------------------");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+                switch (choice) {
 
-            switch (choice) {
-
-                case 1:
-                    addUser(sessionFactory, scanner);
-                    break;
-                case 2:
-                    deleteUser(sessionFactory, scanner);
-                    break;
-                case 3:
-                    modifyUser(sessionFactory, scanner);
-                    break;
-                case 4:
-                    displayUsers(sessionFactory);
-                    break;
-                case 5:
-                    searchUser(sessionFactory, scanner);
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Zły wybór");
-                    break;
-            }
-        } while (choice != 0);
+                    case 1:
+                        addUser(sessionFactory, scanner);
+                        break;
+                    case 2:
+                        deleteUser(sessionFactory, scanner);
+                        break;
+                    case 3:
+                        modifyUser(sessionFactory, scanner);
+                        break;
+                    case 4:
+                        displayUsers(sessionFactory);
+                        break;
+                    case 5:
+                        searchUser(sessionFactory, scanner);
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Zły wybór");
+                        break;
+                }
+            } while (choice != 0);
+        }
     }
 
     private static void deleteUser(SessionFactory sessionFactory, Scanner scanner) {
@@ -171,3 +175,4 @@ public class Main {
         session.getTransaction().commit();
     }
 }
+

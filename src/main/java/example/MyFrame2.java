@@ -1,8 +1,6 @@
 package example;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.JToggleButton;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusAdapter;
@@ -88,7 +86,26 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
         panel4.add(textArea);
 
         //haslo
-        textArea2 = createTextArea("haslo");
+        textArea2.setText("haslo");
+        textArea2.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
+        textArea2.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                if(textArea2.getText().equals("")) {
+                    textArea2.setText("haslo");
+                    textArea2.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
+                }
+            }
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textArea2.getText().equals("haslo")) {
+                    textArea2.setText("");
+                    textArea2.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu
+                }
+            }
+
+        });
+
         panel4.add(textArea2);
 
         //email
@@ -139,10 +156,6 @@ JTextArea textArea, textArea2, textArea3, textArea4; //1 - login, 2 - haslo 3 - 
 
     public JTextArea getTextArea() {
         return textArea;
-    }
-
-    public JTextArea getTextArea2() {
-        return textArea2;
     }
 
     public JTextArea getTextArea3(){
