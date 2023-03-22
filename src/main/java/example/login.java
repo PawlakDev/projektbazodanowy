@@ -188,7 +188,6 @@ public class login extends JFrame implements ActionListener {
                     String text = frame2.getTextArea().getText();
                     String text2 = frame2.getTextArea2();
                     String text3 = frame2.getTextArea3().getText();
-                    boolean tickbutton = true; //jak skoncze klase
 
                     panel.setVisible(false);
                     panel2.setVisible(false);

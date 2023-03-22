@@ -3,6 +3,8 @@ package example;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -85,14 +87,14 @@ JPasswordField textArea2;
 
         panel4.add(textArea);
 
-
+        //haslo
         textArea2 = new JPasswordField();
-        textArea2.setEchoChar('*');
+
+        textArea2.setText("haslo");
+        if(textArea2.getText().equals("")) //to powinno sprawiać, że wyświetla ajpierw haslo
+        { textArea2.setEchoChar((char) 0);}
         textArea2.setPreferredSize(new Dimension(210,40));
         textArea2.setFont(new Font("MV Boli", 0, 32));
-
-        //haslo
-        textArea2.setText("haslo");
         textArea2.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
         textArea2.addFocusListener(new FocusAdapter() {
             @Override
@@ -109,19 +111,39 @@ JPasswordField textArea2;
                     textArea2.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu
                 }
             }
-
         });
 
         panel4.add(textArea2);
 
+        //button pokaz / ukryj haslo
+        JToggleButton showPsw = new JToggleButton("pokaz haslo");
+        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(showPsw,20,20,100,50);
+        showPsw.setFont(new Font("Arial", Font.BOLD, 14));
+
+        showPsw.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+
+        panel5.add(showPsw);
+
+        showPsw.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (showPsw.isSelected()) {
+                    showPsw.setText("ukryj haslo");
+                    textArea2.setEchoChar((char) 0);
+                } else {
+                    showPsw.setText("pokaz haslo");
+                    textArea2.setEchoChar('*');
+                }
+            }
+        });
+
         //email
         textArea3 = createTextArea("email"); //nie wiem czy nie edzie trzeba zmienic polozenia
 
-        //TickButton czyZawodnik = TickButton("");
-        //panel4.add(textArea3);
-
         // JButton - Zaloguj
-        //JButton jButton = new JButton();
         jButton.setBackground(new Color(200, 230, 255));
         jButton.setVisible(true);
         jButton.setLayout(null);
@@ -144,21 +166,6 @@ JPasswordField textArea2;
         area.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         return area;
     }
-
-    //odchaczanie - przyda sie do bulla
-
-    //dla latwiejszego ogarniecia przyciskow, zaloguj zarejestroj, wróc
-  /*  private JButton createButton(String text){
-        JButton.setBackground(Color.white);
-        JButton.setVisible(true);
-        JButton.setLayout(null);
-        JButton.setBounds(140,0,100,50);
-        //jButton.addActionListener(to);
-        JButton.setText(text);
-        JButton.setFocusable(false);
-        JButton.setBorder(BorderFactory.createEtchedBorder());
-
-    }*/
 
     public JTextArea getTextArea() {
         return textArea;
