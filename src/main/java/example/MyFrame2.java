@@ -11,7 +11,7 @@ import java.awt.event.FocusEvent;
 public class MyFrame2 extends JFrame {
 JLabel label2;
 JPanel panel3, panel4, panel5;
-JTextArea textArea, textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja, 3 - login
+JTextArea textArea, textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
 JPasswordField textArea2; //haslo
 
     MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton){
@@ -26,7 +26,7 @@ JPasswordField textArea2; //haslo
         //panel 3 to jest to Zaloguj sie na gorze
         panel3 = new JPanel();
         panel3.setBackground(Color.white);
-        WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(label2,panel3);
+        WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(label2,panel3, "Zaloguj sie");
 
         //panel4
         panel4 = new JPanel() {

@@ -23,7 +23,7 @@ import static example.User.addUser;
 
 public class login extends JFrame implements ActionListener {
     static boolean change = false;
-    JLabel label,label2;
+    JLabel label;
     JButton[] button = new JButton[7];
     //JButton button,button2,button3,button4,button5,button6;
     JPanel panel,panel2,panel3,panel4,panel5; //panel 2 to zdjecie, panel to buttony
@@ -171,28 +171,30 @@ public class login extends JFrame implements ActionListener {
         //panele ogarnac
         else if (e.getSource() == button[1]) {
 
-            JButton jButton = new JButton(); //panele do pozmieniania
-            MyFrame2 frame2 = new MyFrame2(panel,panel2, this,jButton);
-            jButton.addActionListener(this);
+            JButton next = new JButton(); //panele do pozmieniania
+            MyFrame2 frame2 = new MyFrame2(panel,panel2, this,next);
+            frame2.getPanel5().add(next);
+            next.addActionListener(this);
+            next.setText("dalej");
+
             frame2.getLabel2().setText("Zarejestruj sie");
-            jButton.setText("Zarejestruj");
-            jButton.addActionListener(new ActionListener() {
+            next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
                     Session session = sessionFactory.getCurrentSession();
                     session.beginTransaction();
 
-                    //panel rejestracji ogarnąć albo uporądkować tamte
-
-
+                    //te same o do logowania
                     String text = frame2.getTextArea().getText();
                     String text2 = frame2.getTextArea2();
-                    String text3 = frame2.getTextArea3().getText();
 
                     panel.setVisible(false);
                     panel2.setVisible(false);
 
-                    addUser(sessionFactory,text, text2, text3, true); //potem bede isAthlete z tickbutton brac
+                    //addUser(sessionFactory,text, text2, "abc@e", true); //potem bede isAthlete z tickbutton brac
+
+                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(frame2, next);
+                        switchFrames(frame2, frameRejestracja);
                 }
             });
         }
@@ -203,6 +205,10 @@ public class login extends JFrame implements ActionListener {
                 System.exit(0);
             }
         }
+    }
+    public void switchFrames(JFrame oldFrame, JFrame newFrame) {
+        oldFrame.setVisible(false);
+        newFrame.setVisible(true);
     }
 }
 

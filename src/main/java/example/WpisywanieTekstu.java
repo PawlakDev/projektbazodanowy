@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WpisywanieTekstu extends JFrame {
-    public WpisywanieTekstu(JLabel label, JPanel panel) {
-        label.setText("Zaloguj sie");
+    public WpisywanieTekstu(JLabel label, JPanel panel, String text) {
+        label.setText(text);
         label.setFont(new Font("MV Boli", Font.PLAIN, 32));
         label.setBackground(Color.white);
         label.setOpaque(false);
