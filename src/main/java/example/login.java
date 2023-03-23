@@ -106,6 +106,7 @@ public class login extends JFrame implements ActionListener {
         if (e.getSource() == button[0]) {
 
             JButton jButton = new JButton();
+
             MyFrame2 frame2 = new MyFrame2(panel, panel2, this,jButton);
             jButton.addActionListener(this);
 
@@ -172,12 +173,30 @@ public class login extends JFrame implements ActionListener {
         else if (e.getSource() == button[1]) {
 
             JButton next = new JButton(); //panele do pozmieniania
-            MyFrame2 frame2 = new MyFrame2(panel,panel2, this,next);
-            frame2.getPanel5().add(next);
+
+            //to mialo byc wykorzystane do nowego framea ale tego samego kna ale nie dziala
+            //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
+            //JPanel cardsPanel = new JPanel(cardLayout);
+
+            MyFrame2 frame2 = new MyFrame2(panel, panel2, this, next);
+            //MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(this, test);
+
+            //ustawiam next button
             next.addActionListener(this);
             next.setText("dalej");
+            frame2.getPanel5().add(next);
 
             frame2.getLabel2().setText("Zarejestruj sie");
+
+            /*
+            cardsPanel.add(frame2, "MyFrame2");
+            cardsPanel.add(frameRejestracja, "MyFrameRejestracja");
+
+            getContentPane().removeAll();
+
+             Add the cardsPanel to the main frame
+            this.add(cardsPanel); */
+
             next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
@@ -188,13 +207,20 @@ public class login extends JFrame implements ActionListener {
                     String text = frame2.getTextArea().getText();
                     String text2 = frame2.getTextArea2();
 
-                    panel.setVisible(false);
+                    /*
+                    frame2.getPanel3().setVisible(false);
+                    frame2.getPanel4().setVisible(false);
+                    frame2.getPanel5().setVisible(false);
+
+                    panel.setVisible(true);
                     panel2.setVisible(false);
-
+                    */
                     //addUser(sessionFactory,text, text2, "abc@e", true); //potem bede isAthlete z tickbutton brac
-
-                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(frame2, next);
-                        switchFrames(frame2, frameRejestracja);
+                    if (e.getSource() == next){
+                    MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next); //dodac moze panele?
+                    switchFrames(frame2, frameRejestracja);
+                   // cardLayout.show(cardsPanel, "MyFrameRejestracja");
+                    }
                 }
             });
         }
