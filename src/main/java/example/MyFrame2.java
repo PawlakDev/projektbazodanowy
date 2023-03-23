@@ -150,7 +150,7 @@ JPasswordField textArea2; //haslo
         to.add(panel4);
         to.add(panel5);
     }
-    private JTextArea createTextArea(String text) {
+    public static JTextArea createTextArea(String text) {
         JTextArea area = new JTextArea(text);
         area.setPreferredSize(new Dimension(210, 40)); // Ta komenda ustala wielkosc okna
         area.setWrapStyleWord(true);

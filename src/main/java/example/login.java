@@ -207,20 +207,12 @@ public class login extends JFrame implements ActionListener {
                     String text = frame2.getTextArea().getText();
                     String text2 = frame2.getTextArea2();
 
-                    /*
-                    frame2.getPanel3().setVisible(false);
-                    frame2.getPanel4().setVisible(false);
-                    frame2.getPanel5().setVisible(false);
-
-                    panel.setVisible(true);
-                    panel2.setVisible(false);
-                    */
                     //addUser(sessionFactory,text, text2, "abc@e", true); //potem bede isAthlete z tickbutton brac
-                    if (e.getSource() == next){
+                    frame2.setVisible(false);
                     MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next); //dodac moze panele?
-                    switchFrames(frame2, frameRejestracja);
-                   // cardLayout.show(cardsPanel, "MyFrameRejestracja");
-                    }
+
+                   switchFrames(frame2, frameRejestracja);
+                    // cardLayout.show(cardsPanel, "MyFrameRejestracja");
                 }
             });
         }
@@ -232,6 +224,8 @@ public class login extends JFrame implements ActionListener {
             }
         }
     }
+
+    //metoda do zmiany frammow
     public void switchFrames(JFrame oldFrame, JFrame newFrame) {
         oldFrame.setVisible(false);
         newFrame.setVisible(true);
