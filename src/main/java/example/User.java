@@ -77,6 +77,7 @@ public class User {
                 '}';
     }
 
+    //wyzwalacz co to
     public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isAthlete) {
 
         Session session = sessionFactory.getCurrentSession();

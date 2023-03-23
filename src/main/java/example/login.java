@@ -118,7 +118,7 @@ public class login extends JFrame implements ActionListener {
                     session.beginTransaction();
 
                     boolean isFound = false;
-                    String text = frame2.getTextArea().getText();
+                    String text = frame2.getTextLogin().getText();
                     //JPasswordField text2 = new JPasswordField(frame2.getTextArea2().getPassword());
 
                     String text2 = new String(frame2.getTextArea2());
@@ -129,14 +129,7 @@ public class login extends JFrame implements ActionListener {
                         if (user.getUsername().equals(text)) {
                             if (user.getPassword().equals(text2)) {
 
-                                //aby wyświetlalo Zalogowano przez 2 sekundy, z jaiegos powodu nie dziala
-                               /* frame2.getLabel2().setText("Zalogowano !");
-                                try {
-                                    frame2.getLabel2().setText("Zalogowano !");
-                                    Thread.sleep(2000);
-                                } catch (InterruptedException exc) {
-                                    // wait
-                                }*/
+                                //aby wyświetlalo Zalogowano przez 2 sekundy, chciałam zrobic nie dziala
 
                                 frame2.getPanel3().setVisible(false);
                                 frame2.getPanel4().setVisible(false);
@@ -176,10 +169,8 @@ public class login extends JFrame implements ActionListener {
 
             //to mialo byc wykorzystane do nowego framea ale tego samego kna ale nie dziala
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
-            //JPanel cardsPanel = new JPanel(cardLayout);
 
             MyFrame2 frame2 = new MyFrame2(panel, panel2, this, next);
-            //MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(this, test);
 
             //ustawiam next button
             next.addActionListener(this);
@@ -188,15 +179,6 @@ public class login extends JFrame implements ActionListener {
 
             frame2.getLabel2().setText("Zarejestruj sie");
 
-            /*
-            cardsPanel.add(frame2, "MyFrame2");
-            cardsPanel.add(frameRejestracja, "MyFrameRejestracja");
-
-            getContentPane().removeAll();
-
-             Add the cardsPanel to the main frame
-            this.add(cardsPanel); */
-
             next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
@@ -204,7 +186,7 @@ public class login extends JFrame implements ActionListener {
                     session.beginTransaction();
 
                     //te same o do logowania
-                    String text = frame2.getTextArea().getText();
+                    String text = frame2.getTextLogin().getText();
                     String text2 = frame2.getTextArea2();
 
                     //addUser(sessionFactory,text, text2, "abc@e", true); //potem bede isAthlete z tickbutton brac
@@ -212,7 +194,6 @@ public class login extends JFrame implements ActionListener {
                     MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next); //dodac moze panele?
 
                    switchFrames(frame2, frameRejestracja);
-                    // cardLayout.show(cardsPanel, "MyFrameRejestracja");
                 }
             });
         }

@@ -3,13 +3,12 @@ package example;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import static example.MyFrame2.createTextArea;
 
 public class MyFrameRejestracja extends JFrame {
     JLabel labelTytul;
     JPanel panelTytul, panel, panel2;
 
-    JTextArea emailText;
+    textArea emailText;
     MyFrameRejestracja(JButton jButton) {
 
         setLayout(new BorderLayout());
@@ -31,13 +30,13 @@ public class MyFrameRejestracja extends JFrame {
         //Ustawienie koloru tla
         panel.setBackground(Color.white);
 
-        //textArea - login
-        emailText = createTextArea("email");
 
         //Tworzenie drugiego panelu
         panel2 = new JPanel();
         //Ustawienie wielkości pamietajac o wielkosciach pierwszego panelu
         panel2.setBounds(160,-25,370,400);
+
+        textArea emailText = new textArea("email");
 
         panel.add(emailText);
 

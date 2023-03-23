@@ -11,7 +11,8 @@ import java.awt.event.FocusEvent;
 public class MyFrame2 extends JFrame {
 JLabel label2;
 JPanel panel3, panel4, panel5;
-JTextArea textArea, textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
+JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
+    textArea textLogin;
 JPasswordField textArea2; //haslo
 
     MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton){
@@ -53,27 +54,27 @@ JPasswordField textArea2; //haslo
         panel5.setLayout(null);
 
         //textArea - login
-        textArea = createTextArea("login");
-        textArea.setForeground(new Color(0, 0, 0, 128)); //Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
-        textArea.addFocusListener(new FocusAdapter() {
+        textLogin = new textArea("login");
+        textLogin.setPreferredSize(new Dimension(210,40));
+        textLogin.setFont(new Font("MV Boli", 0, 32));
+
+        //wrzucic do klasy
+        textLogin.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                    if(textArea.getText().equals("")) {
-                        textArea.setText("login");
-                        textArea.setForeground(new Color(0, 0, 0, 128));
+                    if(textLogin.getText().equals("")) {
+                        textLogin.setText("login");
+                        textLogin.setForeground(new Color(0, 0, 0, 128));
                     }
             }
             @Override
             public void focusGained(FocusEvent e) {
-                if (textArea.getText().equals("login")) {
-                    textArea.setText("");
-                    textArea.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu - nieprzezroczysty
+                if (textLogin.getText().equals("login")) {
+                    textLogin.setText("");
+                    textLogin.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu - nieprzezroczysty
                 }
             }
         });
-
-        // Ustaw rozmiar dla JTextField czy to jest potrzebne?
-       // panel4.setLayout(new GridBagLayout());
 
         //haslo
         textArea2 = new JPasswordField();
@@ -138,7 +139,7 @@ JPasswordField textArea2; //haslo
         //dodaje pola tekstowe i buttony do paneli
 
         //panel4 to pola tekstowe haslo i login
-        panel4.add(textArea);
+        panel4.add(textLogin);
         panel4.add(textArea2);
 
         //panel5 to buttony zaloguj i pokaz haslo
@@ -150,18 +151,9 @@ JPasswordField textArea2; //haslo
         to.add(panel4);
         to.add(panel5);
     }
-    public static JTextArea createTextArea(String text) {
-        JTextArea area = new JTextArea(text);
-        area.setPreferredSize(new Dimension(210, 40)); // Ta komenda ustala wielkosc okna
-        area.setWrapStyleWord(true);
-        area.setForeground(new Color(0x000000));
-        area.setFont(new Font("Consolas", Font.PLAIN, 35));
-        area.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        return area;
-    }
 
-    public JTextArea getTextArea() {
-        return textArea;
+    public JTextArea getTextLogin() {
+        return textLogin;
     }
 
     public JTextArea getTextArea3(){
