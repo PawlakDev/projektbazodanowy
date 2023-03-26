@@ -12,7 +12,7 @@ public class MyFrame2 extends JFrame {
 JLabel label2;
 JPanel panel3, panel4, panel5;
 JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
-    textArea textLogin;
+textArea textLogin;
 JPasswordField textArea2; //haslo
 
     MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton){
@@ -54,11 +54,10 @@ JPasswordField textArea2; //haslo
         panel5.setLayout(null);
 
         //textArea - login
-        textLogin = new textArea("login");
-        textLogin.setPreferredSize(new Dimension(210,40));
-        textLogin.setFont(new Font("MV Boli", 0, 32));
+        textLogin = new textArea("login", "");
+        //textLogin.setPreferredSize(new Dimension(210,40));
+        //textLogin.setFont(new Font("MV Boli", 0, 32));
 
-        //wrzucic do klasy
         textLogin.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -152,8 +151,8 @@ JPasswordField textArea2; //haslo
         to.add(panel5);
     }
 
-    public JTextArea getTextLogin() {
-        return textLogin;
+    public String getTextLogin() {
+            return textLogin.getTextHolder();
     }
 
     public JTextArea getTextArea3(){

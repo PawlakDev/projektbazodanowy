@@ -118,7 +118,7 @@ public class login extends JFrame implements ActionListener {
                     session.beginTransaction();
 
                     boolean isFound = false;
-                    String text = frame2.getTextLogin().getText();
+                    String text = frame2.getTextLogin();
                     //JPasswordField text2 = new JPasswordField(frame2.getTextArea2().getPassword());
 
                     String text2 = new String(frame2.getTextArea2());
@@ -183,16 +183,19 @@ public class login extends JFrame implements ActionListener {
                 public void actionPerformed(ActionEvent e) {
 
                     //te same o do logowania
-                    String text = frame2.getTextLogin().getText();
+
+                    String text = frame2.getTextLogin();
                     String text2 = frame2.getTextArea2();
 
-                    if(text.isEmpty() || text2.isEmpty())
+                    System.out.println(text);
+                    System.out.println(text2);
+                    if(text.isEmpty() || text2.isEmpty() || text2.equals("haslo"))
                         frame2.getLabel2().setText("Uzupelnij haslo lub login!");
                     else {
                         Session session = sessionFactory.getCurrentSession();
                         session.beginTransaction();
 
-                        //addUser(sessionFactory,text, text2, "abc@e", true); //potem bede isAthlete z tickbutton brac
+                        //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać
                         frame2.setVisible(false);
                         MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next); //dodac moze panele?
 

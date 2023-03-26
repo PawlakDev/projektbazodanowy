@@ -36,7 +36,7 @@ public class MyFrameRejestracja extends JFrame {
         //Ustawienie wielkości pamietajac o wielkosciach pierwszego panelu
         panel2.setBounds(160,-25,370,400);
 
-        textArea emailText = new textArea("email");
+        emailText = new textArea("email", "");
 
         panel.add(emailText);
 
