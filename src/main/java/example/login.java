@@ -182,18 +182,22 @@ public class login extends JFrame implements ActionListener {
             next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
-                    Session session = sessionFactory.getCurrentSession();
-                    session.beginTransaction();
-
                     //te same o do logowania
                     String text = frame2.getTextLogin().getText();
                     String text2 = frame2.getTextArea2();
 
-                    //addUser(sessionFactory,text, text2, "abc@e", true); //potem bede isAthlete z tickbutton brac
-                    frame2.setVisible(false);
-                    MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next); //dodac moze panele?
+                    if(text.isEmpty() || text2.isEmpty())
+                        frame2.getLabel2().setText("Uzupelnij haslo lub login!");
+                    else {
+                        Session session = sessionFactory.getCurrentSession();
+                        session.beginTransaction();
 
-                   switchFrames(frame2, frameRejestracja);
+                        //addUser(sessionFactory,text, text2, "abc@e", true); //potem bede isAthlete z tickbutton brac
+                        frame2.setVisible(false);
+                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next); //dodac moze panele?
+
+                        switchFrames(frame2, frameRejestracja);
+                    }
                 }
             });
         }
