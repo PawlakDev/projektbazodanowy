@@ -126,6 +126,7 @@ public class login extends JFrame implements ActionListener {
                     List<User> users = session.createQuery("from User", User.class).getResultList();
 
                     for (User user : users) {
+                        //System.out.println(user.getUsername());
                         if (user.getUsername().equals(text)) {
                             if (user.getPassword().equals(text2)) {
 
@@ -154,9 +155,9 @@ public class login extends JFrame implements ActionListener {
                     if (isFound == false) {
                         frame2.getLabel2().setText("Bledny login !");
                         isFound = false;
-                        session.getTransaction().commit();
+                        //session.getTransaction().commit();
                     }
-                    session.getTransaction().commit();
+                    //session.getTransaction().commit();
                 }
             });
         }

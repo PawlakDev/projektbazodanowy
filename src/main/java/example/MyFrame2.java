@@ -152,7 +152,7 @@ JPasswordField textArea2; //haslo
     }
 
     public String getTextLogin() {
-            return textLogin.getTextHolder();
+            return textLogin.getText();
     }
 
     public JTextArea getTextArea3(){

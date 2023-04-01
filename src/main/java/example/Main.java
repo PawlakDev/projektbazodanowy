@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        final int debugMode = 0;//final to stala
+        final int debugMode = 1;//final to stala
 
        login Login = new login();
 
-        if(debugMode == 1) {
+        if(debugMode == 0) {
         SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
         Scanner scanner = new Scanner(System.in);
