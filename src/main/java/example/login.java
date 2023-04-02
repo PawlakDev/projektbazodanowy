@@ -133,7 +133,7 @@ public class login extends JFrame implements ActionListener {
                                 //aby wyświetlalo Zalogowano przez 2 sekundy, chciałam zrobic nie dziala
 
                                 frame2.getPanel3().setVisible(false);
-                                frame2.getPanel4().setVisible(false);
+                                frame2.getFrameBackground().setVisible(false);
                                 frame2.getPanel5().setVisible(false);
 
                                 panel.setVisible(true);
