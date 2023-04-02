@@ -112,52 +112,68 @@ public class login extends JFrame implements ActionListener {
 
             jButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-
+                    Session session = null;
                     Transaction transaction = null;
-                    Session session = sessionFactory.getCurrentSession();
-                    session.beginTransaction();
+                    try {
+                        session = sessionFactory.getCurrentSession();
+                        transaction = session.beginTransaction();
+                        boolean isFound = false;
+                        String text = frame2.getTextLogin();
+                        String text2 = new String(frame2.getTextArea2());
+                        System.out.println(text);
+                        List<User> users = session.createQuery("from User", User.class).getResultList();
+                        for (User user : users) {
+                            if (user.getUsername().equals(text)) {
+                                if (user.getPassword().equals(text2)) {
+                                    session.getTransaction().commit();
 
-                    boolean isFound = false;
-                    String text = frame2.getTextLogin();
-                    //JPasswordField text2 = new JPasswordField(frame2.getTextArea2().getPassword());
+                                    //aby wyświetlalo Zalogowano przez 2 sekundy, chciałam zrobic nie dziala
 
-                    String text2 = new String(frame2.getTextArea2());
-                    System.out.println(text);
-                    List<User> users = session.createQuery("from User", User.class).getResultList();
+                                    frame2.getPanel3().setVisible(false);
+                                    frame2.getFrameBackground().setVisible(false);
+                                    frame2.getPanel5().setVisible(false);
 
-                    for (User user : users) {
-                        //System.out.println(user.getUsername());
-                        if (user.getUsername().equals(text)) {
-                            if (user.getPassword().equals(text2)) {
+                                    panel.setVisible(true);
+                                    panel2.setVisible(true);
 
-                                //aby wyświetlalo Zalogowano przez 2 sekundy, chciałam zrobic nie dziala
+                                    //to są te same buttony ze zmieniona nazwa
+                                    button[0].setText("Nowy trening");
+                                    button[1].setText("Edytuj trening");
+                                    button[2].setText("Wpisz mi 3 z PB");
 
-                                frame2.getPanel3().setVisible(false);
-                                frame2.getFrameBackground().setVisible(false);
-                                frame2.getPanel5().setVisible(false);
+                                    //session.getTransaction().commit();
 
-                                panel.setVisible(true);
-                                panel2.setVisible(true);
+                                    //isFound = true;
 
-                                //to są te same buttony ze zmieniona nazwa
-                                button[0].setText("Nowy trening");
-                                button[1].setText("Edytuj trening");
-                                button[2].setText("Wpisz mi 3 z PB");
-
-                                break;
-                            } else {
-                                frame2.getLabel2().setText("Bledne haslo !");
-                                isFound = true;
-                                break;
+                                    break;
+                                } else {
+                                    frame2.getLabel2().setText("Bledne haslo !");
+                                    isFound = true;
+                                    if (transaction != null && transaction.getStatus().canRollback()) {
+                                        transaction.rollback();
+                                    }
+                                    break;
+                                }
                             }
                         }
+                        if (!isFound) {
+                            frame2.getLabel2().setText("Bledny login !");
+                            if (transaction != null && transaction.getStatus().canRollback()) {
+                                transaction.rollback();
+                            }
+                        }
+                    } catch (Exception ex) {
+                        if (transaction != null) {
+                            if (transaction != null && transaction.getStatus().canRollback()) {
+                                transaction.rollback();
+                            }
+                        }
+                        ex.printStackTrace();
+                    } finally {
+                        if (session != null && session.isOpen()) {
+                            session.close();
+                        }
                     }
-                    if (isFound == false) {
-                        frame2.getLabel2().setText("Bledny login !");
-                        isFound = false;
-                        //session.getTransaction().commit();
-                    }
-                    //session.getTransaction().commit();
                 }
             });
         }

@@ -12,7 +12,7 @@ public class MyFrame2 extends JFrame {
 JLabel label2;
 JPanel panel3, frameBackground , panel5, Login, Password;
 JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
-textArea textLogin;
+    JTextArea textLogin;
 JPasswordField textArea2; //haslo
 JLayeredPane GraphicFrame;
 
@@ -50,7 +50,7 @@ JLayeredPane GraphicFrame;
         //panel5
         panel5 = new JPanel();
         panel5.setBackground(Color.white);
-        panel5.setBounds(120,260,355,80);
+        panel5.setBounds(135,270,355,80);
         panel5.setVisible(true);
         panel5.setLayout(null);
 
@@ -71,7 +71,7 @@ JLayeredPane GraphicFrame;
 
         // Tworzenie układu warstwowego i dodawanie paneli
         GraphicFrame = new JLayeredPane();
-        GraphicFrame.setBounds(60, 120, 400, 560);
+        GraphicFrame.setBounds(60, 110, 400, 540);
         GraphicFrame.add(frameBackground, JLayeredPane.DEFAULT_LAYER);
         GraphicFrame.add(Login, JLayeredPane.PALETTE_LAYER);
         GraphicFrame.add(Password, JLayeredPane.PALETTE_LAYER);
@@ -79,29 +79,34 @@ JLayeredPane GraphicFrame;
 
 
         //textArea - login
-        textLogin = new textArea("login", "login");
+        //textLogin = new JtextArea("login", "login");
+        textLogin = new JTextArea("login");
 
-        textLogin.setBounds(20, 20, 210, 40); // Ustawia współrzędne i rozmiar
-        //textLogin.setPreferredSize(new Dimension(210,40));
-        //textLogin.setFont(new Font("MV Boli", 0, 32));
+        textLogin.setPreferredSize(new Dimension(210,40));
+        textLogin.setBounds(20, 60, 230, 50); // Ustawia współrzędne i rozmiar
+        textLogin.setFont(new Font("MV Boli", 0, 32));
+        textLogin.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
+        textLogin.setBorder(new LineBorder(Color.BLACK));
 
         textLogin.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                    if(textLogin.getText().equals("")) {
-                        textLogin.setText("login");
-                        textLogin.setName("login");
-                        textLogin.setForeground(new Color(0, 0, 0, 128));
-                    } else if (textLogin.getText().equals("login")){
-                        textLogin.setText("");
-                        textLogin.setName("");
-                        textLogin.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu - nieprzezroczysty
-                    }
+                if (textLogin.getText().equals("")) {
+                    textLogin.setText("login");
+                    textLogin.setForeground(new Color(0, 0, 0, 128));
+                }
             }
 
-        });
+                @Override
+                public void focusGained(FocusEvent e) {
+                    if (textLogin.getText().equals("login")) {
+                        textLogin.setText("");
+                        textLogin.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu
+                    }
+                }
+            });
 
-        //haslo
+          //haslo
         textArea2 = new JPasswordField();
 
         textArea2.setText("haslo");//to powinno sprawiać, że wyświetla ajpierw haslo
