@@ -16,11 +16,12 @@ JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
 JPasswordField textArea2; //haslo
 JLayeredPane GraphicFrame;
 
-    MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton){
+    MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton, JButton ButtonBack){
 
         //Wylaczam stare panele
         panel.setVisible(false);
         panel2.setVisible(false);
+
 
         //label
         label2 = new JLabel();
@@ -50,7 +51,7 @@ JLayeredPane GraphicFrame;
         //panel5
         panel5 = new JPanel();
         panel5.setBackground(Color.white);
-        panel5.setBounds(135,270,355,80);
+        panel5.setBounds(60,270,400,80); //135
         panel5.setVisible(true);
         panel5.setLayout(null);
 
@@ -71,7 +72,7 @@ JLayeredPane GraphicFrame;
 
         // Tworzenie układu warstwowego i dodawanie paneli
         GraphicFrame = new JLayeredPane();
-        GraphicFrame.setBounds(60, 110, 400, 540);
+        GraphicFrame.setBounds(60, 105, 400, 540);
         GraphicFrame.add(frameBackground, JLayeredPane.DEFAULT_LAYER);
         GraphicFrame.add(Login, JLayeredPane.PALETTE_LAYER);
         GraphicFrame.add(Password, JLayeredPane.PALETTE_LAYER);
@@ -134,7 +135,7 @@ JLayeredPane GraphicFrame;
 
         //button pokaz / ukryj haslo
         JToggleButton showPsw = new JToggleButton("pokaz haslo");
-        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(showPsw,20,20,100,50);
+        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(showPsw,180,20,100,50);
         showPsw.setFont(new Font("Arial", Font.BOLD, 14));
 
         showPsw.setBorder(BorderFactory.createCompoundBorder(
@@ -159,7 +160,7 @@ JLayeredPane GraphicFrame;
         jButton.setBackground(new Color(200, 230, 255));
         jButton.setVisible(true);
         jButton.setLayout(null);
-        jButton.setBounds(140, 20, 100, 50);
+        jButton.setBounds(300, 20, 100, 50);
         jButton.setText("Zaloguj");
         jButton.setFocusable(false);
         jButton.setBorder(BorderFactory.createCompoundBorder(
@@ -168,6 +169,19 @@ JLayeredPane GraphicFrame;
         ));
         jButton.setFont(new Font("Arial", Font.BOLD, 14));
 
+        // JButton - Cofnij
+        ButtonBack.setBackground(new Color(200, 230, 255));
+        ButtonBack.setVisible(true);
+        ButtonBack.setLayout(null);
+        ButtonBack.setBounds(0, 20, 100, 50);
+        ButtonBack.setText("Wstecz");
+        ButtonBack.setFocusable(false);
+        ButtonBack.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        ButtonBack.setFont(new Font("Arial", Font.BOLD, 14));
+
 
 
         Login.add(textLogin);
@@ -175,6 +189,7 @@ JLayeredPane GraphicFrame;
         Password.add(textArea2);
 
         //panel5 to buttony zaloguj i pokaz haslo
+        panel5.add(ButtonBack);
         panel5.add(showPsw);
         panel5.add(jButton);
 

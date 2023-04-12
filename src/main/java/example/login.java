@@ -72,7 +72,9 @@ public class login extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLayout(null);
         this.setTitle("Dzienniczek treningowy PZTW");
+        //Ustawienie koloru !!
         this.getContentPane().setBackground(Color.white);
+        //
         this.add(panel);
         this.add(panel2);
 
@@ -106,8 +108,8 @@ public class login extends JFrame implements ActionListener {
         if (e.getSource() == button[0]) {
 
             JButton jButton = new JButton();
-
-            MyFrame2 frame2 = new MyFrame2(panel, panel2, this,jButton);
+            JButton ButtonBack = new JButton();
+            MyFrame2 frame2 = new MyFrame2(panel, panel2, this, jButton, ButtonBack);
             jButton.addActionListener(this);
 
             jButton.addActionListener(new ActionListener() {
@@ -183,11 +185,12 @@ public class login extends JFrame implements ActionListener {
         else if (e.getSource() == button[1]) {
 
             JButton next = new JButton(); //panele do pozmieniania
+            JButton ButtonBack = new JButton();
 
             //to mialo byc wykorzystane do nowego framea ale tego samego kna ale nie dziala
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
-            MyFrame2 frame2 = new MyFrame2(panel, panel2, this, next);
+            MyFrame2 frame2 = new MyFrame2(panel, panel2, this, next, ButtonBack);
 
             //ustawiam next button
             next.addActionListener(this);

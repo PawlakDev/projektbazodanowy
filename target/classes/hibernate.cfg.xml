@@ -9,7 +9,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://mel.db.elephantsql.com/ruuyzlwc</property>
         <property name="hibernate.connection.username">ruuyzlwc</property>
-        <property name="hibernate.connection.password">97GyblEBCN71m3HPDZGSzDeUtX88eq4x </property>
+        <property name="hibernate.connection.password">97GyblEBCN71m3HPDZGSzDeUtX88eq4x</property>
         <property name="hibernate."></property>
 
         <!-- Inne ustawienia -->
