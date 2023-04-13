@@ -121,13 +121,19 @@ public class Start extends JFrame implements ActionListener {
                                 if (user.getPassword().equals(text2)) {
                                     session.getTransaction().commit();
 
+
                                     //fajnie aby wyswielalo zalogowano przez 2 sekundy
                                     frame2.getPanel3().setEnabled(false);
+                                    frame2.getPanel3().setVisible(false);
                                     frame2.getFrameBackground().setEnabled(false);
+                                    frame2.getFrameBackground().setVisible(false);
                                     frame2.getPanel5().setEnabled(false);
+                                    frame2.getPanel5().setVisible(false);
 
                                     panel.setEnabled(true);
+                                    panel.setVisible(true);
                                     panel2.setEnabled(true);
+                                    panel2.setVisible(true);
 
                                     //to są te same buttony ze zmieniona nazwa
                                     button[0].setText("Nowy trening");

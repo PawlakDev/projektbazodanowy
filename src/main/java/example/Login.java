@@ -49,7 +49,7 @@ JLayeredPane GraphicFrame;
         frameBackground.setOpaque(false);
         frameBackground.setBorder(new LineBorder(new Color(100, 150, 200), 2, true));
         frameBackground.setVisible(true);
-//cscscscsc
+
         //panel5
         panel5 = new JPanel();
         panel5.setBackground(Color.white);
