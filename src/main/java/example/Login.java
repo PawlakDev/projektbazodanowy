@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class MyFrame2 extends JFrame {
+public class Login extends JFrame {
 JLabel label2;
 JPanel panel3, frameBackground , panel5, Login, Password;
 JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
@@ -16,9 +16,11 @@ JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
 JPasswordField textArea2; //haslo
 JLayeredPane GraphicFrame;
 
-    MyFrame2(JPanel panel, JPanel panel2, JFrame to, JButton jButton, JButton ButtonBack){
+    Login(JPanel panel, JPanel panel2, JFrame to, JButton jButton, JButton ButtonBack){
 
         //Wylaczam stare panele
+        panel.setEnabled(false);
+        panel2.setEnabled(false);
         panel.setVisible(false);
         panel2.setVisible(false);
 
@@ -47,7 +49,7 @@ JLayeredPane GraphicFrame;
         frameBackground.setOpaque(false);
         frameBackground.setBorder(new LineBorder(new Color(100, 150, 200), 2, true));
         frameBackground.setVisible(true);
-
+//cscscscsc
         //panel5
         panel5 = new JPanel();
         panel5.setBackground(Color.white);
@@ -231,4 +233,7 @@ JLayeredPane GraphicFrame;
         return passwordString;
     }
 
+    public JLayeredPane getGraphicFrame() {
+        return GraphicFrame;
+    }
 }
