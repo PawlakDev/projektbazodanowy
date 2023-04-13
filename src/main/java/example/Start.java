@@ -1,27 +1,19 @@
 package example;
 
+import example.buttons.Button1Settings;
+import example.buttons.Button2Settings;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Scanner;
-import java.util.WeakHashMap;
-import java.util.concurrent.TimeUnit;
 
-import static example.User.addUser;
-
-public class login extends JFrame implements ActionListener {
+public class Start extends JFrame implements ActionListener {
     static boolean change = false;
     JLabel label;
     JButton[] button = new JButton[7];
@@ -29,11 +21,10 @@ public class login extends JFrame implements ActionListener {
     JPanel panel,panel2,panel3,panel4,panel5; //panel 2 to zdjecie, panel to buttony
     TextField textField;
 
-        //Ustawienia hibernate
-        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    //Ustawienia hibernate
+    SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
-    //static String Label="Label";
-    public login(){
+    public Start(){
 
         //Tworzenie panelu
         panel = new JPanel();
@@ -109,8 +100,9 @@ public class login extends JFrame implements ActionListener {
 
             JButton jButton = new JButton();
             JButton ButtonBack = new JButton();
-            MyFrame2 frame2 = new MyFrame2(panel, panel2, this, jButton, ButtonBack);
+            Login frame2 = new Login(panel, panel2, this, jButton, ButtonBack);
             jButton.addActionListener(this);
+            ButtonBack.addActionListener(this);
 
             jButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -129,14 +121,13 @@ public class login extends JFrame implements ActionListener {
                                 if (user.getPassword().equals(text2)) {
                                     session.getTransaction().commit();
 
-                                    //aby wyświetlalo Zalogowano przez 2 sekundy, chciałam zrobic nie dziala
+                                    //fajnie aby wyswielalo zalogowano przez 2 sekundy
+                                    frame2.getPanel3().setEnabled(false);
+                                    frame2.getFrameBackground().setEnabled(false);
+                                    frame2.getPanel5().setEnabled(false);
 
-                                    frame2.getPanel3().setVisible(false);
-                                    frame2.getFrameBackground().setVisible(false);
-                                    frame2.getPanel5().setVisible(false);
-
-                                    panel.setVisible(true);
-                                    panel2.setVisible(true);
+                                    panel.setEnabled(true);
+                                    panel2.setEnabled(true);
 
                                     //to są te same buttony ze zmieniona nazwa
                                     button[0].setText("Nowy trening");
@@ -178,6 +169,16 @@ public class login extends JFrame implements ActionListener {
                     }
                 }
             });
+
+            ButtonBack.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    frame2.getPanel5().setVisible(false);
+                    frame2.getGraphicFrame().setVisible(false);
+                    frame2.getPanel3().setVisible(false);
+                    panel.setVisible(true);
+                    panel2.setVisible(true);
+                }
+            });
         }
 
         //signup - rejestracja
@@ -190,7 +191,7 @@ public class login extends JFrame implements ActionListener {
             //to mialo byc wykorzystane do nowego framea ale tego samego kna ale nie dziala
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
-            MyFrame2 frame2 = new MyFrame2(panel, panel2, this, next, ButtonBack);
+            Login frame2 = new Login(panel, panel2, this, next, ButtonBack);
 
             //ustawiam next button
             next.addActionListener(this);
@@ -239,5 +240,3 @@ public class login extends JFrame implements ActionListener {
         newFrame.setVisible(true);
     }
 }
-
-

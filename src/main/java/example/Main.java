@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         final int debugMode = 1;//final to stala
 
-       login Login = new login();
+       Start Login = new Start();
 
         if(debugMode == 0) {
         SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
