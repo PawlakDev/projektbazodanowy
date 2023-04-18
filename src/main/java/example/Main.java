@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        final int debugMode = 1;//final to stala
+        final int debugMode = 0;//final to stala
 
        Start Login = new Start();
 
