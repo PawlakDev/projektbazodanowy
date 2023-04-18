@@ -17,9 +17,7 @@ public class Start extends JFrame implements ActionListener {
     static boolean change = false;
     JLabel label;
     JButton[] button = new JButton[7];
-    //JButton button,button2,button3,button4,button5,button6;
-    JPanel panel,panel2,panel3,panel4,panel5; //panel 2 to zdjecie, panel to buttony
-    TextField textField;
+    JPanel panel,panel2; //panel 2 to zdjecie, panel to buttony
 
     //Ustawienia hibernate
     SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
@@ -39,7 +37,7 @@ public class Start extends JFrame implements ActionListener {
         //Ustawienie wielkości pamietajac o wielkosciach pierwszego panelu
         panel2.setBounds(160,-25,370,400);
 
-        // Utwórz obiekt Image z obrazem
+        //Utwórz obiekt Image z obrazem
         Image image = new ImageIcon("src\\main\\java\\example\\obrazek.png").getImage();
 
         // Ustaw właściwość SCALE_SMOOTH dla obrazu
@@ -51,9 +49,7 @@ public class Start extends JFrame implements ActionListener {
         // Utwórz obiekt JLabel z ikoną obrazu
         JLabel label = new JLabel(imageIcon);
 
-
         label.setBounds(0, 0, 400, 300);
-        //label.setIcon(icon);
         panel2.add(label);
 
         //JFrame
@@ -63,9 +59,10 @@ public class Start extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setLayout(null);
         this.setTitle("Dzienniczek treningowy PZTW");
-        //Ustawienie koloru !!
+        //Ustawienie koloru
         this.getContentPane().setBackground(Color.white);
-        //
+
+        //dodaje panele do obecnego frema
         this.add(panel);
         this.add(panel2);
 
@@ -83,19 +80,18 @@ public class Start extends JFrame implements ActionListener {
         button[2] = new JButton();
         button[2].addActionListener(this);
         Button2Settings button3Settings = new Button2Settings(button[2],panel, 20,240,130,100, "Wyjdz");
-
-
     }
 
-    public void setLabel(){
+    //czy tez mozna usunac?
+  /*  public void setLabel(){
         label.setIcon(null);
         System.out.println("oj");
-    }
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        //login
+        //ten kod wrzocic do klasy login
         if (e.getSource() == button[0]) {
 
             JButton jButton = new JButton();
@@ -135,15 +131,12 @@ public class Start extends JFrame implements ActionListener {
                                     panel2.setEnabled(true);
                                     panel2.setVisible(true);
 
-                                    //to są te same buttony ze zmieniona nazwa
+                                    //to są te same buttony ze zmieniona nazwa, wiec czej tak nie bedzie dzialac
                                     button[0].setText("Nowy trening");
                                     button[1].setText("Edytuj trening");
                                     button[2].setText("Wpisz mi 3 z PB");
 
                                     //session.getTransaction().commit();
-
-                                    //isFound = true;
-
                                     break;
                                 } else {
                                     frame2.getLabel2().setText("Bledne haslo !");
@@ -187,11 +180,10 @@ public class Start extends JFrame implements ActionListener {
             });
         }
 
-        //signup - rejestracja
-        //panele ogarnac
+        //signup - rejestraca
         else if (e.getSource() == button[1]) {
 
-            JButton next = new JButton(); //panele do pozmieniania
+            JButton next = new JButton(); //panele do pozmieniania bo sa crazy
             JButton ButtonBack = new JButton();
 
             //to mialo byc wykorzystane do nowego framea ale tego samego kna ale nie dziala
@@ -209,23 +201,22 @@ public class Start extends JFrame implements ActionListener {
             next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
-                    //te same o do logowania
-
+                    //te same co do logowania zmienne
                     String text = frame2.getTextLogin();
                     String text2 = frame2.getTextArea2();
 
                     System.out.println(text);
                     System.out.println(text2);
-                    if(text.isEmpty() || text2.isEmpty() || text2.equals("haslo"))
+                    if(text.isEmpty() || text.equals("login") || text2.isEmpty() || text2.equals("haslo"))
                         frame2.getLabel2().setText("Uzupelnij haslo lub login!");
                     else {
                         Session session = sessionFactory.getCurrentSession();
                         session.beginTransaction();
 
-                        //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać
+                        //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać w klasie User
+                        //zamiana framow 2/10
                         frame2.setVisible(false);
-                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next); //dodac moze panele?
-
+                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next);
                         switchFrames(frame2, frameRejestracja);
                     }
                 }
@@ -240,7 +231,7 @@ public class Start extends JFrame implements ActionListener {
         }
     }
 
-    //metoda do zmiany frammow
+    //metoda do zmiany framow
     public void switchFrames(JFrame oldFrame, JFrame newFrame) {
         oldFrame.setVisible(false);
         newFrame.setVisible(true);
