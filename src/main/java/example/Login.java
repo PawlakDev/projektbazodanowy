@@ -184,10 +184,7 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
         ));
         ButtonBack.setFont(new Font("Arial", Font.BOLD, 14));
 
-
-
         Login.add(textLogin);
-
         Password.add(textArea2);
 
         //panel5 to buttony zaloguj i pokaz haslo

@@ -156,11 +156,10 @@ public class Start extends JFrame implements ActionListener {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             // Kod obsługi kliknięcia przycisku "Nowy trening"
-                                            System.out.println("Siema");
+                                            System.out.println("Siema"); //klikniecie zadzialalo
+                                            NewTraining newTraining = new NewTraining(panel, panel2, login);
                                         }
                                     });
-                                    //NewTraining newTraining = new NewTraining(panel, panel2, this, jButton, ButtonBack);
-
                                     //session.getTransaction().commit();
                                     break;
                                 } else {
@@ -207,11 +206,9 @@ public class Start extends JFrame implements ActionListener {
 
         //signup - rejestraca
         else if (e.getSource() == button[1]) {
-
             JButton next = new JButton(); //panele do pozmieniania bo sa crazy
             JButton ButtonBack = new JButton();
 
-            //to mialo byc wykorzystane do nowego framea ale tego samego kna ale nie dziala
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
             Login login = new Login(panel, panel2, this, next, ButtonBack);
