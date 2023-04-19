@@ -14,7 +14,7 @@ public class Main {
 
        Start Login = new Start();
 
-        if(debugMode == 0) {
+        if(debugMode == 1) {
         SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
         Scanner scanner = new Scanner(System.in);

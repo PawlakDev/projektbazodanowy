@@ -9,12 +9,12 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 public class Login extends JFrame {
-JLabel label2;
-JPanel panel3, frameBackground , panel5, Login, Password;
-JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
+private JLabel label2;
+private JPanel panel3, frameBackground , panel5, Login, Password;
+private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
     JTextArea textLogin;
-JPasswordField textArea2; //haslo
-JLayeredPane GraphicFrame;
+    private JPasswordField textArea2; //haslo
+    private JLayeredPane GraphicFrame;
 
     Login(JPanel panel, JPanel panel2, JFrame to, JButton jButton, JButton ButtonBack){
 
@@ -236,4 +236,14 @@ JLayeredPane GraphicFrame;
     public JLayeredPane getGraphicFrame() {
         return GraphicFrame;
     }
+
+    public JPanel getLogin() {
+        return Login;
+    }
+
+    public JPanel getPassword() {
+        return Password;
+    }
 }
+
+

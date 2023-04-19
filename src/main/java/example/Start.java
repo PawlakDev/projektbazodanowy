@@ -82,12 +82,6 @@ public class Start extends JFrame implements ActionListener {
         Button2Settings button3Settings = new Button2Settings(button[2],panel, 20,240,130,100, "Wyjdz");
     }
 
-    //czy tez mozna usunac?
-  /*  public void setLabel(){
-        label.setIcon(null);
-        System.out.println("oj");
-    }*/
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -96,7 +90,7 @@ public class Start extends JFrame implements ActionListener {
 
             JButton jButton = new JButton();
             JButton ButtonBack = new JButton();
-            Login frame2 = new Login(panel, panel2, this, jButton, ButtonBack);
+            Login login = new Login(panel, panel2, this, jButton, ButtonBack);
             jButton.addActionListener(this);
             ButtonBack.addActionListener(this);
 
@@ -108,8 +102,8 @@ public class Start extends JFrame implements ActionListener {
                         session = sessionFactory.getCurrentSession();
                         transaction = session.beginTransaction();
                         boolean isFound = false;
-                        String text = frame2.getTextLogin();
-                        String text2 = new String(frame2.getTextArea2());
+                        String text = login.getTextLogin();
+                        String text2 = new String(login.getTextArea2());
                         System.out.println(text);
                         List<User> users = session.createQuery("from User", User.class).getResultList();
                         for (User user : users) {
@@ -119,27 +113,58 @@ public class Start extends JFrame implements ActionListener {
 
 
                                     //fajnie aby wyswielalo zalogowano przez 2 sekundy
-                                    frame2.getPanel3().setEnabled(false);
-                                    frame2.getPanel3().setVisible(false);
-                                    frame2.getFrameBackground().setEnabled(false);
-                                    frame2.getFrameBackground().setVisible(false);
-                                    frame2.getPanel5().setEnabled(false);
-                                    frame2.getPanel5().setVisible(false);
+                                    login.getPanel3().setEnabled(false);
+                                    login.getPanel3().setVisible(false);
+                                    login.getFrameBackground().setEnabled(false);
+                                    login.getFrameBackground().setVisible(false);
+                                    login.getPanel5().setEnabled(false);
+                                    login.getPanel5().setVisible(false);
+
+                                    //Wylaczanie starych przyciskow
+                                    for(int i=0; i<3;i++){
+                                        button[i].setVisible(false);
+                                        button[i].setEnabled(false);
+                                    }
 
                                     panel.setEnabled(true);
                                     panel.setVisible(true);
                                     panel2.setEnabled(true);
                                     panel2.setVisible(true);
 
-                                    //to są te same buttony ze zmieniona nazwa, wiec czej tak nie bedzie dzialac
-                                    button[0].setText("Nowy trening");
-                                    button[1].setText("Edytuj trening");
-                                    button[2].setText("Wpisz mi 3 z PB");
+                                    login.getLogin().setVisible(false);
+                                    login.getLogin().setEnabled(false);
+                                    login.getPassword().setVisible(false);
+                                    login.getPassword().setEnabled(false);
+
+
+                                    //Button3 - "Nowy trening"
+                                    button[3] = new JButton();
+                                    button[3].addActionListener(this);
+                                    Button1Settings button1Settings = new Button1Settings(button[3],panel,20,20,130,100, true, "Nowy trening");
+
+                                    //Button4 - "Edytuj trening"
+                                    button[4] = new JButton();
+                                    button[4].addActionListener(this);
+                                    Button2Settings button2Settings = new Button2Settings(button[4],panel, 20,130,130,100, "Edytuj trening");
+
+                                    //Button5 - "Wyswietl treningi"
+                                    button[5] = new JButton();
+                                    button[5].addActionListener(this);
+                                    Button2Settings button3Settings = new Button2Settings(button[5],panel, 20,240,130,100, "Wyswietl treningi");
+
+                                    button[3].addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            // Kod obsługi kliknięcia przycisku "Nowy trening"
+                                            System.out.println("Siema");
+                                        }
+                                    });
+                                    //NewTraining newTraining = new NewTraining(panel, panel2, this, jButton, ButtonBack);
 
                                     //session.getTransaction().commit();
                                     break;
                                 } else {
-                                    frame2.getLabel2().setText("Bledne haslo !");
+                                    login.getLabel2().setText("Bledne haslo !");
                                     isFound = true;
                                     if (transaction != null && transaction.getStatus().canRollback()) {
                                         transaction.rollback();
@@ -149,7 +174,7 @@ public class Start extends JFrame implements ActionListener {
                             }
                         }
                         if (!isFound) {
-                            frame2.getLabel2().setText("Bledny login !");
+                            login.getLabel2().setText("Bledny login !");
                             if (transaction != null && transaction.getStatus().canRollback()) {
                                 transaction.rollback();
                             }
@@ -171,9 +196,9 @@ public class Start extends JFrame implements ActionListener {
 
             ButtonBack.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    frame2.getPanel5().setVisible(false);
-                    frame2.getGraphicFrame().setVisible(false);
-                    frame2.getPanel3().setVisible(false);
+                    login.getPanel5().setVisible(false);
+                    login.getGraphicFrame().setVisible(false);
+                    login.getPanel3().setVisible(false);
                     panel.setVisible(true);
                     panel2.setVisible(true);
                 }
@@ -189,35 +214,35 @@ public class Start extends JFrame implements ActionListener {
             //to mialo byc wykorzystane do nowego framea ale tego samego kna ale nie dziala
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
-            Login frame2 = new Login(panel, panel2, this, next, ButtonBack);
+            Login login = new Login(panel, panel2, this, next, ButtonBack);
 
             //ustawiam next button
             next.addActionListener(this);
             next.setText("dalej");
-            frame2.getPanel5().add(next);
+            login.getPanel5().add(next);
 
-            frame2.getLabel2().setText("Zarejestruj sie");
+            login.getLabel2().setText("Zarejestruj sie");
 
             next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
 
                     //te same co do logowania zmienne
-                    String text = frame2.getTextLogin();
-                    String text2 = frame2.getTextArea2();
+                    String text = login.getTextLogin();
+                    String text2 = login.getTextArea2();
 
                     System.out.println(text);
                     System.out.println(text2);
                     if(text.isEmpty() || text.equals("login") || text2.isEmpty() || text2.equals("haslo"))
-                        frame2.getLabel2().setText("Uzupelnij haslo lub login!");
+                        login.getLabel2().setText("Uzupelnij haslo lub login!");
                     else {
                         Session session = sessionFactory.getCurrentSession();
                         session.beginTransaction();
 
                         //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać w klasie User
                         //zamiana framow 2/10
-                        frame2.setVisible(false);
+                        login.setVisible(false);
                         MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next);
-                        switchFrames(frame2, frameRejestracja);
+                        switchFrames(login, frameRejestracja);
                     }
                 }
             });
