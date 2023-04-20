@@ -17,25 +17,37 @@ public class Start extends JFrame implements ActionListener {
     static boolean change = false;
     JLabel label;
     JButton[] button = new JButton[7];
-    JPanel panel,panel2; //panel 2 to zdjecie, panel to buttony
+    JFrame jFrame;
+
+        /*
+     *  Buttons:
+     *  0 - Zaloguj
+     *  1 - Zarejestruj
+     *  2 - Wyjdz
+     *  3 - Nowy trening
+     *  4 - Edytuj trening
+     *  5 - Wyswietl treningi
+     *
+        */
+    JPanel ButtonPanel, BackgroundImagePanel;
 
     //Ustawienia hibernate
     SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
-    public Start(){
+    public Start() {
 
         //Tworzenie panelu
-        panel = new JPanel();
+        ButtonPanel = new JPanel();
         //Ustawianie jego wielkosci
-        panel.setBounds(0,0,180,400);
-        panel.setLayout(null);
+        ButtonPanel.setBounds(0, 0, 180, 400);
+        ButtonPanel.setLayout(null);
         //Ustawienie koloru tla
-        panel.setBackground(Color.white);
+        ButtonPanel.setBackground(Color.white);
 
-        //Tworzenie drugiego panelu
-        panel2 = new JPanel();
+        //Tworzenie panelu dla obrazka
+        BackgroundImagePanel = new JPanel();
         //Ustawienie wielkości pamietajac o wielkosciach pierwszego panelu
-        panel2.setBounds(160,-25,370,400);
+        BackgroundImagePanel.setBounds(160, -25, 370, 400);
 
         //Utwórz obiekt Image z obrazem
         Image image = new ImageIcon("src\\main\\java\\example\\obrazek.png").getImage();
@@ -50,36 +62,37 @@ public class Start extends JFrame implements ActionListener {
         JLabel label = new JLabel(imageIcon);
 
         label.setBounds(0, 0, 400, 300);
-        panel2.add(label);
+        BackgroundImagePanel.add(label);
 
         //JFrame
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(550,400);
-        this.setVisible(true);
-        this.setResizable(false);
-        this.setLayout(null);
-        this.setTitle("Dzienniczek treningowy PZTW");
+        jFrame = new JFrame();
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setSize(550, 400);
+        jFrame.setVisible(true);
+        jFrame.setResizable(false);
+        jFrame.setLayout(null);
+        jFrame.setTitle("Dzienniczek treningowy PZTW");
         //Ustawienie koloru
-        this.getContentPane().setBackground(Color.white);
+        jFrame.getContentPane().setBackground(Color.white);
 
         //dodaje panele do obecnego frema
-        this.add(panel);
-        this.add(panel2);
+        jFrame.add(ButtonPanel);
+        jFrame.add(BackgroundImagePanel);
 
         //Button1 - "Zaloguj"
         button[0] = new JButton();
         button[0].addActionListener(this);
-        Button1Settings button1Settings = new Button1Settings(button[0],panel,20,20,130,100, true, "Zaloguj");
+        Button1Settings button1Settings = new Button1Settings(button[0], ButtonPanel, 20, 20, 130, 100, true, "Zaloguj");
 
         //Button2 - "zarejestruj"
         button[1] = new JButton();
         button[1].addActionListener(this);
-        Button2Settings button2Settings = new Button2Settings(button[1],panel, 20,130,130,100, "Zarejestruj");
+        Button2Settings button2Settings = new Button2Settings(button[1], ButtonPanel, 20, 130, 130, 100, "Zarejestruj");
 
         //Button3 - "Wyjdz"
         button[2] = new JButton();
         button[2].addActionListener(this);
-        Button2Settings button3Settings = new Button2Settings(button[2],panel, 20,240,130,100, "Wyjdz");
+        Button2Settings button3Settings = new Button2Settings(button[2], ButtonPanel, 20, 240, 130, 100, "Wyjdz");
     }
 
     @Override
@@ -90,7 +103,7 @@ public class Start extends JFrame implements ActionListener {
 
             JButton jButton = new JButton();
             JButton ButtonBack = new JButton();
-            Login login = new Login(panel, panel2, this, jButton, ButtonBack);
+            Login login = new Login(ButtonPanel, BackgroundImagePanel, jFrame, jButton, ButtonBack);
             jButton.addActionListener(this);
             ButtonBack.addActionListener(this);
 
@@ -120,46 +133,55 @@ public class Start extends JFrame implements ActionListener {
                                     login.getPanel5().setEnabled(false);
                                     login.getPanel5().setVisible(false);
 
-                                    //Wylaczanie starych przyciskow
-                                    for(int i=0; i<3;i++){
-                                        button[i].setVisible(false);
-                                        button[i].setEnabled(false);
-                                    }
-
-                                    panel.setEnabled(true);
-                                    panel.setVisible(true);
-                                    panel2.setEnabled(true);
-                                    panel2.setVisible(true);
+                                    BackgroundImagePanel.setEnabled(true);
+                                    BackgroundImagePanel.setVisible(true);
 
                                     login.getLogin().setVisible(false);
                                     login.getLogin().setEnabled(false);
                                     login.getPassword().setVisible(false);
                                     login.getPassword().setEnabled(false);
 
+                                    ButtonPanel.removeAll();
+                                    ButtonPanel.setEnabled(true);
+                                    ButtonPanel.setVisible(true);
 
                                     //Button3 - "Nowy trening"
                                     button[3] = new JButton();
-                                    button[3].addActionListener(this);
-                                    Button1Settings button1Settings = new Button1Settings(button[3],panel,20,20,130,100, true, "Nowy trening");
+                                    button[3].addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            // kod, który ma zostać wykonany po kliknięciu przycisku "Nowy trening"
+                                            NewTraining newTraining = new NewTraining(ButtonPanel,BackgroundImagePanel, jFrame);
+                                        }
+                                    });
+                                    Button1Settings button1Settings = new Button1Settings(button[3], ButtonPanel, 20, 20, 130, 100, true, "Nowy trening");
 
                                     //Button4 - "Edytuj trening"
                                     button[4] = new JButton();
                                     button[4].addActionListener(this);
-                                    Button2Settings button2Settings = new Button2Settings(button[4],panel, 20,130,130,100, "Edytuj trening");
+                                    Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Edytuj trening");
 
                                     //Button5 - "Wyswietl treningi"
                                     button[5] = new JButton();
                                     button[5].addActionListener(this);
-                                    Button2Settings button3Settings = new Button2Settings(button[5],panel, 20,240,130,100, "Wyswietl treningi");
+                                    Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Wyswietl treningi");
 
-                                    button[3].addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                            // Kod obsługi kliknięcia przycisku "Nowy trening"
-                                            System.out.println("Siema"); //klikniecie zadzialalo
-                                            NewTraining newTraining = new NewTraining(panel, panel2, login);
-                                        }
-                                    });
+                                    button[6] = new JButton();
+                                    button[6].addActionListener(this);
+                                    Button2Settings button6Settings = new Button2Settings(button[6], ButtonPanel, 120, 240, 130, 100, "Witaj *twojnick*");
+
+                                    jFrame.remove(BackgroundImagePanel);
+                                    jFrame.remove(ButtonPanel);
+
+
+                                    // To trzeba zrobic na samym poczatku aby pracowac od razu na warstwach
+                                    JLayeredPane jLayeredPane = new JLayeredPane();
+                                    jLayeredPane.setBounds(0, 0, 550, 400);
+                                    jLayeredPane.add(BackgroundImagePanel, JLayeredPane.DEFAULT_LAYER); // ta "domyslna" co ma byc na dnie
+                                    jLayeredPane.add(ButtonPanel, JLayeredPane.PALETTE_LAYER); // te ktore maja byc nad
+                                    jFrame.add(jLayeredPane);
+                                    //
+
                                     //session.getTransaction().commit();
                                     break;
                                 } else {
@@ -195,11 +217,15 @@ public class Start extends JFrame implements ActionListener {
 
             ButtonBack.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                    if (e.getSource() == button[3]) {
+                        System.out.println("ELO ELOOOO");
+                    }
+
                     login.getPanel5().setVisible(false);
                     login.getGraphicFrame().setVisible(false);
                     login.getPanel3().setVisible(false);
-                    panel.setVisible(true);
-                    panel2.setVisible(true);
+                    ButtonPanel.setVisible(true);
+                    BackgroundImagePanel.setVisible(true);
                 }
             });
         }
@@ -211,7 +237,7 @@ public class Start extends JFrame implements ActionListener {
 
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
-            Login login = new Login(panel, panel2, this, next, ButtonBack);
+            MyFrameRejestracja signup = new MyFrameRejestracja(ButtonPanel, BackgroundImagePanel, next, ButtonBack);
 
             //ustawiam next button
             next.addActionListener(this);
@@ -224,22 +250,22 @@ public class Start extends JFrame implements ActionListener {
                 public void actionPerformed(ActionEvent e) {
 
                     //te same co do logowania zmienne
-                    String text = login.getTextLogin();
-                    String text2 = login.getTextArea2();
+                    String text = signup.getTextLogin();
+                    String text2 = signup.getPassword(); // not safe but whatever for now
 
                     System.out.println(text);
                     System.out.println(text2);
                     if(text.isEmpty() || text.equals("login") || text2.isEmpty() || text2.equals("haslo"))
-                        login.getLabel2().setText("Uzupelnij haslo lub login!");
+                        signup.getLabelTytul().setText("Uzupelnij haslo lub login!"); //settera by trzeba bylo zobic
                     else {
                         Session session = sessionFactory.getCurrentSession();
                         session.beginTransaction();
 
                         //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać w klasie User
                         //zamiana framow 2/10
-                        login.setVisible(false);
-                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja(next);
-                        switchFrames(login, frameRejestracja);
+                        signup.setVisible(false);
+                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja (ButtonPanel, BackgroundImagePanel, next, ButtonBack);
+                        switchFrames(signup, frameRejestracja);
                     }
                 }
             });
@@ -252,6 +278,7 @@ public class Start extends JFrame implements ActionListener {
             }
         }
     }
+
 
     //metoda do zmiany framow
     public void switchFrames(JFrame oldFrame, JFrame newFrame) {

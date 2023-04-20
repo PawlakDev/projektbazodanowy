@@ -28,7 +28,7 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
         //label
         label2 = new JLabel();
 
-        //panel 3 to jest to Zaloguj sie na gorze
+        //ButtonPanel 3 to jest to Zaloguj sie na gorze
         panel3 = new JPanel();
         panel3.setBackground(Color.white);
         WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(label2,panel3, "Zaloguj sie");
