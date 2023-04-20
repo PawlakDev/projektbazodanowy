@@ -21,15 +21,11 @@ public class MyFrameRejestracja extends JFrame {
         panelTytul.setBackground(Color.white);
         WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(labelTytul,panelTytul, "Uzupelnij dane");
 
-
-        //Tworzenie panelu to jest skopiowany z guzikow z frame2
         panel = new JPanel();
         //Ustawianie jego wielkosci
         panel.setBounds(4,100,500,400); //to jest tn bialy tlo
-        //panel.setLayout(null);
         //Ustawienie koloru tla
         panel.setBackground(Color.white);
-
 
         //Tworzenie drugiego panelu
         panel2 = new JPanel();
