@@ -240,11 +240,6 @@ public class Start extends JFrame implements ActionListener {
             MyFrameRejestracja signup = new MyFrameRejestracja(ButtonPanel, BackgroundImagePanel, next, ButtonBack);
 
             //ustawiam next button
-            next.addActionListener(this);
-            next.setText("dalej");
-            login.getPanel5().add(next);
-
-            login.getLabel2().setText("Zarejestruj sie");
 
             next.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
