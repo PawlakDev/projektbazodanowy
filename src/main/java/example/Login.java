@@ -26,7 +26,6 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
         panel.setVisible(false);
         panel2.setVisible(false);
 
-
         //label
         label2 = new JLabel();
 
