@@ -1,5 +1,7 @@
 package example;
 
+import example.InfoFrames.LoginInfoFrameSettings;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -31,7 +33,7 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
         //ButtonPanel 3 to jest to Zaloguj sie na gorze
         panel3 = new JPanel();
         panel3.setBackground(Color.white);
-        WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(label2,panel3, "Zaloguj sie");
+        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(label2,panel3, "Zaloguj sie");
 
         //panel4
         frameBackground = new JPanel() {

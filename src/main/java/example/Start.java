@@ -1,5 +1,7 @@
 package example;
 
+import example.InfoFrames.LoginInfoFrameSettings;
+import example.InfoFrames.WelcomeMsgSettings;
 import example.buttons.Button1Settings;
 import example.buttons.Button2Settings;
 import org.hibernate.Session;
@@ -15,7 +17,7 @@ import java.util.List;
 
 public class Start extends JFrame implements ActionListener {
     static boolean change = false;
-    JLabel label;
+    JLabel label,welcomeMsgLabel;
     JButton[] button = new JButton[7];
     JFrame jFrame;
 
@@ -29,7 +31,7 @@ public class Start extends JFrame implements ActionListener {
      *  5 - Wyswietl treningi
      *
         */
-    JPanel ButtonPanel, BackgroundImagePanel;
+    JPanel ButtonPanel, BackgroundImagePanel,WelcomeMsgPanel;
 
     //Ustawienia hibernate
     SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
@@ -151,6 +153,8 @@ public class Start extends JFrame implements ActionListener {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             // kod, który ma zostać wykonany po kliknięciu przycisku "Nowy trening"
+                                            WelcomeMsgPanel.setVisible(false);
+                                            WelcomeMsgPanel.setEnabled(false);
                                             NewTraining newTraining = new NewTraining(ButtonPanel,BackgroundImagePanel, jFrame);
                                         }
                                     });
@@ -166,9 +170,19 @@ public class Start extends JFrame implements ActionListener {
                                     button[5].addActionListener(this);
                                     Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Wyswietl treningi");
 
-                                    button[6] = new JButton();
-                                    button[6].addActionListener(this);
-                                    Button2Settings button6Settings = new Button2Settings(button[6], ButtonPanel, 120, 240, 130, 100, "Witaj *twojnick*");
+                                    //Panel
+                                    WelcomeMsgPanel = new JPanel(){
+                                        @Override
+                                        protected void paintComponent(Graphics g) {
+                                            // Ustaw kolor tła na przezroczysty
+                                            g.setColor(new Color(255, 255, 255, 0));
+                                            g.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+                                        }
+                                    };
+
+
+                                    welcomeMsgLabel = new JLabel();
+                                    WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel,WelcomeMsgPanel,  "Witaj " + user.getUsername() );
 
                                     jFrame.remove(BackgroundImagePanel);
                                     jFrame.remove(ButtonPanel);
@@ -179,6 +193,7 @@ public class Start extends JFrame implements ActionListener {
                                     jLayeredPane.setBounds(0, 0, 550, 400);
                                     jLayeredPane.add(BackgroundImagePanel, JLayeredPane.DEFAULT_LAYER); // ta "domyslna" co ma byc na dnie
                                     jLayeredPane.add(ButtonPanel, JLayeredPane.PALETTE_LAYER); // te ktore maja byc nad
+                                    jLayeredPane.add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
                                     jFrame.add(jLayeredPane);
                                     //
 

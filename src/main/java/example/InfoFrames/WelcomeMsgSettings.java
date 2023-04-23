@@ -1,26 +1,31 @@
-package example;
+package example.InfoFrames;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class WpisywanieTekstu extends JFrame {
-    public WpisywanieTekstu(JLabel label, JPanel panel, String text) {
+public class WelcomeMsgSettings extends JFrame {
+    public WelcomeMsgSettings(JLabel label, JPanel panel, String text) {
+
+
         label.setText(text);
         label.setForeground(Color.black);
         label.setFont(new Font("MV Boli", Font.PLAIN, 32));
-        label.setBackground(Color.blue); // to dziala ?
-        label.setOpaque(false);
+        label.setBackground(new Color(197, 219, 233)); // to dziala ? - tak jeżeli setOpaque jest na true
+        label.setOpaque(true);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(10, 10, 10, 10),
+                BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createMatteBorder(4, 4, 4, 4, new Color(100, 150, 200)),
                         BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(200, 230, 255))
                 )
         ));
+        panel.setBounds(180, 20, 330, 60);
 
-        panel.setBounds(60, 10, 400, 80);
+        // Ustaw wymiary etykiety na takie same jak panel
+        label.setPreferredSize(new Dimension(panel.getWidth(), panel.getHeight()));
+        label.setSize(panel.getSize());
+
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.CENTER);
     }
