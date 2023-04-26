@@ -1,23 +1,16 @@
 package example;
 
-import example.InfoFrames.LoginInfoFrameSettings;
 import example.InfoFrames.WelcomeMsgSettings;
 import example.buttons.Button1Settings;
 import example.buttons.Button2Settings;
-import org.apache.commons.collections4.Bag;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.Statement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 public class Start extends JFrame implements ActionListener {
@@ -262,8 +255,9 @@ public class Start extends JFrame implements ActionListener {
 
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
-            MyFrameRejestracja signup = new MyFrameRejestracja(ButtonPanel, BackgroundImagePanel, next, ButtonBack);
-
+            Rejestracja signup = new Rejestracja(this, ButtonPanel, BackgroundImagePanel, next, ButtonBack);
+            signup.setVisible(true);
+            //this.add(signup);
             //ustawiam next button
 
             next.addActionListener(new ActionListener() {
@@ -281,11 +275,10 @@ public class Start extends JFrame implements ActionListener {
                         Session session = sessionFactory.getCurrentSession();
                         session.beginTransaction();
 
-                        //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać w klasie User
-                        //zamiana framow 2/10
+                        //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać w klasie Use
                         signup.setVisible(false);
-                        MyFrameRejestracja frameRejestracja = new MyFrameRejestracja (ButtonPanel, BackgroundImagePanel, next, ButtonBack);
-                        switchFrames(signup, frameRejestracja);
+                        RejestracjaData frameRejestracjaData = new RejestracjaData();
+                        frameRejestracjaData.setVisible(true);
                     }
                 }
             });
