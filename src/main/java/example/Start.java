@@ -13,6 +13,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class Start extends JFrame implements ActionListener {
@@ -33,10 +37,11 @@ public class Start extends JFrame implements ActionListener {
         */
     JPanel ButtonPanel, BackgroundImagePanel,WelcomeMsgPanel;
 
-    //Ustawienia hibernate
-    SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+    SessionFactory sessionFactory;
 
-    public Start() {
+    public Start(SessionFactory sessionFactory) {
+
+        this.sessionFactory = sessionFactory;
 
         //Tworzenie panelu
         ButtonPanel = new JPanel();
@@ -155,7 +160,7 @@ public class Start extends JFrame implements ActionListener {
                                             // kod, który ma zostać wykonany po kliknięciu przycisku "Nowy trening"
                                             WelcomeMsgPanel.setVisible(false);
                                             WelcomeMsgPanel.setEnabled(false);
-                                            NewTraining newTraining = new NewTraining(ButtonPanel,BackgroundImagePanel, jFrame);
+                                            NewTraining newTraining = new NewTraining(ButtonPanel,WelcomeMsgPanel, jFrame,sessionFactory);
                                         }
                                     });
                                     Button1Settings button1Settings = new Button1Settings(button[3], ButtonPanel, 20, 20, 130, 100, true, "Nowy trening");

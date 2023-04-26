@@ -19,5 +19,6 @@
 
         <!-- Mapowanie klas -->
         <mapping class="example.User"/>
+        <mapping class="example.Workouts"/>
     </session-factory>
 </hibernate-configuration>

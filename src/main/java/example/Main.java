@@ -12,10 +12,11 @@ public class Main {
     public static void main(String[] args) {
         final int debugMode = 0;//final to stala
 
-       Start Login = new Start();
+        //Ustawienia hibernate
+        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+        Start start = new Start(sessionFactory);
 
         if(debugMode == 1) {
-        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 
         Scanner scanner = new Scanner(System.in);
 
