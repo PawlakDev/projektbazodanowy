@@ -1,5 +1,8 @@
 package example;
 
+import example.InfoFrames.LoginInfoFrameSettings;
+import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.Const;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -8,70 +11,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class MyFrameRejestracja extends JFrame {
+public class Rejestracja extends JFrame {
     JLabel labelTytul;
-    JPanel panelTytul, DownButtonPanel, frameBackground, panel5, Login, Password; //idk co to ten 5 najwyzej usune
+    JPanel panelTytul, DownButtonPanel, frameBackground, panel5, Login, Password;
     JTextArea textLogin;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
 
     textArea emailText;
-    MyFrameRejestracja(JPanel ButtonPanel, JPanel BackgroundImagePanel, JButton next, JButton ButtonBack){
-        //bylo i to jest jakny do tego co next wiec musze sie pobawic panelami
-        /* setLayout(new BorderLayout());
+    Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel, JButton next, JButton ButtonBack){
 
-        //ustawiam label
-        labelTytul = new JLabel();
-
-        //i ButtonPanel do niego
-        panelTytul = new JPanel();
-        panelTytul.setBackground(Color.white);
-        WpisywanieTekstu wpisywanieTekstu = new WpisywanieTekstu(labelTytul,panelTytul, "Uzupelnij dane");
-
-        panel = new JPanel();
-        //Ustawianie jego wielkosci
-        panel.setBounds(4,100,500,400); //to jest tn bialy tlo
-        //Ustawienie koloru tla
-        panel.setBackground(Color.white);
-
-        //Tworzenie drugiego panelu
-        BackgroundImagePanel = new JPanel();
-        //Ustawienie wielkości pamietajac o wielkosciach pierwszego panelu
-        BackgroundImagePanel.setBounds(160,-25,370,400);
-
-        emailText = new textArea("email", "");
-
-        panel.add(emailText);
-
-        panel.setVisible(true);
-        BackgroundImagePanel.setVisible(true);
-        panelTytul.setVisible(true);
-
-        this.add(panelTytul);
-        this.add(panel);
-        this.add(BackgroundImagePanel);
-
-        //na sztywno poki c ale trzeba zmienna zrobic
-        setSize(550, 400);
-
-        //aby zamykanie dzialalo
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        //robie visible frama
-        setVisible(true);
-        */
-
-        //skopiowane
+        System.out.println("rejestracja");
         //Wylaczam stare panele
         ButtonPanel.setEnabled(false);
         BackgroundImagePanel.setEnabled(false);
         ButtonPanel.setVisible(false);
         BackgroundImagePanel.setVisible(false);
 
-        //next.addActionListener(to); //idk
+        labelTytul = new JLabel();
+        panelTytul = new JPanel();
+        panelTytul.setBackground(Color.white);
+        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(labelTytul,panelTytul, "Zarejestruj sie");
+
         next.setText("dalej"); //ustawienie tego buttona chyba nie istnieje
-        DownButtonPanel.add(next); //inny panel
-        labelTytul.setText("Zarejestruj sie");
+        DownButtonPanel.add(next);
+        //labelTytul.setText("Zarejestruj sie");
 
         //panel4
         frameBackground = new JPanel() {
@@ -202,7 +166,7 @@ public class MyFrameRejestracja extends JFrame {
         next.setVisible(true);
         next.setLayout(null);
         next.setBounds(300, 20, 100, 50);
-        next.setText("Zaloguj");
+        next.setText("dalej");
         next.setFocusable(false);
         next.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
@@ -232,10 +196,11 @@ public class MyFrameRejestracja extends JFrame {
         panel5.add(next);
 
         //dodaje nowe panele
-        //to.add(panel3);
-        //to.add(panel4);
-        this.add(panel5);
+        to.add(panelTytul);
+        // this.add(downButton);
+        to.add(panel5);
     }
+
 
     public String getTextLogin() {
         return textLogin.getText();
