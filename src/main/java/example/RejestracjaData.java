@@ -3,18 +3,12 @@ package example;
 import example.InfoFrames.LoginInfoFrameSettings;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;s
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 //w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
 public class RejestracjaData extends JFrame{
     JLabel labelTytul;
-    JPanel panelTytul, panel, DownButtonPanel, frameBackground, panel5, Login, Password, BackgroundImagePanel;
-    JTextArea textLogin;
+    JPanel panelTytul, panel, DownButtonPanel, frameBackground, panel5,BackgroundImagePanel;
     textArea emailText;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
