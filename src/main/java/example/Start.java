@@ -4,6 +4,7 @@ import example.InfoFrames.LoginInfoFrameSettings;
 import example.InfoFrames.WelcomeMsgSettings;
 import example.buttons.Button1Settings;
 import example.buttons.Button2Settings;
+import org.apache.commons.collections4.Bag;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -24,6 +25,8 @@ public class Start extends JFrame implements ActionListener {
     JLabel label,welcomeMsgLabel;
     JButton[] button = new JButton[7];
     JFrame jFrame;
+
+    JLayeredPane jLayeredPane;
 
         /*
      *  Buttons:
@@ -71,6 +74,7 @@ public class Start extends JFrame implements ActionListener {
         label.setBounds(0, 0, 400, 300);
         BackgroundImagePanel.add(label);
 
+
         //JFrame
         jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,6 +89,14 @@ public class Start extends JFrame implements ActionListener {
         //dodaje panele do obecnego frema
         jFrame.add(ButtonPanel);
         jFrame.add(BackgroundImagePanel);
+
+        // JLayeredPane
+        jLayeredPane = new JLayeredPane();
+        jLayeredPane.setBounds(0, 0, 550, 400);
+        jLayeredPane.add(BackgroundImagePanel, JLayeredPane.DEFAULT_LAYER); // ta "domyslna" co ma byc na dnie
+        jLayeredPane.add(ButtonPanel, JLayeredPane.PALETTE_LAYER); // te ktore maja byc nad
+        jFrame.add(jLayeredPane);
+        //
 
         //Button1 - "Zaloguj"
         button[0] = new JButton();
@@ -160,7 +172,7 @@ public class Start extends JFrame implements ActionListener {
                                             // kod, który ma zostać wykonany po kliknięciu przycisku "Nowy trening"
                                             WelcomeMsgPanel.setVisible(false);
                                             WelcomeMsgPanel.setEnabled(false);
-                                            NewTraining newTraining = new NewTraining(ButtonPanel,WelcomeMsgPanel, jFrame,sessionFactory);
+                                            NewTraining newTraining = new NewTraining(ButtonPanel,WelcomeMsgPanel, jFrame,sessionFactory, BackgroundImagePanel, jLayeredPane);
                                         }
                                     });
                                     Button1Settings button1Settings = new Button1Settings(button[3], ButtonPanel, 20, 20, 130, 100, true, "Nowy trening");
@@ -187,20 +199,13 @@ public class Start extends JFrame implements ActionListener {
 
 
                                     welcomeMsgLabel = new JLabel();
-                                    WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel,WelcomeMsgPanel,  "Witaj " + user.getUsername() );
+                                    WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel,WelcomeMsgPanel,  "Witaj " + user.getUsername(),180, 330 );
+
+                                    jLayeredPane.add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
 
                                     jFrame.remove(BackgroundImagePanel);
                                     jFrame.remove(ButtonPanel);
 
-
-                                    // To trzeba zrobic na samym poczatku aby pracowac od razu na warstwach
-                                    JLayeredPane jLayeredPane = new JLayeredPane();
-                                    jLayeredPane.setBounds(0, 0, 550, 400);
-                                    jLayeredPane.add(BackgroundImagePanel, JLayeredPane.DEFAULT_LAYER); // ta "domyslna" co ma byc na dnie
-                                    jLayeredPane.add(ButtonPanel, JLayeredPane.PALETTE_LAYER); // te ktore maja byc nad
-                                    jLayeredPane.add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
-                                    jFrame.add(jLayeredPane);
-                                    //
 
                                     //session.getTransaction().commit();
                                     break;

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WelcomeMsgSettings extends JFrame {
-    public WelcomeMsgSettings(JLabel label, JPanel panel, String text) {
+    public WelcomeMsgSettings(JLabel label, JPanel panel, String text,int x ,int width) {
 
 
         label.setText(text);
@@ -20,7 +20,7 @@ public class WelcomeMsgSettings extends JFrame {
                         BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(200, 230, 255))
                 )
         ));
-        panel.setBounds(180, 20, 330, 60);
+        panel.setBounds(x, 20, width, 60);
 
         // Ustaw wymiary etykiety na takie same jak panel
         label.setPreferredSize(new Dimension(panel.getWidth(), panel.getHeight()));

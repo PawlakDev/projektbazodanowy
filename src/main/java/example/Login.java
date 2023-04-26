@@ -20,11 +20,13 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
 
     Login(JPanel panel, JPanel panel2, JFrame to, JButton jButton, JButton ButtonBack){
 
+
         //Wylaczam stare panele
         panel.setEnabled(false);
         panel2.setEnabled(false);
         panel.setVisible(false);
         panel2.setVisible(false);
+
 
         //label
         label2 = new JLabel();

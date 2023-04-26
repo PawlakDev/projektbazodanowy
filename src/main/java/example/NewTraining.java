@@ -26,7 +26,7 @@ public class NewTraining extends JFrame {
      */
     SessionFactory sessionFactory;
 
-    public NewTraining(JPanel panel, JPanel panel2, JFrame to, SessionFactory sessionFactory) {
+    public NewTraining(JPanel panel, JPanel panel2, JFrame to, SessionFactory sessionFactory,JPanel BackgroundImagePanel, JLayeredPane jLayeredPane) {
 
         this.sessionFactory = sessionFactory;
 
@@ -65,48 +65,7 @@ public class NewTraining extends JFrame {
                 button[3].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //Sprowadzam date z serwera sql
-                        Session session = null;
-
-                        session = sessionFactory.openSession();
-                        Date currentDate = (Date) session.createNativeQuery("SELECT current_timestamp").getSingleResult();
-                        session.close();
-                        //
-
-                        // Convert Date to Calendar
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTime(currentDate);
-
-                        //Format %02d oznacza, że chcemy wyświetlić liczbę jako łańcuch znaków,
-                        // z wiodącym zerem, jeśli liczba zajmuje mniej niż 2 cyfry.
-
-                        // Extract day, month, year, hour, and minute
-                        int day = calendar.get(Calendar.DAY_OF_MONTH);
-                        String Day = String.format("%02d", day);
-
-                        int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based, add 1 for human-readable format
-                        String Month = String.format("%02d", month);
-
-                        int year = calendar.get(Calendar.YEAR);
-                        String Year = String.format("%02d", year);
-
-                        //
-                        //System.out.println("Dzisiaj jest " + day + "." + month + "." + year + " a godzinka to " + hour + ":" + minute);
-
-                        int idU = 1;
-                        String date = Integer.toString(day) + Integer.toString(month)  + Integer.toString(year)  ;
-                        String type = "bieg";
-                        int km = 4;
-                        int time = 2;
-
-                        Session session2 = sessionFactory.getCurrentSession();
-                        session2.beginTransaction();
-
-                        Workouts workouts = new Workouts(idU, date, type, km, time);
-                        session2.save(workouts);
-
-                        session2.getTransaction().commit();
-                        System.out.println("Dodano trening o ID: " + workouts.getId());
+                        CreatingNewTraining creatingNewTraining = new CreatingNewTraining(sessionFactory, ButtonPanel3, BackgroundImagePanel, to, jLayeredPane);
 
                     }
                 });
