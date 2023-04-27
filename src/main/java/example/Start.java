@@ -250,38 +250,13 @@ public class Start extends JFrame implements ActionListener {
 
         //signup - rejestraca
         else if (e.getSource() == button[1]) {
-            JButton next = new JButton(); //panele do pozmieniania bo sa crazy
             JButton ButtonBack = new JButton();
 
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
-            Rejestracja signup = new Rejestracja(this, ButtonPanel, BackgroundImagePanel, next, ButtonBack);
+            Rejestracja signup = new Rejestracja(jFrame, ButtonPanel, BackgroundImagePanel, ButtonBack);
             signup.setVisible(true);
-            //this.add(signup);
-            //ustawiam next button
 
-            next.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-
-                    //te same co do logowania zmienne
-                    String text = signup.getTextLogin();
-                    String text2 = signup.getPassword(); // not safe but whatever for now
-
-                    System.out.println(text);
-                    System.out.println(text2);
-                    if(text.isEmpty() || text.equals("login") || text2.isEmpty() || text2.equals("haslo"))
-                        signup.getLabelTytul().setText("Uzupelnij haslo lub login!"); //settera by trzeba bylo zobic
-                    else {
-                        Session session = sessionFactory.getCurrentSession();
-                        session.beginTransaction();
-
-                        //addUser(sessionFactory,text, text2, "abc@e", true); //trzeba odzielne funkcje pododawać w klasie Use
-                        signup.setVisible(false);
-                        RejestracjaData frameRejestracjaData = new RejestracjaData();
-                        frameRejestracjaData.setVisible(true);
-                    }
-                }
-            });
         }
 
         //wyjscie

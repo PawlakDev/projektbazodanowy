@@ -15,13 +15,16 @@ public class Rejestracja extends JFrame {
     JLabel labelTytul;
     JPanel panelTytul, DownButtonPanel, frameBackground, panel5, Login, Password;
     JTextArea textLogin;
+
+    JButton next;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
 
     textArea emailText;
-    Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel, JButton next, JButton ButtonBack){
+    Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel, JButton ButtonBack){
 
         System.out.println("rejestracja");
+        this.DownButtonPanel = new JPanel();
         //Wylaczam stare panele
         ButtonPanel.setEnabled(false);
         BackgroundImagePanel.setEnabled(false);
@@ -33,8 +36,8 @@ public class Rejestracja extends JFrame {
         panelTytul.setBackground(Color.white);
         LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(labelTytul,panelTytul, "Zarejestruj sie");
 
-        next.setText("dalej"); //ustawienie tego buttona chyba nie istnieje
-        DownButtonPanel.add(next);
+        JButton next = new JButton(); //panele do pozmieniania bo sa crazy
+        next.setText("dalej"); //ustawienie tego buttona chyba nie istniej
         //labelTytul.setText("Zarejestruj sie");
 
         //panel4
@@ -49,7 +52,7 @@ public class Rejestracja extends JFrame {
 
         //zaczelam robic PanelSettings dla czytelnosci, ale nie wiem jeszcze czy sie przyda
         frameBackground.setBackground(new Color(200, 230, 255));
-        frameBackground.setBounds(0, 0, 400, 160);
+        frameBackground.setBounds(60, 100, 400, 160);
         frameBackground.setOpaque(false);
         frameBackground.setBorder(new LineBorder(new Color(100, 150, 200), 2, true));
         frameBackground.setVisible(true);
@@ -66,13 +69,13 @@ public class Rejestracja extends JFrame {
 
         Login = new JPanel();
         Login.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Login.setBounds(0, 20, 400, 120); // Ustaw wymiary i pozycję
+        Login.setBounds(0, 120, 400, 120); // Ustaw wymiary i pozycję
         Login.setVisible(true);
 
         //Panel "password" jest odpowiedzialny za poprawne wyswietlanie pola tekstowego do logowania
         Password = new JPanel();
         Password.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Password.setBounds(0, 80, 400, 120); // Ustaw wymiary i pozycję
+        Password.setBounds(0, 180, 400, 120); // Ustaw wymiary i pozycję
         Password.setVisible(true);
 
         // Tworzenie układu warstwowego i dodawanie paneli
@@ -85,11 +88,10 @@ public class Rejestracja extends JFrame {
 
 
         //textArea - login
-        //textLogin = new JtextArea("login", "login");
         textLogin = new JTextArea("login");
 
         textLogin.setPreferredSize(new Dimension(210,40));
-        textLogin.setBounds(20, 60, 230, 50); // Ustawia współrzędne i rozmiar
+        textLogin.setBounds(50, 60, 230, 50); // Ustawia współrzędne i rozmiar
         textLogin.setFont(new Font("MV Boli", 0, 32));
         textLogin.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
         textLogin.setBorder(new LineBorder(Color.BLACK));
@@ -117,7 +119,7 @@ public class Rejestracja extends JFrame {
 
         password.setText("haslo");//to powinno sprawiać, że wyświetla ajpierw haslo
         password.setPreferredSize(new Dimension(210,40));
-        password.setBounds(20, 60, 210, 40); // Ustawia współrzędne i rozmiar
+        password.setBounds(50, 60, 210, 40); // Ustawia współrzędne i rozmiar
         password.setFont(new Font("MV Boli", 0, 32));
         password.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
         password.setBorder(new LineBorder(Color.BLACK));
@@ -187,6 +189,32 @@ public class Rejestracja extends JFrame {
         ));
         ButtonBack.setFont(new Font("Arial", Font.BOLD, 14));
 
+        ButtonBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == ButtonBack) {
+                    System.out.println("ELO ELOOOO");
+                }
+
+                getPanel5().setVisible(false);
+                getGraphicFrame().setVisible(false);
+                Login.setVisible(false);
+                Password.setVisible(false);
+                ButtonPanel.setVisible(true);
+                BackgroundImagePanel.setVisible(true);
+            }
+        });
+
+        next.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == next) {
+                    System.out.println("next klikniety");
+                }
+
+                RejestracjaData rejestracjaData = new RejestracjaData();
+            }
+        });
+
+
         Login.add(textLogin);
         Password.add(password);
 
@@ -194,11 +222,16 @@ public class Rejestracja extends JFrame {
         panel5.add(ButtonBack);
         panel5.add(showPsw);
         panel5.add(next);
+        DownButtonPanel.add(next);
 
         //dodaje nowe panele
         to.add(panelTytul);
-        // this.add(downButton);
+        to.add(frameBackground);
         to.add(panel5);
+        to.add(DownButtonPanel);
+        to.add(Login);
+        to.add(Password);
+
     }
 
 
