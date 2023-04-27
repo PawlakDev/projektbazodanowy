@@ -36,10 +36,6 @@ public class Rejestracja extends JFrame {
         panelTytul.setBackground(Color.white);
         LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(labelTytul,panelTytul, "Zarejestruj sie");
 
-        JButton next = new JButton(); //panele do pozmieniania bo sa crazy
-        next.setText("dalej"); //ustawienie tego buttona chyba nie istniej
-        //labelTytul.setText("Zarejestruj sie");
-
         //panel4
         frameBackground = new JPanel() {
             @Override
@@ -91,7 +87,7 @@ public class Rejestracja extends JFrame {
         textLogin = new JTextArea("login");
 
         textLogin.setPreferredSize(new Dimension(210,40));
-        textLogin.setBounds(50, 60, 230, 50); // Ustawia współrzędne i rozmiar
+        textLogin.setBounds(70, 60, 230, 50); // Ustawia współrzędne i rozmiar
         textLogin.setFont(new Font("MV Boli", 0, 32));
         textLogin.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
         textLogin.setBorder(new LineBorder(Color.BLACK));
@@ -119,7 +115,7 @@ public class Rejestracja extends JFrame {
 
         password.setText("haslo");//to powinno sprawiać, że wyświetla ajpierw haslo
         password.setPreferredSize(new Dimension(210,40));
-        password.setBounds(50, 60, 210, 40); // Ustawia współrzędne i rozmiar
+        password.setBounds(70, 60, 210, 40); // Ustawia współrzędne i rozmiar
         password.setFont(new Font("MV Boli", 0, 32));
         password.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
         password.setBorder(new LineBorder(Color.BLACK));
@@ -163,19 +159,6 @@ public class Rejestracja extends JFrame {
             }
         });
 
-        // next - Zaloguj
-        next.setBackground(new Color(200, 230, 255));
-        next.setVisible(true);
-        next.setLayout(null);
-        next.setBounds(300, 20, 100, 50);
-        next.setText("dalej");
-        next.setFocusable(false);
-        next.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        next.setFont(new Font("Arial", Font.BOLD, 14));
-
         // next - Cofnij
         ButtonBack.setBackground(new Color(200, 230, 255));
         ButtonBack.setVisible(true);
@@ -204,12 +187,30 @@ public class Rejestracja extends JFrame {
             }
         });
 
+        // next - powinno przekierowac na rejestracjadane
+        JButton next = new JButton(); //panele do pozmieniania bo sa crazy
+        next.setText("dalej"); //ustawienie tego buttona chyba nie istniej
+
+        next.setBackground(new Color(200, 230, 255));
+        next.setVisible(true);
+        next.setLayout(null);
+        next.setBounds(300, 20, 100, 50);
+        next.setText("dalej");
+        next.setFocusable(false);
+        next.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        next.setFont(new Font("Arial", Font.BOLD, 14));
+
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == next) {
                     System.out.println("next klikniety");
                 }
+                System.out.println(getTextLogin());
 
+                //otwiera nowe okno zamiast gasic poprzednie
                 RejestracjaData rejestracjaData = new RejestracjaData();
             }
         });
@@ -222,13 +223,11 @@ public class Rejestracja extends JFrame {
         panel5.add(ButtonBack);
         panel5.add(showPsw);
         panel5.add(next);
-        DownButtonPanel.add(next);
 
         //dodaje nowe panele
         to.add(panelTytul);
         to.add(frameBackground);
         to.add(panel5);
-        to.add(DownButtonPanel);
         to.add(Login);
         to.add(Password);
 
