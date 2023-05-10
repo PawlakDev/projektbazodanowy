@@ -1,22 +1,30 @@
 package example;
 
+import example.InfoFrames.LoginInfoFrameSettings;
 import example.InfoFrames.WelcomeMsgSettings;
 import example.buttons.Button1Settings;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
 
 public class CreatingNewTraining {
-    JPanel ButtonPanel4, wellcomeMsgPanel;
-    JLabel wellcomeMsgLabel;
+    JPanel ButtonPanel4, wellcomeMsgPanel,WpisTekstPanel;
+    JLabel wellcomeMsgLabel,WpisTekstLabel;
     JButton[] button = new JButton[6]; // wartosc do zmiany
+
+    JTextArea jTextArea;
     public CreatingNewTraining(SessionFactory sessionFactory, JPanel ButtonPanel3, JPanel BackgroundImagePanel, JFrame to, JLayeredPane jLayeredPane) {
+
         ButtonPanel3.setEnabled(false);
         ButtonPanel3.setVisible(false);
+
 
         ButtonPanel4 = new JPanel();
         ButtonPanel4.setBounds(0, 0, 500, 400);
@@ -33,6 +41,36 @@ public class CreatingNewTraining {
         jLayeredPane.add(ButtonPanel4, JLayeredPane.PALETTE_LAYER); //
 
         button[0] = new JButton();
+        button[0].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ButtonPanel4.setVisible(false);
+                ButtonPanel4.setEnabled(false);
+
+                //wellcomeMsgPanel.setVisible(false);
+                //   wellcomeMsgPanel.setEnabled(false);
+
+                WpisTekstLabel = new JLabel();
+                WpisTekstPanel = new JPanel();
+                WpisTekstPanel.setBounds(60,160,160,400);
+
+                jLayeredPane.add(WpisTekstPanel, JLayeredPane.PALETTE_LAYER); //
+
+                WelcomeMsgSettings welcomeMsgSettings1 = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wpisz Opis", 120, 310 );
+
+                jTextArea = new JTextArea();
+
+                //jTextArea.setText("haslo");/
+                jTextArea.setPreferredSize(new Dimension(160,400));
+                jTextArea.setBounds(0, 0, 160, 400); // Ustawia współrzędne i rozmiar
+                jTextArea.setFont(new Font("MV Boli", 0, 32));
+                jTextArea.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
+                jTextArea.setBorder(new LineBorder(Color.BLACK));
+
+                WpisTekstPanel.add(jTextArea);
+            }
+        });
+
         Button1Settings button1Settings = new Button1Settings(button[0], ButtonPanel4, 40, 120, 130, 100, true, "Bieg");
 
         button[1] = new JButton();
@@ -48,6 +86,22 @@ public class CreatingNewTraining {
         Button1Settings button5Settings = new Button1Settings(button[4], ButtonPanel4, 370, 240, 130, 100, true, "Inne - Gry zespolowe");
 
         button[5] = new JButton();
+        button[5].addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            ButtonPanel4.setEnabled(false);
+                                            ButtonPanel4.setVisible(false);
+
+                                            wellcomeMsgPanel.setEnabled(false);
+                                            wellcomeMsgPanel.setVisible(false);
+
+
+                                            ButtonPanel3.setEnabled(true);
+                                            ButtonPanel3.setVisible(true);
+
+
+                                        }
+                                    });
         Button1Settings button6Settings = new Button1Settings(button[5], ButtonPanel4, 40, 240, 130, 100, true, "Cofnij");
 
 

@@ -14,12 +14,15 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Start extends JFrame implements ActionListener {
+    public static Object session; //?
+    public static JButton jButton;
+    public static JButton ButtonBack;
     static boolean change = false;
     JLabel label,welcomeMsgLabel;
-    JButton[] button = new JButton[7];
-    JFrame jFrame;
+    static JButton[] button = new JButton[7];
+    static JFrame jFrame;
 
-    JLayeredPane jLayeredPane;
+    static JLayeredPane jLayeredPane;
 
         /*
      *  Buttons:
@@ -31,7 +34,9 @@ public class Start extends JFrame implements ActionListener {
      *  5 - Wyswietl treningi
      *
         */
-    JPanel ButtonPanel, BackgroundImagePanel,WelcomeMsgPanel;
+        static JPanel ButtonPanel;
+    static JPanel BackgroundImagePanel;
+    JPanel WelcomeMsgPanel;
 
     SessionFactory sessionFactory;
 
@@ -255,7 +260,6 @@ public class Start extends JFrame implements ActionListener {
             //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
 
             Rejestracja signup = new Rejestracja(jFrame, ButtonPanel, BackgroundImagePanel, ButtonBack);
-            signup.setVisible(true);
 
         }
 
