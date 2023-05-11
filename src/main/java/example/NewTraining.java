@@ -66,7 +66,7 @@ public class NewTraining extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         CreatingNewTraining creatingNewTraining = new CreatingNewTraining(sessionFactory, ButtonPanel3, BackgroundImagePanel, to, jLayeredPane);
-
+                        creatingNewTraining.zrob();
                     }
                 });
 

@@ -15,13 +15,26 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CreatingNewTraining {
-    JPanel ButtonPanel4, wellcomeMsgPanel,WpisTekstPanel;
-    JLabel wellcomeMsgLabel,WpisTekstLabel;
-    JButton[] button = new JButton[6]; // wartosc do zmiany
+    private JPanel ButtonPanel4, wellcomeMsgPanel,WpisTekstPanel,ButtonPanel3,BackgroundImagePanel;
+    private JLabel wellcomeMsgLabel,WpisTekstLabel;
+    private JButton[] button = new JButton[6]; // wartosc do zmiany
+    private SessionFactory sessionFactory;
+
+    JLayeredPane jLayeredPane;
+
+    JFrame to;
+
 
     JTextArea jTextArea;
     public CreatingNewTraining(SessionFactory sessionFactory, JPanel ButtonPanel3, JPanel BackgroundImagePanel, JFrame to, JLayeredPane jLayeredPane) {
+        this.sessionFactory = sessionFactory;
+        this.ButtonPanel3 = ButtonPanel3;
+        this.BackgroundImagePanel = BackgroundImagePanel;
+        this.to=to;
+        this.jLayeredPane = jLayeredPane;
+    }
 
+    public void zrob(){
         ButtonPanel3.setEnabled(false);
         ButtonPanel3.setVisible(false);
 
@@ -87,21 +100,21 @@ public class CreatingNewTraining {
 
         button[5] = new JButton();
         button[5].addActionListener(new ActionListener() {
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-                                            ButtonPanel4.setEnabled(false);
-                                            ButtonPanel4.setVisible(false);
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ButtonPanel4.setEnabled(false);
+                ButtonPanel4.setVisible(false);
 
-                                            wellcomeMsgPanel.setEnabled(false);
-                                            wellcomeMsgPanel.setVisible(false);
-
-
-                                            ButtonPanel3.setEnabled(true);
-                                            ButtonPanel3.setVisible(true);
+                wellcomeMsgPanel.setEnabled(false);
+                wellcomeMsgPanel.setVisible(false);
 
 
-                                        }
-                                    });
+                ButtonPanel3.setEnabled(true);
+                ButtonPanel3.setVisible(true);
+
+
+            }
+        });
         Button1Settings button6Settings = new Button1Settings(button[5], ButtonPanel4, 40, 240, 130, 100, true, "Cofnij");
 
 

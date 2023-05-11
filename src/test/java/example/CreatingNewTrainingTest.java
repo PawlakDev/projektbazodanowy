@@ -97,6 +97,7 @@ class CreatingNewTrainingTest {
         ////////////////////////////////////////////////////////////////////////////////////
 
         CreatingNewTraining creatingNewTraining = new CreatingNewTraining(session,ButtonPanel3,BackgroundImagePanel,frame,jLayeredPane);
+        creatingNewTraining.zrob();
 
 
         sleep(500000);
