@@ -16,12 +16,12 @@ public class Rejestracja extends JFrame {
     JPanel panelTytul, DownButtonPanel, frameBackground, panel5, Login, Password;
     JTextArea textLogin;
 
-    JButton next;
+    JButton next, ButtonBack;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
 
     textArea emailText;
-    Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel, JButton ButtonBack){
+    Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
 
         System.out.println("rejestracja");
         this.DownButtonPanel = new JPanel();
@@ -159,6 +159,7 @@ public class Rejestracja extends JFrame {
             }
         });
 
+        ButtonBack = new JButton();
         // next - Cofnij
         ButtonBack.setBackground(new Color(200, 230, 255));
         ButtonBack.setVisible(true);
@@ -188,7 +189,7 @@ public class Rejestracja extends JFrame {
         });
 
         // next - powinno przekierowac na rejestracjadane
-        JButton next = new JButton(); //panele do pozmieniania bo sa crazy
+        next = new JButton(); //panele do pozmieniania bo sa crazy
         next.setText("dalej"); //ustawienie tego buttona chyba nie istniej
 
         next.setBackground(new Color(200, 230, 255));
@@ -208,14 +209,17 @@ public class Rejestracja extends JFrame {
                 if (e.getSource() == next) {
                     System.out.println("next klikniety");
                 }
-                System.out.println(getTextLogin());
-
-                //otwiera nowe okno zamiast gasic poprzednie
-                RejestracjaData rejestracjaData = new RejestracjaData();
+                if(textLogin.getText().equals("login") || textLogin.getText().equals("") || password.getText().equals("") || password.getText().equals("haslo"))
+                    labelTytul.setText("Bledne dane!");
+                else{
+                    //przechodze do kolejnego okna uzupelniania danych
+                    labelTytul.setVisible(false);
+                    showPsw.setVisible(false);
+                    showPsw.setEnabled(false);
+                    RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, frameBackground, Login, Password);
+                }
             }
         });
-
-
         Login.add(textLogin);
         Password.add(password);
 

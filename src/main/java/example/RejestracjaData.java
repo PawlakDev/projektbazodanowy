@@ -3,42 +3,43 @@ package example;
 import example.InfoFrames.LoginInfoFrameSettings;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 //w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
 public class RejestracjaData extends JFrame{
     JLabel labelTytul;
-    JPanel panelTytul, panel, DownButtonPanel, frameBackground, panel5,BackgroundImagePanel;
+    JPanel panel2, panel;
     textArea emailText;
+    boolean athlete;
     JTextArea email;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
-    RejestracjaData(){
-        setLayout(new BorderLayout());
+    RejestracjaData(JFrame to, JPanel panelTytul, JPanel frameBackground, JPanel Login, JPanel Password){
+
+        //Wylaczam stare panele
+//        frameBackground.setVisible(false);
+//        frameBackground.setVisible(false);
+        Login.setVisible(false);
+        Login.setVisible(false);
+        Password.setVisible(false);
+        Password.setVisible(false);
 
         //ustawiam label
         labelTytul = new JLabel();
-
-        //i ButtonPanel do niego
-        panelTytul = new JPanel();
-        panelTytul.setBackground(Color.white);
-        //xd
         LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul,panelTytul, "Uzupelnij dane");
 
         panel = new JPanel();
         //Ustawianie jego wielkosci
-        panel.setBounds(4,100,500,400); //to jest tn bialy tlo
+        panel.setBounds(20,100,450,300); //to jest tn bialy tlo
         //Ustawienie koloru tla
         panel.setBackground(Color.white);
 
-        //Tworzenie drugiego panelu
-        BackgroundImagePanel = new JPanel();
-        //Ustawienie wielkości pamietajac o wielkosciach pierwszego panelu
-        BackgroundImagePanel.setBounds(160,-25,370,400);
-
-        //to jest to co nie dziala
+        //to jest to co nie dzialaten text area do zmiany
         emailText = new textArea("email", "");
         
         //brzydkie ale dziala
@@ -62,24 +63,45 @@ public class RejestracjaData extends JFrame{
             }
         });
 
+        panel2 = new JPanel();
+        //Ustawianie jego wielkosci
+        panel2.setBounds(10,120,250,100);
+        panel2.setOpaque(false);
+
+        JToggleButton changeFunct = new JToggleButton("zawodnik");
+        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(changeFunct,   100,20,80,50);
+        changeFunct.setFont(new Font("Arial", Font.BOLD, 14));
+
+        changeFunct.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        
+        changeFunct.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (changeFunct.isSelected()) {
+                    changeFunct.setText("zawodnik");
+                    athlete = true;
+
+                } else {
+                    changeFunct.setText("trener");
+                    athlete = false;
+                }
+            }
+        });
+
+        panel2.add(changeFunct);
         panel.add(emailText);
-        panel.add(email);
+        panel.add(email); // jeden z tych emaili trzeba usunac
 
         panel.setVisible(true);
-        BackgroundImagePanel.setVisible(true);
+        panel2.setVisible(true);
         panelTytul.setVisible(true);
 
-        this.add(panelTytul);
-        this.add(panel);
-        this.add(BackgroundImagePanel);
+        to.add(panelTytul);
+        to.add(panel);
+        to.add(panel2);
 
-        //na sztywno poki c ale trzeba zmienna zrobic
-        setSize(550, 400);
-
-        //aby zamykanie dzialalo
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        //robie visible frama
-        setVisible(true);
     }
 }

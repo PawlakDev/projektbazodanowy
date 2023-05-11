@@ -255,12 +255,8 @@ public class Start extends JFrame implements ActionListener {
 
         //signup - rejestraca
         else if (e.getSource() == button[1]) {
-            JButton ButtonBack = new JButton();
-
-            //CardLayout cardLayout = new CardLayout(); //Layout pozwala zmieniac framy na tym samym oknie
-
-            Rejestracja signup = new Rejestracja(jFrame, ButtonPanel, BackgroundImagePanel, ButtonBack);
-
+            //Otwieram frame rejstracja
+            Rejestracja signup = new Rejestracja(jFrame, ButtonPanel, BackgroundImagePanel);
         }
 
         //wyjscie
