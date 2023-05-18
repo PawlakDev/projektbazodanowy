@@ -96,8 +96,11 @@ public class Start extends JFrame implements ActionListener {
         jFrame.add(jLayeredPane);
         //
 
+
         //Button1 - "Zaloguj"
         button[0] = new JButton();
+        button[0].setVisible(true);
+        button[0].setEnabled(true);
         button[0].addActionListener(this);
         Button1Settings button1Settings = new Button1Settings(button[0], ButtonPanel, 20, 20, 130, 100, true, "Zaloguj");
 
@@ -110,6 +113,11 @@ public class Start extends JFrame implements ActionListener {
         button[2] = new JButton();
         button[2].addActionListener(this);
         Button2Settings button3Settings = new Button2Settings(button[2], ButtonPanel, 20, 240, 130, 100, "Wyjdz");
+
+        for(int i=0;i<4;i++){
+            button[i].setVisible(true);
+            button[i].setEnabled(true);
+        }
     }
 
     @Override

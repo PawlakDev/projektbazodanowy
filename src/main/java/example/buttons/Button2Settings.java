@@ -9,8 +9,9 @@ public class Button2Settings extends JFrame {
         button.setBounds(x,y,width,height);
         button.setText(text);
         button.setFocusable(false);
-        button.setEnabled(true);
         button.setBorder(BorderFactory.createEtchedBorder());
+        button.setEnabled(true);
+        button.setVisible(true);
         panel.add(button , BorderLayout.NORTH);
     }
 }
