@@ -90,6 +90,9 @@ public class RejestracjaData extends JFrame{
         });
         changeFunct.setVisible(true);
 
+
+        //backbutton ogarnac zeby p naisnieciu sie wylaczal email
+
         panel2.add(changeFunct);
         //panel.add(emailText);
         panel.add(email); // jeden z tych emaili trzeba usunac
