@@ -3,7 +3,6 @@ package example;
 import example.InfoFrames.LoginInfoFrameSettings;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,13 +16,10 @@ public class RejestracjaData extends JFrame{
     textArea emailText;
     boolean athlete;
     JTextArea email;
-    private JPasswordField password;
-    private JLayeredPane GraphicFrame;
-    RejestracjaData(JFrame to, JPanel panelTytul, JPanel frameBackground, JPanel Login, JPanel Password){
+
+    RejestracjaData(JFrame to, JPanel panelTytul, JPanel Login, JPanel Password){
 
         //Wylaczam stare panele
-//        frameBackground.setVisible(false);
-//        frameBackground.setVisible(false);
         Login.setVisible(false);
         Login.setVisible(false);
         Password.setVisible(false);
@@ -34,14 +30,13 @@ public class RejestracjaData extends JFrame{
         LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul,panelTytul, "Uzupelnij dane");
 
         panel = new JPanel();
-        //Ustawianie jego wielkosci
-        panel.setBounds(20,100,450,300); //to jest tn bialy tlo
-        //Ustawienie koloru tla
-        panel.setBackground(Color.white);
+        panel.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
+        panel.setBounds(20, 120, 400, 120); // Ustaw wymiary i pozycję
+        panel.setVisible(true);
 
         //to jest to co nie dzialaten text area do zmiany
         emailText = new textArea("email", "");
-        
+
         //brzydkie ale dziala
         // zrobione na razie byle bylo
         email = new JTextArea("email", 1, 20);
@@ -63,10 +58,13 @@ public class RejestracjaData extends JFrame{
             }
         });
 
+        // juz mi sie mieszaja te panele wiec jest chaos
         panel2 = new JPanel();
         //Ustawianie jego wielkosci
-        panel2.setBounds(10,120,250,100);
-        panel2.setOpaque(false);
+        panel2.setBounds(10,120,300,100);
+        panel2.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
+        panel2.setBounds(20, 120, 400, 120); // Ustaw wymiary i pozycję
+        panel2.setVisible(true);
 
         JToggleButton changeFunct = new JToggleButton("zawodnik");
         ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(changeFunct,   100,20,80,50);
@@ -76,7 +74,7 @@ public class RejestracjaData extends JFrame{
                 BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-        
+
         changeFunct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,9 +88,10 @@ public class RejestracjaData extends JFrame{
                 }
             }
         });
+        changeFunct.setVisible(true);
 
         panel2.add(changeFunct);
-        panel.add(emailText);
+        //panel.add(emailText);
         panel.add(email); // jeden z tych emaili trzeba usunac
 
         panel.setVisible(true);

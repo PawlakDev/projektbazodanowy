@@ -1,7 +1,6 @@
 package example;
 
 import example.InfoFrames.LoginInfoFrameSettings;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.Const;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -13,14 +12,21 @@ import java.awt.event.FocusEvent;
 
 public class Rejestracja extends JFrame {
     JLabel labelTytul;
-    JPanel panelTytul, DownButtonPanel, frameBackground, panel5, Login, Password;
+    JPanel panelTytul;
+    JPanel DownButtonPanel;
+
+
+
+    JPanel frameBackground;
+    JPanel panel5;
+    JPanel Login;
+    JPanel Password;
     JTextArea textLogin;
 
     JButton next, ButtonBack;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
 
-    textArea emailText;
     Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
 
         System.out.println("rejestracja");
@@ -65,13 +71,13 @@ public class Rejestracja extends JFrame {
 
         Login = new JPanel();
         Login.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Login.setBounds(0, 120, 400, 120); // Ustaw wymiary i pozycję
+        Login.setBounds(20, 120, 400, 120); // Ustaw wymiary i pozycję
         Login.setVisible(true);
 
         //Panel "password" jest odpowiedzialny za poprawne wyswietlanie pola tekstowego do logowania
         Password = new JPanel();
         Password.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Password.setBounds(0, 180, 400, 120); // Ustaw wymiary i pozycję
+        Password.setBounds(20, 180, 400, 120); // Ustaw wymiary i pozycję
         Password.setVisible(true);
 
         // Tworzenie układu warstwowego i dodawanie paneli
@@ -185,6 +191,7 @@ public class Rejestracja extends JFrame {
                 Password.setVisible(false);
                 ButtonPanel.setVisible(true);
                 BackgroundImagePanel.setVisible(true);
+                frameBackground.setVisible(false);
             }
         });
 
@@ -216,7 +223,7 @@ public class Rejestracja extends JFrame {
                     labelTytul.setVisible(false);
                     showPsw.setVisible(false);
                     showPsw.setEnabled(false);
-                    RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, frameBackground, Login, Password);
+                    RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
                 }
             }
         });
@@ -236,7 +243,6 @@ public class Rejestracja extends JFrame {
         to.add(Password);
 
     }
-
 
     public String getTextLogin() {
         return textLogin.getText();
@@ -266,7 +272,9 @@ public class Rejestracja extends JFrame {
     public JLabel getLabelTytul() {
         return labelTytul;
     }
-
+    public void setFrameBackground(JPanel frameBackground) {
+        this.frameBackground = frameBackground;
+    }
 
     public String getPassword()
     {

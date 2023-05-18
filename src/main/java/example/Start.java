@@ -117,6 +117,7 @@ public class Start extends JFrame implements ActionListener {
         for(int i=0;i<3;i++){
             button[i].setVisible(true);
             button[i].setEnabled(true);
+            button[i].setRolloverEnabled(false);
         }
     }
 
