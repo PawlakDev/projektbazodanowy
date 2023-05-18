@@ -114,7 +114,7 @@ public class Start extends JFrame implements ActionListener {
         button[2].addActionListener(this);
         Button2Settings button3Settings = new Button2Settings(button[2], ButtonPanel, 20, 240, 130, 100, "Wyjdz");
 
-        for(int i=0;i<4;i++){
+        for(int i=0;i<3;i++){
             button[i].setVisible(true);
             button[i].setEnabled(true);
         }
