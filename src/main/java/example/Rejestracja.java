@@ -4,6 +4,9 @@ import example.InfoFrames.LoginInfoFrameSettings;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -32,7 +35,7 @@ public class Rejestracja extends JFrame {
     private JLayeredPane GraphicFrame;
 
 
-    Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
+    Rejestracja(SessionFactory sessionFactory, JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
 
 
         System.out.println("rejestracja");
@@ -217,13 +220,14 @@ public class Rejestracja extends JFrame {
         ));
         next.setFont(new Font("Arial", Font.BOLD, 14));
 
+        final boolean[] ok = {true}; // zmienna pomocnicza "tyczasowa" bo nie wiem jaki warunek dac do else if
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // tu sprawdzam czy login i haslo zostalo uzupelnione
                 if (textLogin.getText().equals("login") || textLogin.getText().equals("") || password.getText().equals("") || password.getText().equals("haslo"))
                     labelTytul.setText("Bledne dane!");
-                // tu do sprawdzania w bazie czu juz istnieje login
-                else {
+                else{
+                    // tu do sprawdzania w bazie czu juz istnieje login
                     Session session = null;
                     Transaction transaction = null;
                     try {
@@ -235,6 +239,7 @@ public class Rejestracja extends JFrame {
                         for (User user : users) {
                             if (user.getUsername().equals(text)) {
                                 labelTytul.setText("Podany login juz istnieje");
+                                ok[0] = false;
                             }
                         }
                         transaction.commit();
@@ -248,14 +253,15 @@ public class Rejestracja extends JFrame {
                             session.close();
                         }
                     }
+                    // poprawne dane do loginu i hasla - przechodze do kolejnego okna
+                    if (ok[0] == true) {
+                        labelTytul.setVisible(false);
+                        showPsw.setVisible(false);
+                        showPsw.setEnabled(false);
+                        //tu funcja tworzenia user;
+                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
+                    }
                 }
-                // poprawne dane do loginu i hasla
-                //przechodze do kolejnego okna uzupelniania danych
-                labelTytul.setVisible(false);
-                showPsw.setVisible(false);
-                showPsw.setEnabled(false);
-                //tu funcja tworzenia user;
-                RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
             }
         });
         Login.add(textLogin);
