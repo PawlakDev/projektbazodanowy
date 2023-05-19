@@ -1,0 +1,13 @@
+# build output
+target/
+bin/
+*.log
+*.env
+
+# meaven
+*.mvn
+mvnw
+mvnw.cmd
+
+# intellij
+*.iml

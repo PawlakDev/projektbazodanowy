@@ -1,6 +1,7 @@
 package example;
 
 import example.InfoFrames.LoginInfoFrameSettings;
+//import example.InfoFrames.RejestracjaData;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -14,8 +15,6 @@ public class Rejestracja extends JFrame {
     JLabel labelTytul;
     JPanel panelTytul;
     JPanel DownButtonPanel;
-
-
 
     JPanel frameBackground;
     JPanel panel5;
@@ -97,6 +96,7 @@ public class Rejestracja extends JFrame {
         textLogin.setFont(new Font("MV Boli", 0, 32));
         textLogin.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
         textLogin.setBorder(new LineBorder(Color.BLACK));
+        //textLogin.setRolloverEnabled(false);
 
         textLogin.addFocusListener(new FocusAdapter() {
             @Override
@@ -192,6 +192,7 @@ public class Rejestracja extends JFrame {
                 ButtonPanel.setVisible(true);
                 BackgroundImagePanel.setVisible(true);
                 frameBackground.setVisible(false);
+                LoginInfoFrameSettings loginInfoFrameSettings2 = new LoginInfoFrameSettings(labelTytul,panelTytul, "Zaloguj sie");
             }
         });
 
@@ -223,7 +224,8 @@ public class Rejestracja extends JFrame {
                     labelTytul.setVisible(false);
                     showPsw.setVisible(false);
                     showPsw.setEnabled(false);
-                    RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
+                    panelTytul.setVisible(false);
+                    RejestracjaData rejestracja2 = new RejestracjaData(to, panelTytul, Login, Password);
                 }
             }
         });

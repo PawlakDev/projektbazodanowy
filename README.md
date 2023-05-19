@@ -1,7 +1,25 @@
 # Dzienniczek treningowy
 Projekt na zajęcia "projekt bazodanowy" na studia. *projekt jeszcze in progress*. 
-Projekt implementuje dzienniczek treningowy dla wioślarzy, w którym (będzie) można po logowaniu między innymi zapisywać swoje dane na temat treningów.
+Projekt implementuje dzienniczek treningowy dla wioślarzy, w celu kontrolowania swoich aktywności.
 
-W projekcie korzystamy z Javy, PostgreSQL i Hibernate.
-Docelowo, użytkownik po zalogowaniu (rejestracji) będzie miał możliwośc dodania nowego treningu wraz z wyborem rodzaju aktywności: bieg, trening na wodzie, trening na ergometrze, siłownia itp i uzupełnieniu opisu przebytego treningu (przebyte kilometry, czas trwania). Użytkownik będzie miał również możliwość zmodyfikowania treningu. Dodatkowo, planujemy dodanie synchronizacji treningów z zegarka marki Garmin. 
-Warto zauważyć, że będą 2 rodzaje użytkowników: zawodnik i trener. Trener będzie miał dostęp do treningów zawodników i możliwość wyświetlenia informacji w arkuszu Excel. Zawodnik będzie miał dostęp tylko do swoich treningów.
+## Specyfikacja
+Projekt implementuje dzienniczek treningowy dla sportowców, w który po logowaniu (lub rejestracji), umóżliwia zapisywanie, modyfikowanie i przegladanie odbytych treningów.
+
+### Podstawowe funkcjonalnosci 
+Po logowaniu użytkownik ma możliwość dodania nowego treningu, modyfikacje, usuwanie i wyświetlanie.
+Podczas dodawania treningu użytkownik wypełnia dane na temat treningu: Najpierw typ treningu (trening biegowy, siłownia, itp..), następnie inne waże informacje na temat treningu (przebyte kilometry, czas, opis itp).
+Modyfikować można wybranie informacje na temat treningu. Można również usuwać treningi.
+Jest możliwość wyświetlenia wszystkich zapisanych treningów, jak również wyszukiwanie po wybranych polach (np typie treningów lub dacie).
+Użytkownik zalogowany jako trener ma dostęp do treningów wszystkich zawodników, a użytkownik zalogowany jako zawodnik ma dostęp tylko do swoich treningów.
+
+
+### Dodatkowe funkcjonalnosci
+* Mozliwość wyswietlania danych w arkuszu Excel
+* Ściągnięcie danych o treningach z zegarków Garmin (API)
+* Podstwowa analiza odbytych treningów (wykresy i statystyki, łączny czas treningow, najczęstrza odbywana aktywność itp)
+
+## Technologie
+* Java
+* Hibernate
+* PostgreSQL
+* Maven
