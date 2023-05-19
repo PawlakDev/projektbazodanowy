@@ -265,7 +265,7 @@ public class Start extends JFrame implements ActionListener {
         //signup - rejestraca
         else if (e.getSource() == button[1]) {
             //Otwieram frame rejstracja
-            Rejestracja signup = new Rejestracja(jFrame, ButtonPanel, BackgroundImagePanel);
+            Rejestracja signup = new Rejestracja(sessionFactory, jFrame, ButtonPanel, BackgroundImagePanel);
         }
 
         //wyjscie
@@ -274,12 +274,5 @@ public class Start extends JFrame implements ActionListener {
                 System.exit(0);
             }
         }
-    }
-
-
-    //metoda do zmiany framow
-    public void switchFrames(JFrame oldFrame, JFrame newFrame) {
-        oldFrame.setVisible(false);
-        newFrame.setVisible(true);
     }
 }

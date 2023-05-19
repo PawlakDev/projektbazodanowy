@@ -1,7 +1,12 @@
 package example;
 
 import example.InfoFrames.LoginInfoFrameSettings;
-//import example.InfoFrames.RejestracjaData;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -10,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.List;
+
+import static example.Main.sessionFactory;
 
 public class Rejestracja extends JFrame {
     JLabel labelTytul;
@@ -26,7 +34,9 @@ public class Rejestracja extends JFrame {
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
 
-    Rejestracja(JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
+
+    Rejestracja(SessionFactory sessionFactory, JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
+
 
         System.out.println("rejestracja");
         this.DownButtonPanel = new JPanel();
@@ -96,7 +106,6 @@ public class Rejestracja extends JFrame {
         textLogin.setFont(new Font("MV Boli", 0, 32));
         textLogin.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
         textLogin.setBorder(new LineBorder(Color.BLACK));
-        //textLogin.setRolloverEnabled(false);
 
         textLogin.addFocusListener(new FocusAdapter() {
             @Override
@@ -192,7 +201,6 @@ public class Rejestracja extends JFrame {
                 ButtonPanel.setVisible(true);
                 BackgroundImagePanel.setVisible(true);
                 frameBackground.setVisible(false);
-                LoginInfoFrameSettings loginInfoFrameSettings2 = new LoginInfoFrameSettings(labelTytul,panelTytul, "Zaloguj sie");
             }
         });
 
@@ -212,20 +220,47 @@ public class Rejestracja extends JFrame {
         ));
         next.setFont(new Font("Arial", Font.BOLD, 14));
 
+        final boolean[] ok = {true}; // zmienna pomocnicza "tyczasowa" bo nie wiem jaki warunek dac do else if
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == next) {
-                    System.out.println("next klikniety");
-                }
-                if(textLogin.getText().equals("login") || textLogin.getText().equals("") || password.getText().equals("") || password.getText().equals("haslo"))
+                // tu sprawdzam czy login i haslo zostalo uzupelnione
+                if (textLogin.getText().equals("login") || textLogin.getText().equals("") || password.getText().equals("") || password.getText().equals("haslo"))
                     labelTytul.setText("Bledne dane!");
                 else{
-                    //przechodze do kolejnego okna uzupelniania danych
-                    labelTytul.setVisible(false);
-                    showPsw.setVisible(false);
-                    showPsw.setEnabled(false);
-                    panelTytul.setVisible(false);
-                    RejestracjaData rejestracja2 = new RejestracjaData(to, panelTytul, Login, Password);
+                    // tu do sprawdzania w bazie czu juz istnieje login
+                    Session session = null;
+                    Transaction transaction = null;
+                    try {
+                        session = sessionFactory.getCurrentSession();
+                        transaction = session.beginTransaction();
+                        String text = textLogin.getText();
+                        System.out.println(text);
+                        List<User> users = session.createQuery("from User", User.class).getResultList();
+                        for (User user : users) {
+                            if (user.getUsername().equals(text)) {
+                                labelTytul.setText("Podany login juz istnieje");
+                                ok[0] = false;
+                            }
+                        }
+                        transaction.commit();
+                    } catch (HibernateException ex) {
+                        if (transaction != null) {
+                            transaction.rollback();
+                        }
+                        throw new RuntimeException(ex);
+                    } finally {
+                        if (session != null) {
+                            session.close();
+                        }
+                    }
+                    // poprawne dane do loginu i hasla - przechodze do kolejnego okna
+                    if (ok[0] == true) {
+                        labelTytul.setVisible(false);
+                        showPsw.setVisible(false);
+                        showPsw.setEnabled(false);
+                        //tu funcja tworzenia user;
+                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
+                    }
                 }
             }
         });
