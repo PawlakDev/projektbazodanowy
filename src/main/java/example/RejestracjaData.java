@@ -19,6 +19,7 @@ public class RejestracjaData extends JFrame{
 
     RejestracjaData(JFrame to, JPanel panelTytul, JPanel Login, JPanel Password){
 
+        System.out.println("rejestracja2");
         //Wylaczam stare panele
         Login.setVisible(false);
         Login.setVisible(false);
@@ -28,6 +29,7 @@ public class RejestracjaData extends JFrame{
         //ustawiam label
         labelTytul = new JLabel();
         LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul,panelTytul, "Uzupelnij dane");
+        //labelTytul.setText("Zarejestruj sie");
 
         panel = new JPanel();
         panel.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)

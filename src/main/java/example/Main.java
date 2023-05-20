@@ -41,7 +41,7 @@ public class Main {
                 switch (choice) {
 
                     case 1:
-                        addUser(sessionFactory, scanner);
+                        //addUser(sessionFactory, scanner);
                         break;
                     case 2:
                         deleteUser(sessionFactory, scanner);
@@ -104,26 +104,26 @@ public class Main {
     }
 
     //raczej do usuniecia
-    private static void addUser(SessionFactory sessionFactory, Scanner scanner) {
-
-        System.out.println("Podaj login użytkownika: ");
-        String username = scanner.nextLine();
-
-        System.out.println("Podaj email użytkownika: ");
-        String email = scanner.nextLine();
-
-        System.out.println("Podaj hasło użytkownika: ");
-        String password = scanner.nextLine();
-
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-
-        User user = new User(username, email, password, true);
-        session.save(user);
-
-        session.getTransaction().commit();
-        System.out.println("Dodano użytkownika o ID: " + user.getId());
-    }
+//    private static void addUser(SessionFactory sessionFactory, Scanner scanner) {
+//
+//        System.out.println("Podaj login użytkownika: ");
+//        String username = scanner.nextLine();
+//
+//        System.out.println("Podaj email użytkownika: ");
+//        String email = scanner.nextLine();
+//
+//        System.out.println("Podaj hasło użytkownika: ");
+//        String password = scanner.nextLine();
+//
+//        Session session = sessionFactory.getCurrentSession();
+//        session.beginTransaction();
+//
+//        User user = new User(username, email, password, true);
+//        session.save(user);
+//
+//        session.getTransaction().commit();
+//        System.out.println("Dodano użytkownika o ID: " + user.getId());
+//    }
 
 
     private static void modifyUser(SessionFactory sessionFactory, Scanner scanner) {

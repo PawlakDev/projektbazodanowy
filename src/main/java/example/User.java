@@ -31,12 +31,21 @@ public class User {
     public User() {
     }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.email = "default@email.com";
+        this.isAthlete = false;
+    }
+
     public User(String username, String email, String password, boolean isAthlete) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isAthlete = isAthlete;
     }
+
+
 
     public int getId() {
         return id;
@@ -78,14 +87,12 @@ public class User {
     }
 
     //wyzwalacz co to
-    public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isAthlete) {
-
+    public static void addUser(SessionFactory sessionFactory, String login, String haslo){
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
-        User user = new User(login, email, haslo, isAthlete);
+        User user = new User(login, haslo);
         session.save(user);
-
         session.getTransaction().commit();
         System.out.println("Dodano użytkownika o ID: " + user.getId());
     }

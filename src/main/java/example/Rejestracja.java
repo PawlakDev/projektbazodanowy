@@ -16,8 +16,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.List;
+import example.User;
 
 import static example.Main.sessionFactory;
+import static example.User.addUser;
 
 public class Rejestracja extends JFrame {
     JLabel labelTytul;
@@ -194,6 +196,7 @@ public class Rejestracja extends JFrame {
                     System.out.println("ELO ELOOOO");
                 }
 
+                labelTytul.setText("Zarejestruj sie");
                 getPanel5().setVisible(false);
                 getGraphicFrame().setVisible(false);
                 Login.setVisible(false);
@@ -259,6 +262,10 @@ public class Rejestracja extends JFrame {
                         showPsw.setVisible(false);
                         showPsw.setEnabled(false);
                         //tu funcja tworzenia user;
+
+                       // session = sessionFactory.getCurrentSession();
+                        addUser(session.getSessionFactory(), textLogin.getText(), password.getText());
+
                         RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
                     }
                 }
