@@ -3,6 +3,7 @@ package example;
 import example.InfoFrames.LoginInfoFrameSettings;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +13,13 @@ import java.awt.event.FocusEvent;
 //w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
 public class RejestracjaData extends JFrame{
     JLabel labelTytul;
-    JPanel panel2, panel;
+    JPanel Email;
     textArea emailText;
     boolean athlete;
     JTextArea email;
+    private JLayeredPane GraphicFrame;
 
-    RejestracjaData(JFrame to, JPanel panelTytul, JPanel Login, JPanel Password){
+    RejestracjaData(JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack){
 
         System.out.println("rejestracja2");
         //Wylaczam stare panele
@@ -29,19 +31,20 @@ public class RejestracjaData extends JFrame{
         //ustawiam label
         labelTytul = new JLabel();
         LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul,panelTytul, "Uzupelnij dane");
-        //labelTytul.setText("Zarejestruj sie");
 
-        panel = new JPanel();
-        panel.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        panel.setBounds(20, 120, 400, 120); // Ustaw wymiary i pozycję
-        panel.setVisible(true);
+        Email = new JPanel();
+        Email.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
+        Email.setBounds(-40, 20, 400, 120); // Ustaw wymiary i pozycję
+        Email.setVisible(true);
 
         //to jest to co nie dzialaten text area do zmiany
-        emailText = new textArea("email", "");
-
-        //brzydkie ale dziala
-        // zrobione na razie byle bylo
+        //emailText = new textArea("email", "");
+        
+        // klasyczne pole tekstowe
         email = new JTextArea("email", 1, 20);
+        email.setPreferredSize(new Dimension(10,12));
+        email.setFont(new Font("MV Boli", 0, 16));
+        email.setBorder(new LineBorder(Color.BLACK));
         email.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
@@ -59,18 +62,11 @@ public class RejestracjaData extends JFrame{
                 }
             }
         });
-
-        // juz mi sie mieszaja te panele wiec jest chaos
-        panel2 = new JPanel();
-        //Ustawianie jego wielkosci
-        panel2.setBounds(10,120,300,100);
-        panel2.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        panel2.setBounds(20, 120, 400, 120); // Ustaw wymiary i pozycję
-        panel2.setVisible(true);
-
+        
+        // ToggleButton do zaznaczania czy zawodnik czy trener
         JToggleButton changeFunct = new JToggleButton("zawodnik");
-        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(changeFunct,   100,20,80,50);
-        changeFunct.setFont(new Font("Arial", Font.BOLD, 14));
+        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(changeFunct,   310,20,70,40);
+        changeFunct.setFont(new Font("Arial", Font.BOLD, 10));
 
         changeFunct.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
@@ -93,19 +89,33 @@ public class RejestracjaData extends JFrame{
         changeFunct.setVisible(true);
 
 
-        //backbutton ogarnac zeby p naisnieciu sie wylaczal email
+        //button cofania updated
+        ButtonBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == ButtonBack) {
+                    System.out.println("ELO ELOOOO");
+                }
 
-        panel2.add(changeFunct);
-        //panel.add(emailText);
-        panel.add(email); // jeden z tych emaili trzeba usunac
+                labelTytul.setText("Zarejestruj sie");
+                changeFunct.setVisible(false);
+                changeFunct.setEnabled(false);
+                email.setVisible(false);
+                email.setEnabled(false);
+            }
+        });
+        
+        Email.add(email); // jeden z tych emaili trzeba usunac
 
-        panel.setVisible(true);
-        panel2.setVisible(true);
+        Email.setVisible(true);
         panelTytul.setVisible(true);
 
-        to.add(panelTytul);
-        to.add(panel);
-        to.add(panel2);
+        GraphicFrame = new JLayeredPane();
+        GraphicFrame.setBounds(60, 105, 400, 540);
+        GraphicFrame.add(frameBackground, JLayeredPane.DEFAULT_LAYER);
+        GraphicFrame.add(Email, JLayeredPane.PALETTE_LAYER);
+        GraphicFrame.add(changeFunct, JLayeredPane.PALETTE_LAYER);
 
+        to.add(panelTytul);
+        to.add(GraphicFrame);
     }
 }

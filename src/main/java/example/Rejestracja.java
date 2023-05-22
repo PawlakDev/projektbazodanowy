@@ -16,10 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.List;
-import example.User;
 
-import static example.Main.sessionFactory;
-import static example.User.addUser;
 
 public class Rejestracja extends JFrame {
     JLabel labelTytul;
@@ -65,7 +62,7 @@ public class Rejestracja extends JFrame {
 
         //zaczelam robic PanelSettings dla czytelnosci, ale nie wiem jeszcze czy sie przyda
         frameBackground.setBackground(new Color(200, 230, 255));
-        frameBackground.setBounds(60, 100, 400, 160);
+        frameBackground.setBounds(0, 0, 400, 160);
         frameBackground.setOpaque(false);
         frameBackground.setBorder(new LineBorder(new Color(100, 150, 200), 2, true));
         frameBackground.setVisible(true);
@@ -82,13 +79,13 @@ public class Rejestracja extends JFrame {
 
         Login = new JPanel();
         Login.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Login.setBounds(20, 120, 400, 120); // Ustaw wymiary i pozycję
+        Login.setBounds(0, 20, 400, 120); // Ustaw wymiary i pozycję
         Login.setVisible(true);
 
         //Panel "password" jest odpowiedzialny za poprawne wyswietlanie pola tekstowego do logowania
         Password = new JPanel();
         Password.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Password.setBounds(20, 180, 400, 120); // Ustaw wymiary i pozycję
+        Password.setBounds(0, 80, 400, 120); // Ustaw wymiary i pozycję
         Password.setVisible(true);
 
         // Tworzenie układu warstwowego i dodawanie paneli
@@ -261,18 +258,26 @@ public class Rejestracja extends JFrame {
                         labelTytul.setVisible(false);
                         showPsw.setVisible(false);
                         showPsw.setEnabled(false);
-                        //tu funcja tworzenia user;
 
-                       // session = sessionFactory.getCurrentSession();
-                        addUser(session.getSessionFactory(), textLogin.getText(), password.getText());
+                        //nowy user dodany do bazy (z loginem i haslem, pozostale wartosci puste albo domyslne, beda dodane w kolejnym widoku)
+                        //addUser(session.getSessionFactory(), textLogin.getText(), password.getText());
+                        // funkcja dziala, ale zakomentowuje ją zeby nie dodawac uzytkownikow <- tu trzeba test na RejestracjeData zrobic)
 
-                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
+
+                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password, frameBackground, ButtonBack);
                     }
                 }
             }
         });
         Login.add(textLogin);
         Password.add(password);
+
+        GraphicFrame = new JLayeredPane();
+        GraphicFrame.setBounds(60, 105, 400, 540);
+        GraphicFrame.add(frameBackground, JLayeredPane.DEFAULT_LAYER);
+        GraphicFrame.add(Login, JLayeredPane.PALETTE_LAYER);
+        GraphicFrame.add(Password, JLayeredPane.PALETTE_LAYER);
+        to.add(GraphicFrame);
 
         //panel5 to buttony zaloguj i pokaz haslo
         panel5.add(ButtonBack);
@@ -281,11 +286,7 @@ public class Rejestracja extends JFrame {
 
         //dodaje nowe panele
         to.add(panelTytul);
-        to.add(frameBackground);
         to.add(panel5);
-        to.add(Login);
-        to.add(Password);
-
     }
 
     public String getTextLogin() {
