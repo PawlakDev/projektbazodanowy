@@ -1,6 +1,9 @@
 package example;
 
 import example.InfoFrames.LoginInfoFrameSettings;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -10,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Calendar;
+import java.util.List;
 
 //w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
 public class RejestracjaData extends JFrame{
@@ -20,7 +24,8 @@ public class RejestracjaData extends JFrame{
     private JLayeredPane GraphicFrame;
     JComboBox<Integer> birthYear;
 
-    RejestracjaData(JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack){
+    // na gettery zamienic musze i bedzie ()
+    RejestracjaData(JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack, JButton next, JTextArea textLogin, JPasswordField password){
 
         System.out.println("rejestracja2");
         //Wylaczam stare panele
@@ -182,6 +187,22 @@ public class RejestracjaData extends JFrame{
                 surname.setEnabled(false);
                 birthYearPanel.setVisible(false);
                 birthYearPanel.setEnabled(false);
+            }
+        });
+
+        // zapisz wszystko
+        next.setText("Rejestruj");
+
+        next.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(name.getText() + " " + surname.getText() + " " + email.getText() + " " + changeFunct.isSelected() + " " + birthYear.getSelectedItem());
+
+                // sprawdzam czy dane sa uzupelnione
+                if (name.getText().equals("imie") || name.getText().equals("") || surname.getText().equals("") || surname.getText().equals("nazwisko") || email.getText().equals("") || surname.getText().equals("email"))
+                    labelTytul.setText("Bledne dane!");
+                else{
+                    // addUser(sessionFactory dorobic, textLogin.getText(), password.getText(), email.getText(), changeFunct.isSelected(), name.getText(), surname.getText(), birthYear.getSelectedItem())
+                }
             }
         });
 

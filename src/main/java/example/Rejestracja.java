@@ -34,6 +34,8 @@ public class Rejestracja extends JFrame {
     private JLayeredPane GraphicFrame;
 
 
+
+
     Rejestracja(SessionFactory sessionFactory, JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
 
 
@@ -259,12 +261,8 @@ public class Rejestracja extends JFrame {
                         showPsw.setVisible(false);
                         showPsw.setEnabled(false);
 
-                        //nowy user dodany do bazy (z loginem i haslem, pozostale wartosci puste albo domyslne, beda dodane w kolejnym widoku)
-                        //addUser(session.getSessionFactory(), textLogin.getText(), password.getText());
-                        // funkcja dziala, ale zakomentowuje ją zeby nie dodawac uzytkownikow <- tu trzeba test na RejestracjeData zrobic)
-
-
-                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password, frameBackground, ButtonBack);
+                        // Getterów pouzywać
+                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password, frameBackground, ButtonBack, next, textLogin, password);
                     }
                 }
             }
@@ -326,6 +324,9 @@ public class Rejestracja extends JFrame {
         char[] passwordChars = password.getPassword();
         String passwordString = new String(passwordChars);
         return passwordString;
+    }
+    public JButton getNext() {
+        return next;
     }
 }
 

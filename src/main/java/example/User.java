@@ -28,11 +28,14 @@ public class User {
     @Column(name = "is_athlete") //true - zawodnik = mniejsze prawa, false - admin / trener = wieksze prawa
     private boolean isAthlete;
 
-//    @Column(name = "name")
-//    private String name;
-//
-//    @Column(name = "surname")
-//    private String surname;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
+    @Column(name = "birth_year")
+    private Integer birthYear;
 
     public User() {
     }
@@ -44,11 +47,14 @@ public class User {
         this.isAthlete = false;
     }
 
-    public User(String username, String email, String password, boolean isAthlete) {
+    public User(String username, String password, String email, boolean isAthlete, String name, String surname, Integer birthYear) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isAthlete = isAthlete;
+        this.name = name;
+        this.surname = surname;
+        this.birthYear = birthYear;
     }
 
 
@@ -87,13 +93,16 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", pass=" + password + '\'' +
-                ", athlete: " + isAthlete + '\'' +
+                ", password='" + password + '\'' +
+                ", isAthlete=" + isAthlete +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthYear=" + birthYear +
                 '}';
     }
 
     //wyzwalacz co to
-    public static void addUser(SessionFactory sessionFactory, String login, String haslo){
+    public static void addUser(SessionFactory sessionFactory, String login, String haslo) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
 
@@ -102,4 +111,13 @@ public class User {
         session.getTransaction().commit();
         System.out.println("Dodano użytkownika o ID: " + user.getId());
     }
-}
+     public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isAthlete, String name, String surname, Integer birthYear){
+            Session session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+
+            User user = new User(login, haslo, email, isAthlete, name, surname, birthYear);
+            session.save(user);
+            session.getTransaction().commit();
+            System.out.println("Dodano użytkownika o ID: " + user.getId());
+        }
+    }
