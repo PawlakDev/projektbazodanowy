@@ -28,6 +28,12 @@ public class User {
     @Column(name = "is_athlete") //true - zawodnik = mniejsze prawa, false - admin / trener = wieksze prawa
     private boolean isAthlete;
 
+//    @Column(name = "name")
+//    private String name;
+//
+//    @Column(name = "surname")
+//    private String surname;
+
     public User() {
     }
 
