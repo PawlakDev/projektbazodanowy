@@ -117,6 +117,7 @@ public class User {
 
             User user = new User(login, haslo, email, isAthlete, name, surname, birthYear);
             session.save(user);
+            System.out.println("ciekawe czy sie dodaje");
             session.getTransaction().commit();
             System.out.println("Dodano użytkownika o ID: " + user.getId());
         }

@@ -4,9 +4,7 @@ import example.InfoFrames.LoginInfoFrameSettings;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -262,7 +260,7 @@ public class Rejestracja extends JFrame {
                         showPsw.setEnabled(false);
 
                         // Getterów pouzywać
-                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password, frameBackground, ButtonBack, next, textLogin, password);
+                        RejestracjaData rejestracjaData = new RejestracjaData(sessionFactory, to, panelTytul, Login, Password, frameBackground, ButtonBack, next, textLogin, password);
                     }
                 }
             }

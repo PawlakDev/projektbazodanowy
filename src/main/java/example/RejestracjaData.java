@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Calendar;
-import java.util.List;
 
 import static example.Main.getSessionFactory;
 import static example.Main.sessionFactory;
@@ -31,7 +30,7 @@ public class RejestracjaData extends JFrame{
     JComboBox<Integer> birthYear;
 
     // na gettery zamienic musze i bedzie ()
-    RejestracjaData(JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack, JButton next, JTextArea textLogin, JPasswordField password){
+    RejestracjaData(SessionFactory sessionFactory, JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack, JButton next, JTextArea textLogin, JPasswordField password){
 
         System.out.println("rejestracja2");
         //Wylaczam stare panele
@@ -206,22 +205,12 @@ public class RejestracjaData extends JFrame{
                 // sprawdzam czy dane sa uzupelnione
                 if (name.getText().equals("imie") || name.getText().equals("") || surname.getText().equals("") || surname.getText().equals("nazwisko") || email.getText().equals("") || surname.getText().equals("email"))
                     labelTytul.setText("Bledne dane!");
-                else{
-                    Session session = getSessionFactory().getCurrentSession();
-                    Transaction transaction = null;
-                    try {
-                        transaction = session.beginTransaction();
-                        Integer birthYearValue = Integer.parseInt(birthYear.getSelectedItem().toString());
-                        addUser(getSessionFactory(), textLogin.getText(), password.getText(), email.getText(), changeFunct.isSelected(), name.getText(), surname.getText(), birthYearValue);
-                        transaction.commit();
-                    } catch (Exception ex) {
-                        if (transaction != null) {
-                            transaction.rollback();
-                        }
-                        ex.printStackTrace();
-                    } finally {
-                        session.close();
-                    }
+                else { // idk czy jakis wyjatkow nie trzeba? + szyfrowanie haseł!
+                    Integer birthYearValue = Integer.parseInt(birthYear.getSelectedItem().toString());
+                    addUser(sessionFactory, textLogin.getText(), password.getText(), email.getText(), changeFunct.isSelected(), name.getText(), surname.getText(), birthYearValue);
+
+                    to.dispose();  // Zamykam rejestracje
+                    Start start = new Start(sessionFactory);
                 }
             }
         });
