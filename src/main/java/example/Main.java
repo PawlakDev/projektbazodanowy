@@ -11,6 +11,15 @@ public class Main {
 
     public static SessionFactory sessionFactory;
 
+    public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            Configuration configuration = new Configuration();
+            configuration.configure();
+            sessionFactory = configuration.buildSessionFactory();
+        }
+        return sessionFactory;
+    }
+
     public static void main(String[] args) {
         final int debugMode = 0;//final to stala
 

@@ -3,6 +3,7 @@ package example;
 import example.InfoFrames.LoginInfoFrameSettings;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import javax.swing.*;
@@ -14,6 +15,11 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Calendar;
 import java.util.List;
+
+import static example.Main.getSessionFactory;
+import static example.Main.sessionFactory;
+import static example.Start.session;
+import static example.User.addUser;
 
 //w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
 public class RejestracjaData extends JFrame{
@@ -201,7 +207,21 @@ public class RejestracjaData extends JFrame{
                 if (name.getText().equals("imie") || name.getText().equals("") || surname.getText().equals("") || surname.getText().equals("nazwisko") || email.getText().equals("") || surname.getText().equals("email"))
                     labelTytul.setText("Bledne dane!");
                 else{
-                    // addUser(sessionFactory dorobic, textLogin.getText(), password.getText(), email.getText(), changeFunct.isSelected(), name.getText(), surname.getText(), birthYear.getSelectedItem())
+                    Session session = getSessionFactory().getCurrentSession();
+                    Transaction transaction = null;
+                    try {
+                        transaction = session.beginTransaction();
+                        Integer birthYearValue = Integer.parseInt(birthYear.getSelectedItem().toString());
+                        addUser(getSessionFactory(), textLogin.getText(), password.getText(), email.getText(), changeFunct.isSelected(), name.getText(), surname.getText(), birthYearValue);
+                        transaction.commit();
+                    } catch (Exception ex) {
+                        if (transaction != null) {
+                            transaction.rollback();
+                        }
+                        ex.printStackTrace();
+                    } finally {
+                        session.close();
+                    }
                 }
             }
         });
