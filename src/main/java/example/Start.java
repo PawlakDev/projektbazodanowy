@@ -187,6 +187,15 @@ public class Start extends JFrame implements ActionListener {
                                     //Button4 - "statystyki"
                                     button[4] = new JButton();
                                     button[4].addActionListener(this);
+                                    button[4].addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż statystyki"
+                                            WelcomeMsgPanel.setVisible(false);
+                                            WelcomeMsgPanel.setEnabled(false);
+                                            System.out.println("Pokaż statystyki");
+                                        }
+                                    });
                                     Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Pokaż statystyki");
 
                                     //Button5 - "Wyswietl treningi"
@@ -197,7 +206,7 @@ public class Start extends JFrame implements ActionListener {
                                             // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż treningi"
                                             WelcomeMsgPanel.setVisible(false);
                                             WelcomeMsgPanel.setEnabled(false);
-                                            ShowTrainings showTrainings = new ShowTrainings(sessionFactory);
+                                            ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel);
                                         }
                                     });
                                     Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Pokaż treningi");
