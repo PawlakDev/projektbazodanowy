@@ -35,10 +35,17 @@ public class Start extends JFrame implements ActionListener {
      *
         */
         static JPanel ButtonPanel;
+
+    public static JPanel getBackgroundImagePanel() {
+        return BackgroundImagePanel;
+    }
+
     static JPanel BackgroundImagePanel;
     JPanel WelcomeMsgPanel;
 
     SessionFactory sessionFactory;
+
+
 
     public Start(SessionFactory sessionFactory) {
 
@@ -206,7 +213,7 @@ public class Start extends JFrame implements ActionListener {
                                             // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż treningi"
                                             WelcomeMsgPanel.setVisible(false);
                                             WelcomeMsgPanel.setEnabled(false);
-                                            ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel);
+                                            ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel );
                                         }
                                     });
                                     Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Pokaż treningi");

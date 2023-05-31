@@ -50,8 +50,8 @@ public class ShowTrainings extends JFrame{
         button[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // tutaj akcja po kliknięciu "szczegółowy widok"
-                System.out.println("ogólny widok");
+                // tutaj akcja po kliknięciu "ogólny"
+                ShowTrainingsAll TrainingsAll = new ShowTrainingsAll(sessionFactory, to, buttonPanel);
 
             }
 

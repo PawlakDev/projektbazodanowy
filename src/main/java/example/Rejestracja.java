@@ -194,6 +194,7 @@ public class Rejestracja extends JFrame {
                 }
 
                 labelTytul.setText("Zarejestruj sie");
+                panelTytul.setVisible(false);
                 getPanel5().setVisible(false);
                 getGraphicFrame().setVisible(false);
                 Login.setVisible(false);
