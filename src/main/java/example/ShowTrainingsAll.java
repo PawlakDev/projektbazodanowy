@@ -24,9 +24,10 @@ public class ShowTrainingsAll extends JFrame {
         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
         List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
 
-// Przetwarzanie listy treningów użytkownika...
+        String treningi = "";
+        // zapisywanie workouts uzytkownika do jednego stringa (z tego zrobie liste pozniej)
         for (Workouts workout : userWorkouts) {
-            System.out.println(workout.toString());
+            treningi += (workout.toString());
         }
 
         // wylaczam stare widoki
@@ -44,7 +45,7 @@ public class ShowTrainingsAll extends JFrame {
 
         // ustawiam pole tekstoowe
         textArea = new JTextArea();
-        textArea.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non dapibus nisl, eu dignissim orci. \nVivamus vulputate mauris diam, nec vulputate felis faucibus sed. Curabitur pellentesque sed nibh et ultrices. Nunc enim neque, malesuada et orci ac, feugiat scelerisque diam. \nInteger ut venenatis ipsum, ut vulputate enim. Maecenas cursus iaculis laoreet. Etiam ut mattis leo. Ut condimentum vulputate suscipit. \nVestibulum in urna vulputate, sollicitudin ligula sit amet, venenatis dui.");
+        textArea.setText(treningi);
 
         // Tworzenie panelu przewijania
         scrollPane = new JScrollPane(textArea);
@@ -52,6 +53,7 @@ public class ShowTrainingsAll extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(400, 300)); // Możesz dostosować szerokość i wysokość według potrzeb
         scrollPane.setBounds(70,100,400,230);
+        textArea.setEditable(false); // Uniemożliwienie edycji JTextArea
         scrollPane.setVisible(true);
 
         to.add(scrollPane);
