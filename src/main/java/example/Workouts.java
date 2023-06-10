@@ -34,6 +34,8 @@ public class Workouts {
     public Workouts() {
     }
 
+
+
     public Workouts(int idU, String date, String type, int km, int time) {
         this.idUser = idUser;
         this.date = date;
@@ -91,7 +93,14 @@ public class Workouts {
 
     @Override
     public String toString() {
-        return "Nie interere sie";
+        return "Workouts{" +
+                "id=" + id +
+                ", idUser=" + idUser +
+                ", date='" + date + '\'' +
+                ", workouttype='" + workouttype + '\'' +
+                ", kilometers=" + kilometers +
+                ", timeworkout=" + timeworkout +
+                '}';
     }
 
 }

@@ -157,6 +157,7 @@ public class Start extends JFrame implements ActionListener {
                                 if (user.getPassword().equals(text2)) {
                                     session.getTransaction().commit();
 
+                                    User currentUser = user;
 
                                     //fajnie aby wyswielalo zalogowano przez 2 sekundy
                                     login.getPanel3().setEnabled(false);
@@ -213,7 +214,7 @@ public class Start extends JFrame implements ActionListener {
                                             // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż treningi"
                                             WelcomeMsgPanel.setVisible(false);
                                             WelcomeMsgPanel.setEnabled(false);
-                                            ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel );
+                                            ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel, currentUser);
                                         }
                                     });
                                     Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Pokaż treningi");
@@ -231,6 +232,7 @@ public class Start extends JFrame implements ActionListener {
 
 
                                     welcomeMsgLabel = new JLabel();
+
                                     WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel,WelcomeMsgPanel,  "Witaj " + user.getUsername(),180, 330 );
 
                                     jLayeredPane.add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //

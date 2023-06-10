@@ -17,7 +17,7 @@ public class ShowTrainings extends JFrame{
 
     JFrame to;
 
-    public ShowTrainings(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel) throws HeadlessException {
+    public ShowTrainings(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) throws HeadlessException {
 
         this.sessionFactory = sessionFactory;
 
@@ -51,7 +51,7 @@ public class ShowTrainings extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // tutaj akcja po kliknięciu "ogólny"
-                ShowTrainingsAll TrainingsAll = new ShowTrainingsAll(sessionFactory, to, buttonPanel);
+                ShowTrainingsAll TrainingsAll = new ShowTrainingsAll(sessionFactory, to, buttonPanel, currentUser);
 
             }
 

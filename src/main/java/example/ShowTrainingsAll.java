@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.List;
 
 import static example.Start.getBackgroundImagePanel;
 
@@ -17,8 +18,16 @@ public class ShowTrainingsAll extends JFrame {
 
     JTextArea textArea;
     JScrollPane scrollPane;
-    public ShowTrainingsAll(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel) {
+    public ShowTrainingsAll(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) {
         System.out.println("show all trainings view");
+
+        WorkoutRepository repository = new WorkoutRepository(sessionFactory);
+        List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
+
+// Przetwarzanie listy treningów użytkownika...
+        for (Workouts workout : userWorkouts) {
+            System.out.println(workout.toString());
+        }
 
         // wylaczam stare widoki
         oldButtonPanel.setVisible(false);
