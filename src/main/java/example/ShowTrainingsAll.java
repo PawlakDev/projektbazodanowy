@@ -16,22 +16,40 @@ public class ShowTrainingsAll extends JFrame {
 
     JLabel headlineLabel;
     JPanel headlinePanel;
-    JLayeredPane LayeredPane;
-
+    JTable table;
     JTextArea textArea;
     JScrollPane scrollPane;
+
+    JButton buttonBack;
     public ShowTrainingsAll(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) {
         System.out.println("show all trainings view");
 
         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
         List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
-
-        String treningi = "";
-        // zapisywanie workouts uzytkownika do jednego stringa (z tego zrobie liste pozniej)
-        for (Workouts workout : userWorkouts) {
-            treningi += (workout.toString());
+        
+        // dane do tabeli przchowuja dane o treningacj
+        Object[][] tableData = new Object[userWorkouts.size()][];
+        for (int i = 0; i < userWorkouts.size(); i++) {
+            Workouts workout = userWorkouts.get(i);
+            Object[] rowData = {
+                    workout.getDate(),
+                    workout.getWorkouttype(),
+                    workout.getKilometers(),
+                    workout.getTimeworkout()
+            };
+            tableData[i] = rowData;
         }
 
+        // nazwy kolumn
+        String[] columnNames = {"Date", "Workout Type", "Kilometers", "Time (mins)"};
+
+        // tworze z tego tabele
+        table = new JTable(tableData, columnNames);
+
+        // ustawienia tabeli
+        table.setRowHeight(30);
+        table.setFont(new Font("Arial", Font.PLAIN, 14)); 
+        
         // wylaczam stare widoki
         oldButtonPanel.setVisible(false);
         oldButtonPanel.setEnabled(false);
@@ -43,47 +61,41 @@ public class ShowTrainingsAll extends JFrame {
         headlinePanel.setBackground(Color.white);
         LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel,headlinePanel, "Twoje treningi");
 
-        to.add(headlinePanel);
-
-        // ustawiam pole tekstoowe
-        textArea = new JTextArea();
-        textArea.setText(treningi);
-
         // Tworzenie panelu przewijania
-        scrollPane = new JScrollPane(textArea);
+        scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBounds(60,90,415,190);
-        textArea.setEditable(false);
         scrollPane.setVisible(true);
 
-        JButton ButtonBack = new JButton();
+        buttonBack = new JButton();
         // next - Cofnij
-        ButtonBack.setBackground(new Color(200, 230, 255));
-        ButtonBack.setVisible(true);
-        ButtonBack.setLayout(null);
-        ButtonBack.setBounds(70, 300, 100, 50);
-        ButtonBack.setText("Wstecz");
-        ButtonBack.setFocusable(false);
-        ButtonBack.setBorder(BorderFactory.createCompoundBorder(
+        buttonBack.setBackground(new Color(200, 230, 255));
+        buttonBack.setVisible(true);
+        buttonBack.setLayout(null);
+        buttonBack.setBounds(70, 300, 100, 50);
+        buttonBack.setText("Wstecz");
+        buttonBack.setFocusable(false);
+        buttonBack.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
-        ButtonBack.setFont(new Font("Arial", Font.BOLD, 14));
+        buttonBack.setFont(new Font("Arial", Font.BOLD, 14));
 
-        ButtonBack.addActionListener(new ActionListener() {
+        buttonBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 oldButtonPanel.setVisible(true);
                 oldButtonPanel.setEnabled(true);
                 getBackgroundImagePanel().setVisible(true);
                 scrollPane.setVisible(false);
-                ButtonBack.setVisible(false);
+                buttonBack.setVisible(false);
                 headlinePanel.setVisible(false);
             }
         });
 
-        to.add(ButtonBack);
+        to.add(headlinePanel);
+        to.add(buttonBack);
         to.add(scrollPane);
 
     }
