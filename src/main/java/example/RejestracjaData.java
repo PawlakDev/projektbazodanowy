@@ -1,11 +1,7 @@
 package example;
 
 import example.InfoFrames.LoginInfoFrameSettings;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -14,17 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Calendar;
-
-import static example.Main.getSessionFactory;
-import static example.Main.sessionFactory;
-import static example.Start.session;
 import static example.User.addUser;
 
 //w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
 public class RejestracjaData extends JFrame{
     JLabel labelTytul;
     JPanel Email, Name, Surname;
-    boolean athlete;
+    boolean coach;
     JTextArea email, name, surname;
     private JLayeredPane GraphicFrame;
     JComboBox<Integer> birthYear;
@@ -140,16 +132,16 @@ public class RejestracjaData extends JFrame{
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
 
+        coach = false;
         changeFunct.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (changeFunct.isSelected()) {
-                    changeFunct.setText("zawodnik");
-                    athlete = true;
-
-                } else {
                     changeFunct.setText("trener");
-                    athlete = false;
+                    coach = true;
+                } else {
+                    changeFunct.setText("zawodnik");
+                    coach = false;
                 }
             }
         });
@@ -204,10 +196,12 @@ public class RejestracjaData extends JFrame{
 
                 // sprawdzam czy dane sa uzupelnione
                 if (name.getText().equals("imie") || name.getText().equals("") || surname.getText().equals("") || surname.getText().equals("nazwisko") || email.getText().equals("") || surname.getText().equals("email"))
-                    labelTytul.setText("Bledne dane!");
+                {
+                    labelTytul.setVisible(false); // to nic nie zmiania ale niech zostanie
+                }
                 else { // idk czy jakis wyjatkow nie trzeba? + szyfrowanie haseł!
                     Integer birthYearValue = Integer.parseInt(birthYear.getSelectedItem().toString());
-                    addUser(sessionFactory, textLogin.getText(), password.getText(), email.getText(), changeFunct.isSelected(), name.getText(), surname.getText(), birthYearValue);
+                    addUser(sessionFactory, textLogin.getText(), password.getText(), email.getText(), coach, name.getText(), surname.getText(), birthYearValue);
 
                     to.dispose();  // Zamykam rejestracje
                     Start start = new Start(sessionFactory);
@@ -221,7 +215,8 @@ public class RejestracjaData extends JFrame{
         Name.add(name);
         Surname.add(surname);
 
-        panelTytul.setVisible(true);
+        //panelTytul.setVisible(true);
+        labelTytul.setVisible(true);
 
         GraphicFrame = new JLayeredPane();
         GraphicFrame.setBounds(60, 105, 400, 540);

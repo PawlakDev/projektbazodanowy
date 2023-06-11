@@ -25,8 +25,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "is_athlete") //true - zawodnik = mniejsze prawa, false - admin / trener = wieksze prawa
-    private boolean isAthlete;
+    @Column(name = "is_coach") //true - zawodnik = mniejsze prawa, false - admin / trener = wieksze prawa
+    private boolean isCoach;
 
     @Column(name = "name")
     private String name;
@@ -44,14 +44,14 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = "default@email.com";
-        this.isAthlete = false;
+        this.isCoach = false;
     }
 
-    public User(String username, String password, String email, boolean isAthlete, String name, String surname, Integer birthYear) {
+    public User(String username, String password, String email, boolean isCoach, String name, String surname, Integer birthYear) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.isAthlete = isAthlete;
+        this.isCoach = isCoach;
         this.name = name;
         this.surname = surname;
         this.birthYear = birthYear;
@@ -94,7 +94,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", isAthlete=" + isAthlete +
+                ", isCoach=" + isCoach +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", birthYear=" + birthYear +
@@ -111,11 +111,11 @@ public class User {
         session.getTransaction().commit();
         System.out.println("Dodano użytkownika o ID: " + user.getId());
     }
-     public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isAthlete, String name, String surname, Integer birthYear){
+     public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isCoach, String name, String surname, Integer birthYear){
             Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
-            User user = new User(login, haslo, email, isAthlete, name, surname, birthYear);
+            User user = new User(login, haslo, email, isCoach, name, surname, birthYear);
             session.save(user);
             System.out.println("ciekawe czy sie dodaje");
             session.getTransaction().commit();
