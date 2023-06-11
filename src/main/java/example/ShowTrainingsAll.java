@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import static example.Start.getBackgroundImagePanel;
@@ -51,11 +53,37 @@ public class ShowTrainingsAll extends JFrame {
         scrollPane = new JScrollPane(textArea);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(400, 300)); // Możesz dostosować szerokość i wysokość według potrzeb
-        scrollPane.setBounds(70,100,400,230);
-        textArea.setEditable(false); // Uniemożliwienie edycji JTextArea
+        scrollPane.setBounds(60,90,415,190);
+        textArea.setEditable(false);
         scrollPane.setVisible(true);
 
+        JButton ButtonBack = new JButton();
+        // next - Cofnij
+        ButtonBack.setBackground(new Color(200, 230, 255));
+        ButtonBack.setVisible(true);
+        ButtonBack.setLayout(null);
+        ButtonBack.setBounds(70, 300, 100, 50);
+        ButtonBack.setText("Wstecz");
+        ButtonBack.setFocusable(false);
+        ButtonBack.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        ButtonBack.setFont(new Font("Arial", Font.BOLD, 14));
+
+        ButtonBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                oldButtonPanel.setVisible(true);
+                oldButtonPanel.setEnabled(true);
+                getBackgroundImagePanel().setVisible(true);
+                scrollPane.setVisible(false);
+                ButtonBack.setVisible(false);
+                headlinePanel.setVisible(false);
+            }
+        });
+
+        to.add(ButtonBack);
         to.add(scrollPane);
 
     }

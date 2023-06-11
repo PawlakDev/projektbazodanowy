@@ -20,6 +20,11 @@ public class WorkoutRepository {
                             "SELECT w FROM Workouts w WHERE w.idUser = :userId", Workouts.class)
                     .setParameter("userId", userId)
                     .getResultList();
+            for (Workouts workout : workouts) {
+                if (workout.getKilometers() == null) {
+                    workout.setKilometers(0);
+                }
+            }
             transaction.commit();
             return workouts;
         } finally {
