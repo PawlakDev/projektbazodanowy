@@ -1,5 +1,7 @@
 package example;
 
+import example.app.Start;
+import example.app.dbSettings.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -26,6 +28,8 @@ public class Main {
         //Ustawienia hibernate
         SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Start start = new Start(sessionFactory);
+
+        start.zrob();
 
         if(debugMode == 0) {
 

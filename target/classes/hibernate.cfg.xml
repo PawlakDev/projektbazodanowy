@@ -18,7 +18,7 @@
         <property name="current_session_context_class">thread</property>
 
         <!-- Mapowanie klas -->
-        <mapping class="example.User"/>
-        <mapping class="example.Workouts"/>
+        <mapping class="example.app.dbSettings.User"/>
+        <mapping class="example.app.dbSettings.Workouts"/>
     </session-factory>
 </hibernate-configuration>

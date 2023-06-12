@@ -7,7 +7,7 @@
 
     <package>example</package>
 
-    <entity class="example.User">
+    <entity class="example.app.dbSettings.User">
         <table name="users"/>
 
         <attributes>

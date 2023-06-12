@@ -1,6 +1,7 @@
 package example;
 
-import example.buttons.Button1Settings;
+import example.app.login.CreatingNewTraining;
+import example.app.buttons.Button1Settings;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static java.lang.Thread.sleep;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CreatingNewTrainingTest {
     private SessionFactory session;
