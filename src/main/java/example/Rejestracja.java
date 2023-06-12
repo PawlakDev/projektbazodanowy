@@ -4,9 +4,7 @@ import example.InfoFrames.LoginInfoFrameSettings;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -17,7 +15,6 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.List;
 
-import static example.Main.sessionFactory;
 
 public class Rejestracja extends JFrame {
     JLabel labelTytul;
@@ -33,6 +30,8 @@ public class Rejestracja extends JFrame {
     JButton next, ButtonBack;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
+
+
 
 
     Rejestracja(SessionFactory sessionFactory, JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
@@ -63,7 +62,7 @@ public class Rejestracja extends JFrame {
 
         //zaczelam robic PanelSettings dla czytelnosci, ale nie wiem jeszcze czy sie przyda
         frameBackground.setBackground(new Color(200, 230, 255));
-        frameBackground.setBounds(60, 100, 400, 160);
+        frameBackground.setBounds(0, 0, 400, 160);
         frameBackground.setOpaque(false);
         frameBackground.setBorder(new LineBorder(new Color(100, 150, 200), 2, true));
         frameBackground.setVisible(true);
@@ -80,13 +79,13 @@ public class Rejestracja extends JFrame {
 
         Login = new JPanel();
         Login.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Login.setBounds(20, 120, 400, 120); // Ustaw wymiary i pozycję
+        Login.setBounds(0, 20, 400, 120); // Ustaw wymiary i pozycję
         Login.setVisible(true);
 
         //Panel "password" jest odpowiedzialny za poprawne wyswietlanie pola tekstowego do logowania
         Password = new JPanel();
         Password.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Password.setBounds(20, 180, 400, 120); // Ustaw wymiary i pozycję
+        Password.setBounds(0, 80, 400, 120); // Ustaw wymiary i pozycję
         Password.setVisible(true);
 
         // Tworzenie układu warstwowego i dodawanie paneli
@@ -194,6 +193,8 @@ public class Rejestracja extends JFrame {
                     System.out.println("ELO ELOOOO");
                 }
 
+                labelTytul.setText("Zarejestruj sie");
+                panelTytul.setVisible(false);
                 getPanel5().setVisible(false);
                 getGraphicFrame().setVisible(false);
                 Login.setVisible(false);
@@ -258,14 +259,22 @@ public class Rejestracja extends JFrame {
                         labelTytul.setVisible(false);
                         showPsw.setVisible(false);
                         showPsw.setEnabled(false);
-                        //tu funcja tworzenia user;
-                        RejestracjaData rejestracjaData = new RejestracjaData(to, panelTytul, Login, Password);
+
+                        // Getterów pouzywać
+                        RejestracjaData rejestracjaData = new RejestracjaData(sessionFactory, to, panelTytul, Login, Password, frameBackground, ButtonBack, next, textLogin, password);
                     }
                 }
             }
         });
         Login.add(textLogin);
         Password.add(password);
+
+        GraphicFrame = new JLayeredPane();
+        GraphicFrame.setBounds(60, 105, 400, 540);
+        GraphicFrame.add(frameBackground, JLayeredPane.DEFAULT_LAYER);
+        GraphicFrame.add(Login, JLayeredPane.PALETTE_LAYER);
+        GraphicFrame.add(Password, JLayeredPane.PALETTE_LAYER);
+        to.add(GraphicFrame);
 
         //panel5 to buttony zaloguj i pokaz haslo
         panel5.add(ButtonBack);
@@ -274,11 +283,7 @@ public class Rejestracja extends JFrame {
 
         //dodaje nowe panele
         to.add(panelTytul);
-        to.add(frameBackground);
         to.add(panel5);
-        to.add(Login);
-        to.add(Password);
-
     }
 
     public String getTextLogin() {
@@ -318,6 +323,9 @@ public class Rejestracja extends JFrame {
         char[] passwordChars = password.getPassword();
         String passwordString = new String(passwordChars);
         return passwordString;
+    }
+    public JButton getNext() {
+        return next;
     }
 }
 

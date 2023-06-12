@@ -35,10 +35,17 @@ public class Start extends JFrame implements ActionListener {
      *
         */
         static JPanel ButtonPanel;
+
+    public static JPanel getBackgroundImagePanel() {
+        return BackgroundImagePanel;
+    }
+
     static JPanel BackgroundImagePanel;
     JPanel WelcomeMsgPanel;
 
     SessionFactory sessionFactory;
+
+
 
     public Start(SessionFactory sessionFactory) {
 
@@ -150,6 +157,7 @@ public class Start extends JFrame implements ActionListener {
                                 if (user.getPassword().equals(text2)) {
                                     session.getTransaction().commit();
 
+                                    User currentUser = user;
 
                                     //fajnie aby wyswielalo zalogowano przez 2 sekundy
                                     login.getPanel3().setEnabled(false);
@@ -184,15 +192,33 @@ public class Start extends JFrame implements ActionListener {
                                     });
                                     Button1Settings button1Settings = new Button1Settings(button[3], ButtonPanel, 20, 20, 130, 100, true, "Nowy trening");
 
-                                    //Button4 - "Edytuj trening"
+                                    //Button4 - "statystyki"
                                     button[4] = new JButton();
                                     button[4].addActionListener(this);
-                                    Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Edytuj trening");
+                                    button[4].addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż statystyki"
+                                            WelcomeMsgPanel.setVisible(false);
+                                            WelcomeMsgPanel.setEnabled(false);
+                                            System.out.println("Pokaż statystyki");
+                                        }
+                                    });
+                                    Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Pokaż statystyki");
 
                                     //Button5 - "Wyswietl treningi"
                                     button[5] = new JButton();
-                                    button[5].addActionListener(this);
-                                    Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Wyswietl treningi");
+                                    button[5].addActionListener(new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż treningi"
+                                            WelcomeMsgPanel.setVisible(false);
+                                            WelcomeMsgPanel.setEnabled(false);
+                                            ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel, currentUser);
+                                        }
+                                    });
+                                    Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Pokaż treningi");
+
 
                                     //Panel
                                     WelcomeMsgPanel = new JPanel(){
@@ -206,6 +232,7 @@ public class Start extends JFrame implements ActionListener {
 
 
                                     welcomeMsgLabel = new JLabel();
+
                                     WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel,WelcomeMsgPanel,  "Witaj " + user.getUsername(),180, 330 );
 
                                     jLayeredPane.add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //

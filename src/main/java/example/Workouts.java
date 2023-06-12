@@ -26,7 +26,7 @@ public class Workouts {
     private String workouttype;
 
     @Column(name = "km")
-    private int kilometers;
+    private Integer kilometers;
 
     @Column(name = "time")
     private int timeworkout;
@@ -34,7 +34,17 @@ public class Workouts {
     public Workouts() {
     }
 
+
+
     public Workouts(int idU, String date, String type, int km, int time) {
+        this.idUser = idUser;
+        this.date = date;
+        this.workouttype = workouttype;
+        this.timeworkout = timeworkout;
+        this.kilometers = km;
+    }
+
+    public Workouts(int idU, String date, String type, int time) {
         this.idUser = idUser;
         this.date = date;
         this.workouttype = workouttype;
@@ -73,7 +83,7 @@ public class Workouts {
         this.workouttype = workouttype;
     }
 
-    public int getKilometers() {
+    public Integer getKilometers() {
         return kilometers;
     }
 
@@ -91,7 +101,14 @@ public class Workouts {
 
     @Override
     public String toString() {
-        return "Nie interere sie";
+        return "Workouts{" +
+                "id=" + id +
+                ", idUser=" + idUser +
+                ", date='" + date + '\'' +
+                ", workouttype='" + workouttype + '\'' +
+                ", kilometers=" + kilometers +
+                ", timeworkout=" + timeworkout +
+                '}';
     }
 
 }

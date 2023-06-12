@@ -1,25 +1,19 @@
 # Dzienniczek treningowy
-Projekt na zajęcia "projekt bazodanowy" na studia. *projekt jeszcze in progress*. 
-Projekt implementuje dzienniczek treningowy dla wioślarzy, w celu kontrolowania swoich aktywności.
+### Projekt implementuje dzienniczek treningowy dla sportowców, w którym można kontrolować odbyte treningi. *in progress*
 
-## Specyfikacja
-Projekt implementuje dzienniczek treningowy dla sportowców, w który po logowaniu (lub rejestracji), umóżliwia zapisywanie, modyfikowanie i przegladanie odbytych treningów.
+## Podstawowe funkcjonalności
+Użytkownik po logowaniu lub rejestracji ma możliwość dodania nowego treningu, modyfikowanie odbytego treningu, usuwanie treningu z bazy oraz wyświetlanie treningów.
+Po wybraniu opcji dodawania nowego treningu należy wybrać odpowiedni typ treningu (np. bieg, siłownia), a następnie wypełnic opis treningu (np. kilometry, czas trwania).
+Można wyświetlać wszystkie treningi, wyświetlać trening po wyniku wyszukiwania (po danych polach np. wszystkie treningi typu bieg).
 
-### Podstawowe funkcjonalnosci 
-Po logowaniu użytkownik ma możliwość dodania nowego treningu, modyfikacje, usuwanie i wyświetlanie.
-Podczas dodawania treningu użytkownik wypełnia dane na temat treningu: Najpierw typ treningu (trening biegowy, siłownia, itp..), następnie inne waże informacje na temat treningu (przebyte kilometry, czas, opis itp).
-Modyfikować można wybranie informacje na temat treningu. Można również usuwać treningi.
-Jest możliwość wyświetlenia wszystkich zapisanych treningów, jak również wyszukiwanie po wybranych polach (np typie treningów lub dacie).
-Użytkownik zalogowany jako trener ma dostęp do treningów wszystkich zawodników, a użytkownik zalogowany jako zawodnik ma dostęp tylko do swoich treningów.
-
-
-### Dodatkowe funkcjonalnosci
-* Mozliwość wyswietlania danych w arkuszu Excel
-* Ściągnięcie danych o treningach z zegarków Garmin (API)
-* Podstwowa analiza odbytych treningów (wykresy i statystyki, łączny czas treningow, najczęstrza odbywana aktywność itp)
+## Dodatkowe funkcjonalności
+* Użytkownik zalogowany jako trener ma dostęp do danych użytkowników zapisanych jako zawodnik, istnieje również wyszukiwarka ze względu na pola użytkownika (zawodnika)
+* Wyświetlanie danych w arkuszu excel
+* Łączenie się i ściąganie danych z zegarków Garmin
+* Statystyki (wykresy, zsumowane dane itp) z treningów
 
 ## Technologie
 * Java
-* Hibernate
 * PostgreSQL
-* Maven
+* Hibernate
+* Swing
