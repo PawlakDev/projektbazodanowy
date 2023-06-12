@@ -60,27 +60,79 @@ public class CreatingNewTraining {
                 ButtonPanel4.setVisible(false);
                 ButtonPanel4.setEnabled(false);
 
-                //wellcomeMsgPanel.setVisible(false);
-                //   wellcomeMsgPanel.setEnabled(false);
-
                 WpisTekstLabel = new JLabel();
                 WpisTekstPanel = new JPanel();
-                WpisTekstPanel.setBounds(60,160,160,400);
+                WpisTekstPanel.setOpaque(false);
+                WpisTekstPanel.setBounds(50,120,300,190);
 
                 jLayeredPane.add(WpisTekstPanel, JLayeredPane.PALETTE_LAYER); //
 
                 WelcomeMsgSettings welcomeMsgSettings1 = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wpisz Opis", 120, 310 );
 
                 jTextArea = new JTextArea();
-
-                //jTextArea.setText("haslo");/
-                jTextArea.setPreferredSize(new Dimension(160,400));
-                jTextArea.setBounds(0, 0, 160, 400); // Ustawia współrzędne i rozmiar
+                jTextArea.setPreferredSize(new Dimension(300, 180));
                 jTextArea.setFont(new Font("MV Boli", 0, 32));
-                jTextArea.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
+                jTextArea.setForeground(new Color(0, 0, 0, 128));
                 jTextArea.setBorder(new LineBorder(Color.BLACK));
 
                 WpisTekstPanel.add(jTextArea);
+
+                JPanel ButtonPanelApply = new JPanel();
+
+                JButton buttonApply = new JButton();
+                Button1Settings buttonApplySettings = new Button1Settings(buttonApply, ButtonPanelApply, 370, 230, 130, 70, true, "Zatwierdz");
+
+
+                buttonApply.setVisible(true);
+                buttonApply.setEnabled(true);
+
+                ButtonPanelApply.add(buttonApply);
+                jLayeredPane.add(buttonApply, JLayeredPane.PALETTE_LAYER); //
+
+                //Sprowadzam date z serwera sql
+                Session session = null;
+
+                session = sessionFactory.openSession();
+                Date currentDate = (Date) session.createNativeQuery("SELECT current_timestamp").getSingleResult();
+                session.close();
+                //
+
+                // Convert Date to Calendar
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(currentDate);
+
+                //Format %02d oznacza, że chcemy wyświetlić liczbę jako łańcuch znaków,
+                // z wiodącym zerem, jeśli liczba zajmuje mniej niż 2 cyfry.
+
+                // Extract day, month, year, hour, and minute
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                String Day = String.format("%02d", day);
+
+                int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based, add 1 for human-readable format
+                String Month = String.format("%02d", month);
+
+                int year = calendar.get(Calendar.YEAR);
+                String Year = Integer.toString(year);
+
+
+                //
+                //System.out.println("Dzisiaj jest " + day + "." + month + "." + year + " a godzinka to " + hour + ":" + minute);
+
+                int idU = 1;
+                String date = Day + Month + Year;
+                String type = "bieg";
+                int km = 4;
+                int time = 2;
+
+                Session session2 = sessionFactory.getCurrentSession();
+                session2.beginTransaction();
+
+                Workouts workouts = new Workouts(idU, date, type, km, time);
+                session2.save(workouts);
+
+                session2.getTransaction().commit();
+                System.out.println("Dodano trening o ID: " + workouts.getId());
+
             }
         });
 

@@ -111,14 +111,14 @@ public class ShowTrainingsAll extends JFrame {
         buttonSort.setBackground(new Color(200, 230, 255));
         buttonSort.setVisible(true);
         buttonSort.setLayout(null);
-        buttonSort.setBounds(393, 310, 40, 30);
+        buttonSort.setBounds(393, 310, 80, 30);
         buttonSort.setText("Sortuj");
         buttonSort.setFocusable(false);
         buttonSort.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
                 BorderFactory.createEmptyBorder(1, 1, 1, 1)
         ));
-        buttonSort.setFont(new Font("Arial", Font.BOLD, 8));
+        buttonSort.setFont(new Font("Arial", Font.BOLD, 10));
 
         // sortowanie wedlug tego co wybiore
         buttonSort.addActionListener(new ActionListener() {
