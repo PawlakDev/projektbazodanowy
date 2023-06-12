@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.List;
 
 import static example.Start.getBackgroundImagePanel;
@@ -94,6 +95,42 @@ public class ShowTrainingsAll extends JFrame {
             }
         });
 
+        JComboBox sortType1 = new JComboBox<>();
+        sortType1.addItem("nazwa");
+        sortType1.addItem("data");
+        sortType1.setSelectedItem("data");
+
+        JLabel sortTypeLabel1 = new JLabel("Sortuj po:");
+        sortTypeLabel1.setFont(new Font("Arial", Font.BOLD, 10));
+
+        //Panel do sortowania
+        JPanel sortTypePanel1 = new JPanel();
+        sortTypePanel1.setOpaque(false);
+        sortTypePanel1.setBounds(250, 300, 70, 40);
+        sortTypePanel1.setVisible(true);
+        sortTypePanel1.setLayout(new BorderLayout());
+        sortTypePanel1.add(sortTypeLabel1, BorderLayout.NORTH);
+        sortTypePanel1.add(sortType1, BorderLayout.CENTER);
+
+        JComboBox sortType2 = new JComboBox<>();
+        sortType2.addItem("malejąco");
+        sortType2.addItem("rosnąco");
+        sortType2.setSelectedItem("malejąco");
+
+        JLabel sortTypeLabel2 = new JLabel("Sortuj:");
+        sortTypeLabel2.setFont(new Font("Arial", Font.BOLD, 10));
+
+        //Panel do roku
+        JPanel sortTypePanel2 = new JPanel();
+        sortTypePanel2.setOpaque(false);
+        sortTypePanel2.setBounds(330, 300, 70, 40);
+        sortTypePanel2.setVisible(true);
+        sortTypePanel2.setLayout(new BorderLayout());
+        sortTypePanel2.add(sortTypeLabel2, BorderLayout.NORTH);
+        sortTypePanel2.add(sortType2, BorderLayout.CENTER);
+
+        to.add(sortTypePanel1);
+        to.add(sortTypePanel2);
         to.add(headlinePanel);
         to.add(buttonBack);
         to.add(scrollPane);
