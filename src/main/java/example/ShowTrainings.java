@@ -1,74 +1,215 @@
 package example;
 
-import example.buttons.Button1Settings;
+import example.InfoFrames.LoginInfoFrameSettings;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
-public class ShowTrainings extends JFrame{
-    private SessionFactory sessionFactory;
+import static example.Start.getBackgroundImagePanel;
 
-    JPanel buttonPanel;
+public class ShowTrainings extends JFrame {
 
-    JButton[] button = new JButton[3];
+    JLabel headlineLabel;
+    JPanel headlinePanel;
+    JTable table;
+    JScrollPane scrollPane;
 
-    JFrame to;
+    JButton buttonBack;
+    public ShowTrainings(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) {
+        System.out.println("show all trainings view");
 
-    public ShowTrainings(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) throws HeadlessException {
+        WorkoutRepository repository = new WorkoutRepository(sessionFactory);
+        List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
 
-        this.sessionFactory = sessionFactory;
+        // dane do tabeli przchowuja dane o treningacj
+        Object[][] tableData = new Object[userWorkouts.size()][];
+        for (int i = 0; i < userWorkouts.size(); i++) {
+            Workouts workout = userWorkouts.get(i);
+            Object[] rowData = {
+                    workout.getDate(),
+                    workout.getWorkouttype(),
+                    workout.getKilometers(),
+                    workout.getTimeworkout()
+            };
+            tableData[i] = rowData;
+        }
 
-        // blokuje stare przyciski
+        // nazwy kolumn
+        String[] columnNames = {"Date", "Workout Type", "Kilometers", "Time (mins)"};
+
+        // tworze z tego tabele
+        table = new JTable(tableData, columnNames);
+
+        // ustawienia tabeli
+        table.setRowHeight(30);
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        // wylaczam stare widoki
         oldButtonPanel.setVisible(false);
         oldButtonPanel.setEnabled(false);
+        getBackgroundImagePanel().setVisible(false);
 
-        buttonPanel = new JPanel();
-        buttonPanel.setBounds(0, 0, 180, 400);
-        buttonPanel.setLayout(null);
-        buttonPanel.setBackground(Color.white);
-        to.add(buttonPanel);
+        // ustawiam headline
+        headlineLabel = new JLabel();
+        headlinePanel = new JPanel();
+        headlinePanel.setBackground(Color.white);
+        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel,headlinePanel, "Twoje treningi");
 
-        button[0] = new JButton();
+        // Tworzenie panelu przewijania
+        scrollPane = new JScrollPane(table);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBounds(60,90,415,190);
+        scrollPane.setVisible(true);
 
-        Button1Settings button0Settings = new Button1Settings(button[0], buttonPanel, 20, 20, 130, 100, true, "Szczegóły treningu");
-        button[0].addActionListener(new ActionListener() {
+        JComboBox sortType1 = new JComboBox<>();
+        sortType1.addItem("nazwa");
+        sortType1.addItem("data");
+        sortType1.setSelectedItem("data");
+
+        JLabel sortTypeLabel1 = new JLabel("Sortuj po:");
+        sortTypeLabel1.setFont(new Font("Arial", Font.BOLD, 15));
+
+        //Panel do sortowania
+        JPanel sortTypePanel1 = new JPanel();
+        sortTypePanel1.setOpaque(false);
+        sortTypePanel1.setBounds(160, 300, 70, 40);
+        sortTypePanel1.setVisible(true);
+        sortTypePanel1.setLayout(new BorderLayout());
+        sortTypePanel1.add(sortTypeLabel1, BorderLayout.NORTH);
+        sortTypePanel1.add(sortType1, BorderLayout.CENTER);
+
+        JComboBox sortType2 = new JComboBox<>();
+        sortType2.addItem("malejąco");
+        sortType2.addItem("rosnąco");
+        sortType2.setSelectedItem("malejąco");
+
+        JLabel sortTypeLabel2 = new JLabel("Sortuj:");
+        sortTypeLabel2.setFont(new Font("Arial", Font.BOLD, 15));
+
+        //Panel do roku
+        JPanel sortTypePanel2 = new JPanel();
+        sortTypePanel2.setOpaque(false);
+        sortTypePanel2.setBounds(260, 300, 70, 40);
+        sortTypePanel2.setVisible(true);
+        sortTypePanel2.setLayout(new BorderLayout());
+        sortTypePanel2.add(sortTypeLabel2, BorderLayout.NORTH);
+        sortTypePanel2.add(sortType2, BorderLayout.CENTER);
+
+        //button do sortowania
+        JButton buttonSort = new JButton();
+        buttonSort.setBackground(new Color(200, 230, 255));
+        buttonSort.setVisible(true);
+        buttonSort.setLayout(null);
+        buttonSort.setBounds(350, 310, 50, 40);
+        buttonSort.setText("Sortuj");
+        buttonSort.setFocusable(false);
+        buttonSort.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)
+        ));
+        buttonSort.setFont(new Font("Arial", Font.BOLD, 10));
+
+        //button do wybrania treningu
+        JButton buttonSelect = new JButton();
+        buttonSelect.setBackground(new Color(200, 230, 255));
+        buttonSelect.setVisible(true);
+        buttonSelect.setLayout(null);
+        buttonSelect.setBounds(450, 310, 50, 40);
+        buttonSelect.setText("Wybierz");
+        buttonSelect.setFocusable(false);
+        buttonSelect.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)
+        ));
+        buttonSelect.setFont(new Font("Arial", Font.BOLD, 10));
+
+        // sortowanie wedlug tego co wybiore
+        buttonSort.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String sortType = sortType1.getSelectedItem().toString();
+                boolean ascending = sortType2.getSelectedItem().toString().equals("rosnąco");
+
+                if (sortType.equals("nazwa")) {
+                    Arrays.sort(tableData, Comparator.comparing(row -> row[1].toString()));
+                } else if (sortType.equals("data")) {
+                    Arrays.sort(tableData, Comparator.comparing(row -> row[0].toString()));
+                }
+
+                if (!ascending) {
+                    // jesli malejace
+                    for (int i = 0; i < tableData.length / 2; i++) {
+                        Object[] temp = tableData[i];
+                        tableData[i] = tableData[tableData.length - 1 - i];
+                        tableData[tableData.length - 1 - i] = temp;
+                    }
+                }
+
+                // odwiezam
+                table.setModel(new MyTableModel(tableData, columnNames));
+            }
+        });
+
+        buttonSelect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // tutaj akcja po kliknięciu "szczegółowy widok"
-                System.out.println("szczegółowy widok");
+
 
             }
         });
 
+        buttonBack = new JButton();
+        // next - Cofnij
+        buttonBack.setBackground(new Color(200, 230, 255));
+        buttonBack.setVisible(true);
+        buttonBack.setLayout(null);
+        buttonBack.setBounds(50, 300, 100, 50);
+        buttonBack.setText("Wstecz");
+        buttonBack.setFocusable(false);
+        buttonBack.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        buttonBack.setFont(new Font("Arial", Font.BOLD, 14));
 
-        button[1] = new JButton();
-        Button1Settings button1Settings = new Button1Settings(button[1], buttonPanel, 20, 130, 130, 100, true, "Wyswietl treningi");
-
-        button[1].addActionListener(new ActionListener() {
-            @Override
+        buttonBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // tutaj akcja po kliknięciu "ogólny"
-                ShowTrainingsAll TrainingsAll = new ShowTrainingsAll(sessionFactory, to, buttonPanel, currentUser);
-
-            }
-
-        });
-
-        button[2] = new JButton();
-        Button1Settings button2Settings = new Button1Settings(button[2], buttonPanel, 20, 240, 130, 100, true, "Cofnij");
-        button[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buttonPanel.setEnabled(false);
-                buttonPanel.setVisible(false);
 
                 oldButtonPanel.setVisible(true);
                 oldButtonPanel.setEnabled(true);
+                getBackgroundImagePanel().setVisible(true);
+                scrollPane.setVisible(false);
+                buttonBack.setVisible(false);
+                headlinePanel.setVisible(false);
+                buttonSort.setVisible(false);
+                sortTypePanel2.setVisible(false);
+                sortTypePanel1.setVisible(true);
             }
         });
+        to.add(buttonSelect);
+        to.add(buttonSort);
+        to.add(sortTypePanel1);
+        to.add(sortTypePanel2);
+        to.add(headlinePanel);
+        to.add(buttonBack);
+        to.add(scrollPane);
 
-}
+    }
+    private static class MyTableModel extends javax.swing.table.DefaultTableModel {
+        public MyTableModel(Object[][] tableData, Object[] columnNames) {
+            super(tableData, columnNames);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }
 }
