@@ -8,7 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static example.Start.getBackgroundImagePanel;
@@ -18,7 +19,6 @@ public class ShowTrainingsAll extends JFrame {
     JLabel headlineLabel;
     JPanel headlinePanel;
     JTable table;
-    JTextArea textArea;
     JScrollPane scrollPane;
 
     JButton buttonBack;
@@ -106,7 +106,7 @@ public class ShowTrainingsAll extends JFrame {
         //Panel do sortowania
         JPanel sortTypePanel1 = new JPanel();
         sortTypePanel1.setOpaque(false);
-        sortTypePanel1.setBounds(250, 300, 70, 40);
+        sortTypePanel1.setBounds(230, 300, 70, 40);
         sortTypePanel1.setVisible(true);
         sortTypePanel1.setLayout(new BorderLayout());
         sortTypePanel1.add(sortTypeLabel1, BorderLayout.NORTH);
@@ -123,17 +123,69 @@ public class ShowTrainingsAll extends JFrame {
         //Panel do roku
         JPanel sortTypePanel2 = new JPanel();
         sortTypePanel2.setOpaque(false);
-        sortTypePanel2.setBounds(330, 300, 70, 40);
+        sortTypePanel2.setBounds(310, 300, 70, 40);
         sortTypePanel2.setVisible(true);
         sortTypePanel2.setLayout(new BorderLayout());
         sortTypePanel2.add(sortTypeLabel2, BorderLayout.NORTH);
         sortTypePanel2.add(sortType2, BorderLayout.CENTER);
 
+
+        //button do sortowania
+        JButton buttonSort = new JButton();
+        buttonSort.setBackground(new Color(200, 230, 255));
+        buttonSort.setVisible(true);
+        buttonSort.setLayout(null);
+        buttonSort.setBounds(393, 310, 40, 30);
+        buttonSort.setText("Sortuj");
+        buttonSort.setFocusable(false);
+        buttonSort.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)
+        ));
+        buttonSort.setFont(new Font("Arial", Font.BOLD, 8));
+
+        // sortowanie wedlug tego co wybiore
+        buttonSort.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String sortType = sortType1.getSelectedItem().toString();
+                boolean ascending = sortType2.getSelectedItem().toString().equals("rosnąco");
+
+                if (sortType.equals("nazwa")) {
+                    Arrays.sort(tableData, Comparator.comparing(row -> row[1].toString()));
+                } else if (sortType.equals("data")) {
+                    Arrays.sort(tableData, Comparator.comparing(row -> row[0].toString()));
+                }
+
+                if (!ascending) {
+                    // jesli malejace
+                    for (int i = 0; i < tableData.length / 2; i++) {
+                        Object[] temp = tableData[i];
+                        tableData[i] = tableData[tableData.length - 1 - i];
+                        tableData[tableData.length - 1 - i] = temp;
+                    }
+                }
+
+                // odwiezam
+                table.setModel(new MyTableModel(tableData, columnNames));
+            }
+        });
+
+        to.add(buttonSort);
         to.add(sortTypePanel1);
         to.add(sortTypePanel2);
         to.add(headlinePanel);
         to.add(buttonBack);
         to.add(scrollPane);
 
+    }
+    private static class MyTableModel extends javax.swing.table.DefaultTableModel {
+        public MyTableModel(Object[][] tableData, Object[] columnNames) {
+            super(tableData, columnNames);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
     }
 }
