@@ -69,31 +69,7 @@ public class ShowTrainingsAll extends JFrame {
         scrollPane.setBounds(60,90,415,190);
         scrollPane.setVisible(true);
 
-        buttonBack = new JButton();
-        // next - Cofnij
-        buttonBack.setBackground(new Color(200, 230, 255));
-        buttonBack.setVisible(true);
-        buttonBack.setLayout(null);
-        buttonBack.setBounds(70, 300, 100, 50);
-        buttonBack.setText("Wstecz");
-        buttonBack.setFocusable(false);
-        buttonBack.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
-                BorderFactory.createEmptyBorder(5, 5, 5, 5)
-        ));
-        buttonBack.setFont(new Font("Arial", Font.BOLD, 14));
 
-        buttonBack.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                oldButtonPanel.setVisible(true);
-                oldButtonPanel.setEnabled(true);
-                getBackgroundImagePanel().setVisible(true);
-                scrollPane.setVisible(false);
-                buttonBack.setVisible(false);
-                headlinePanel.setVisible(false);
-            }
-        });
 
         JComboBox sortType1 = new JComboBox<>();
         sortType1.addItem("nazwa");
@@ -167,6 +143,35 @@ public class ShowTrainingsAll extends JFrame {
 
                 // odwiezam
                 table.setModel(new MyTableModel(tableData, columnNames));
+            }
+        });
+
+        buttonBack = new JButton();
+        // next - Cofnij
+        buttonBack.setBackground(new Color(200, 230, 255));
+        buttonBack.setVisible(true);
+        buttonBack.setLayout(null);
+        buttonBack.setBounds(70, 300, 100, 50);
+        buttonBack.setText("Wstecz");
+        buttonBack.setFocusable(false);
+        buttonBack.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        buttonBack.setFont(new Font("Arial", Font.BOLD, 14));
+
+        buttonBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                oldButtonPanel.setVisible(true);
+                oldButtonPanel.setEnabled(true);
+                getBackgroundImagePanel().setVisible(true);
+                scrollPane.setVisible(false);
+                buttonBack.setVisible(false);
+                headlinePanel.setVisible(false);
+                buttonSort.setVisible(false);
+                sortTypePanel2.setVisible(false);
+                sortTypePanel1.setVisible(true);
             }
         });
 
