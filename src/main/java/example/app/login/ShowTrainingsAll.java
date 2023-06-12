@@ -1,9 +1,6 @@
-package example.app.login;
+package example;
 
-import example.app.InfoFrames.LoginInfoFrameSettings;
-import example.app.WorkoutRepository;
-import example.app.dbSettings.User;
-import example.app.dbSettings.Workouts;
+import example.InfoFrames.LoginInfoFrameSettings;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
@@ -15,8 +12,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import static example.app.Start.getBackgroundImagePanel;
-
+import static example.Start.getBackgroundImagePanel;
+//przerobić na okno z treningiem po kliknięciu na trening :)`
 public class ShowTrainingsAll extends JFrame {
 
     JLabel headlineLabel;
@@ -71,6 +68,8 @@ public class ShowTrainingsAll extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBounds(60,90,415,190);
         scrollPane.setVisible(true);
+
+
 
         JComboBox sortType1 = new JComboBox<>();
         sortType1.addItem("nazwa");
@@ -172,7 +171,7 @@ public class ShowTrainingsAll extends JFrame {
                 headlinePanel.setVisible(false);
                 buttonSort.setVisible(false);
                 sortTypePanel2.setVisible(false);
-                sortTypePanel1.setVisible(false);
+                sortTypePanel1.setVisible(true);
             }
         });
 
