@@ -2,6 +2,8 @@ package example;
 
 import example.InfoFrames.LoginInfoFrameSettings;
 import org.hibernate.SessionFactory;
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -190,6 +192,8 @@ public class RejestracjaData extends JFrame{
         // zapisz wszystko
         next.setText("Rejestruj");
 
+        // Szyfrowanie hasła
+        String hashedPassword = BCrypt.hashpw(password.getText(), BCrypt.gensalt());
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println(name.getText() + " " + surname.getText() + " " + email.getText() + " " + changeFunct.isSelected() + " " + birthYear.getSelectedItem());
@@ -201,7 +205,7 @@ public class RejestracjaData extends JFrame{
                 }
                 else { // idk czy jakis wyjatkow nie trzeba? + szyfrowanie haseł!
                     Integer birthYearValue = Integer.parseInt(birthYear.getSelectedItem().toString());
-                    addUser(sessionFactory, textLogin.getText(), password.getText(), email.getText(), coach, name.getText(), surname.getText(), birthYearValue);
+                    addUser(sessionFactory, textLogin.getText(), hashedPassword, email.getText(), coach, name.getText(), surname.getText(), birthYearValue);
 
                     to.dispose();  // Zamykam rejestracje
                     Start start = new Start(sessionFactory);

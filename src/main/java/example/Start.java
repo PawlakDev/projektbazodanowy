@@ -6,6 +6,7 @@ import example.buttons.Button2Settings;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +66,7 @@ public class Start extends JFrame implements ActionListener {
         BackgroundImagePanel.setBounds(160, -25, 370, 400);
 
         //Utwórz obiekt Image z obrazem
-        Image image = new ImageIcon("src\\main\\java\\example\\obrazek.png").getImage();
+        Image image = new ImageIcon("src/main/java/example/obrazek.png").getImage();
 
         // Ustaw właściwość SCALE_SMOOTH dla obrazu
         image = image.getScaledInstance(500, 400, Image.SCALE_SMOOTH);
@@ -154,7 +155,9 @@ public class Start extends JFrame implements ActionListener {
                         List<User> users = session.createQuery("from User", User.class).getResultList();
                         for (User user : users) {
                             if (user.getUsername().equals(text)) {
-                                if (user.getPassword().equals(text2)) {
+
+                                boolean passwordMatches = BCrypt.checkpw(text2, user.getPassword());
+                                if (passwordMatches) {
                                     session.getTransaction().commit();
 
                                     User currentUser = user;
