@@ -13,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static example.Start.getBackgroundImagePanel;
-//przerobić na okno z treningiem po kliknięciu na trening :)
+//przerobić na okno z treningiem po kliknięciu na trening :)`
 public class ShowTrainingsAll extends JFrame {
 
     JLabel headlineLabel;
