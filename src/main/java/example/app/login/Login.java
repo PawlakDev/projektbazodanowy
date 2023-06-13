@@ -266,7 +266,13 @@ public class Login extends JFrame {
                                 Button1Settings button1Settings = new Button1Settings(button[3], ButtonPanel, 20, 20, 130, 100, true, "Nowy trening");
 
                                 //Button4 - "statystyki"
+                                // zastanawiam się czy zostawić statyustyki czy zrobić tutajk wyswietlanie informacji o zawodnikach, \
+                                // tzn nie wiem gdzie zrobvić wyswioetlanie zawodników wiec chwiolowo robie tu
                                 button[4] = new JButton();
+                                Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Pokaż statystyki");
+                                if(currentUser.getIscoach())
+                                    button[4].setText("pokaż zawodników");
+
                                 button[4].addActionListener(this);
                                 button[4].addActionListener(new ActionListener() {
                                     @Override
@@ -274,10 +280,14 @@ public class Login extends JFrame {
                                         // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż statystyki"
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
+                                        if(currentUser.getIscoach())
+                                        {
+                                            System.out.println("Pokaż zawodnikó");
+                                            ShowAthletes showAthletes = new ShowAthletes(sessionFactory, jFrame, currentUser);
+                                        }
                                         System.out.println("Pokaż statystyki");
                                     }
                                 });
-                                Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Pokaż statystyki");
 
                                 //Button5 - "Wyswietl treningi"
                                 button[5] = new JButton();

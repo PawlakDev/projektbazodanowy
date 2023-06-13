@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 @Entity
-@Table(name = "athlete")
+@Table(name = "athletes")
 public class Athlete {
 //    @OneToOne
 //    @JoinColumn(name = "user_id")
