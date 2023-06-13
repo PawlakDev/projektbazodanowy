@@ -3,14 +3,19 @@ package example.app.dbSettings;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "username")
