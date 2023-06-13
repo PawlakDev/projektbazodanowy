@@ -1,6 +1,7 @@
 package example.app.login;
 
 import example.app.InfoFrames.WelcomeMsgSettings;
+import example.app.Start;
 import example.app.ToggleButtonSettings;
 import example.app.buttons.Button1Settings;
 import example.app.buttons.Button2Settings;
@@ -20,26 +21,23 @@ import java.awt.event.FocusEvent;
 import java.util.List;
 
 public class Login extends JFrame {
-private JLabel label2;
-private JPanel panel3, frameBackground , panel5, Login, Password;
-private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
+    private JLabel label2;
+    private JPanel panel3, frameBackground , panel5, Login, Password;
+    private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
     JTextArea textLogin;
     private JPasswordField textArea2; //haslo
     private JLayeredPane GraphicFrame;
 
-    JPanel panel,panel2,BackgroundImagePanel,ButtonPanel,WelcomeMsgPanel;
+    JPanel BackgroundImagePanel,ButtonPanel,WelcomeMsgPanel;
     JFrame jFrame ;
     JButton jButton,buttonBack;
     JButton[] button ;
     SessionFactory sessionFactory;
     JLabel welcomeMsgLabel;
 
-    JLayeredPane jLayeredPane;
 
-    public Login(JPanel panel, JPanel panel2, JFrame jFrame, JButton jButton, JButton ButtonBack, JButton button[], SessionFactory session, JPanel BackgroundImagePanel,
-    JPanel ButtonPanel, JPanel WelcomeMsgPanel , JLabel welcomeMsgLabel, JLayeredPane jLayeredPane){
-        this.panel = panel;
-        this.panel2 = panel2;
+    public Login(JFrame jFrame, JButton jButton, JButton ButtonBack, JButton button[], SessionFactory session, JPanel BackgroundImagePanel,
+                 JPanel ButtonPanel, JPanel WelcomeMsgPanel , JLabel welcomeMsgLabel){
         this.jFrame = jFrame;
         this.jButton = jButton;
         this.buttonBack = ButtonBack;
@@ -49,16 +47,17 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
         this.ButtonPanel = ButtonPanel;
         this.WelcomeMsgPanel = WelcomeMsgPanel;
         this.welcomeMsgLabel = welcomeMsgLabel;
-        this.jLayeredPane = jLayeredPane;
     }
 
     public void zrob(){
 
+        Start start = new Start();
+
         //Wylaczam stare panele
-        panel.setEnabled(false);
-        panel2.setEnabled(false);
-        panel.setVisible(false);
-        panel2.setVisible(false);
+        start.getButtonPanel().setEnabled(false);
+        start.getButtonPanel().setVisible(false);
+        start.getBackgroundImagePanel().setEnabled(false);
+        start.getBackgroundImagePanel().setVisible(false);
 
 
         //label
@@ -261,7 +260,7 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
                                         // kod, który ma zostać wykonany po kliknięciu przycisku "Nowy trening"
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
-                                        NewTraining newTraining = new NewTraining(ButtonPanel,WelcomeMsgPanel, jFrame,sessionFactory, BackgroundImagePanel, jLayeredPane);
+                                        NewTraining newTraining = new NewTraining(ButtonPanel,WelcomeMsgPanel, jFrame,sessionFactory, BackgroundImagePanel, start.getjLayeredPane());
                                     }
                                 });
                                 Button1Settings button1Settings = new Button1Settings(button[3], ButtonPanel, 20, 20, 130, 100, true, "Nowy trening");
@@ -309,7 +308,7 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
 
                                 WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel,WelcomeMsgPanel,  "Witaj " + user.getUsername(),180, 330 );
 
-                                jLayeredPane.add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
+                                start.getjLayeredPane().add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
 
                                 jFrame.remove(BackgroundImagePanel);
                                 jFrame.remove(ButtonPanel);
@@ -376,7 +375,7 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
     }
 
     public String getTextLogin() {
-            return textLogin.getText();
+        return textLogin.getText();
     }
 
     public JTextArea getTextArea3(){
@@ -419,5 +418,3 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
         return Password;
     }
 }
-
-

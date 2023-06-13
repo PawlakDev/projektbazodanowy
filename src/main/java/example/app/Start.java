@@ -30,7 +30,7 @@ public class Start extends JFrame implements ActionListener {
 
     static JLayeredPane jLayeredPane;
 
-        /*
+    /*
      *  Buttons:
      *  0 - Zaloguj
      *  1 - Zarejestruj
@@ -39,18 +39,19 @@ public class Start extends JFrame implements ActionListener {
      *  4 - Edytuj trening
      *  5 - Wyswietl treningi
      *
-        */
-        static JPanel ButtonPanel;
+     */
+    static JPanel ButtonPanel;
 
-    public static JPanel getBackgroundImagePanel() {
-        return BackgroundImagePanel;
-    }
+
 
     static JPanel BackgroundImagePanel;
     JPanel WelcomeMsgPanel;
 
     SessionFactory sessionFactory;
 
+    public Start(){
+
+    }
     public Start(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -105,7 +106,7 @@ public class Start extends JFrame implements ActionListener {
     }
 
     private void stworzJframe(){
-    //JFrame
+        //JFrame
         jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(550, 400);
@@ -146,6 +147,17 @@ public class Start extends JFrame implements ActionListener {
         button[2].addActionListener(this);
         Button2Settings button3Settings = new Button2Settings(button[2], ButtonPanel, 20, 240, 130, 100, "Wyjdz");
     }
+    public static JPanel getButtonPanel() {
+        return ButtonPanel;
+    }
+
+    public static JPanel getBackgroundImagePanel() {
+        return BackgroundImagePanel;
+    }
+
+    public static JLayeredPane getjLayeredPane() {
+        return jLayeredPane;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -155,7 +167,7 @@ public class Start extends JFrame implements ActionListener {
 
             JButton jButton = new JButton();
             JButton ButtonBack = new JButton();
-            Login login = new Login(ButtonPanel, BackgroundImagePanel, jFrame, jButton, ButtonBack, button,sessionFactory,BackgroundImagePanel,ButtonPanel,WelcomeMsgPanel,welcomeMsgLabel,jLayeredPane);
+            Login login = new Login(jFrame, jButton, ButtonBack, button,sessionFactory,BackgroundImagePanel,ButtonPanel,WelcomeMsgPanel,welcomeMsgLabel);
             login.zrob();
             jButton.addActionListener(this);
             ButtonBack.addActionListener(this);
