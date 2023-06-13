@@ -6,7 +6,7 @@ import example.app.buttons.Button2Settings;
 import example.app.dbSettings.User;
 import example.app.login.Login;
 import example.app.login.NewTraining;
-import example.app.login.ShowTrainings;
+//import example.app.login.ShowTrainings;
 import example.app.register.Rejestracja;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

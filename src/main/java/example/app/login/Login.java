@@ -288,7 +288,7 @@ private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
                                         // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż treningi"
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
-                                        ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel, currentUser);
+                                        ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel,currentUser );
                                     }
                                 });
                                 Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Pokaż treningi");

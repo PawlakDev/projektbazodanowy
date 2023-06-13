@@ -1,6 +1,9 @@
-package example;
+package example.app.login;//package example;
 
-import example.InfoFrames.LoginInfoFrameSettings;
+//import example.InfoFrames.LoginInfoFrameSettings;
+import example.app.WorkoutRepository;
+import example.app.dbSettings.User;
+import example.app.dbSettings.Workouts;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
@@ -12,7 +15,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import static example.Start.getBackgroundImagePanel;
+import static example.app.Start.getBackgroundImagePanel;
+
+//import static example.Start.getBackgroundImagePanel;
 //przerobić na okno z treningiem po kliknięciu na trening :)`
 public class ShowTrainingsAll extends JFrame {
 

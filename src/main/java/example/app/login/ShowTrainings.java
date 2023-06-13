@@ -1,6 +1,6 @@
-package example;
+package example.app.login;//package example;
 
-import example.InfoFrames.LoginInfoFrameSettings;
+//import example.InfoFrames.LoginInfoFrameSettings;
 import example.app.WorkoutRepository;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
