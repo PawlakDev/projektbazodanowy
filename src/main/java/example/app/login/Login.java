@@ -1,6 +1,5 @@
 package example.app.login;
 
-import example.app.InfoFrames.LoginInfoFrameSettings;
 import example.app.InfoFrames.WelcomeMsgSettings;
 import example.app.ToggleButtonSettings;
 import example.app.buttons.Button1Settings;

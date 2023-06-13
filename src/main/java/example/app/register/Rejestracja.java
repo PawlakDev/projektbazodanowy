@@ -1,6 +1,6 @@
 package example.app.register;
 
-import example.app.InfoFrames.LoginInfoFrameSettings;
+import example.app.login.LoginInfoFrameSettings;
 import example.app.ToggleButtonSettings;
 import example.app.dbSettings.User;
 import org.hibernate.HibernateException;

@@ -1,4 +1,4 @@
-package example.app.InfoFrames;
+package example.app.login;
 
 import javax.swing.*;
 import java.awt.*;
