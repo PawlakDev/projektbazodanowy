@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-//import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
@@ -23,17 +22,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "is_coach") //true - zawodnik = mniejsze prawa, false - admin / trener = wieksze prawa
+    @Column(name = "is_coach")
     private boolean isCoach;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "surname")
-    private String surname;
-
-    @Column(name = "birth_year")
-    private Integer birthYear;
 
     public User() {
     }
@@ -45,14 +36,11 @@ public class User {
         this.isCoach = false;
     }
 
-    public User(String username, String password, String email, boolean isCoach, String name, String surname, Integer birthYear) {
+    public User(String username, String password, String email, boolean isCoach) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isCoach = isCoach;
-        this.name = name;
-        this.surname = surname;
-        this.birthYear = birthYear;
     }
 
 
@@ -97,9 +85,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", isCoach=" + isCoach +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthYear=" + birthYear +
                 '}';
     }
 
@@ -117,9 +102,13 @@ public class User {
             Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
-            User user = new User(login, haslo, email, isCoach, name, surname, birthYear);
+            User user = new User(login, haslo, email, isCoach);
+            if(!isCoach)
+            {
+                Athlete athlete = new Athlete(name, surname, birthYear);
+                session.save(athlete);
+            }
             session.save(user);
-            System.out.println("ciekawe czy sie dodaje");
             session.getTransaction().commit();
             System.out.println("Dodano użytkownika o ID: " + user.getId());
         }

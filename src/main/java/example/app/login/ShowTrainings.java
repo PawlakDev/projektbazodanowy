@@ -28,7 +28,6 @@ public class ShowTrainings extends JFrame {
 
     JButton buttonBack;
     public ShowTrainings(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) {
-        System.out.println("show all trainings view");
 
         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
         List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
