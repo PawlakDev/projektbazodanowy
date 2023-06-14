@@ -271,7 +271,7 @@ public class Login extends JFrame {
                                 button[4] = new JButton();
                                 Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Pokaż statystyki");
                                 if(currentUser.getIscoach())
-                                    button[4].setText("pokaż zawodników");
+                                    button[4].setText("Pokaż zawodników");
 
                                 button[4].addActionListener(this);
                                 button[4].addActionListener(new ActionListener() {
@@ -282,7 +282,7 @@ public class Login extends JFrame {
                                         WelcomeMsgPanel.setEnabled(false);
                                         if(currentUser.getIscoach())
                                         {
-                                            System.out.println("Pokaż zawodnikó");
+                                            System.out.println("Pokaż zawodników");
                                             ShowAthletes showAthletes = new ShowAthletes(sessionFactory, jFrame, currentUser);
                                         }
                                         System.out.println("Pokaż statystyki");

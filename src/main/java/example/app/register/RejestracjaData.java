@@ -210,7 +210,8 @@ public class RejestracjaData extends JFrame{
                     addUser(sessionFactory, textLogin.getText(), hashedPassword, email.getText(), coach, name.getText(), surname.getText(), birthYearValue);
 
                     to.dispose();  // Zamykam rejestracje
-                    Start start = new Start(sessionFactory);
+                    Start start = new Start(sessionFactory); // i otwieram nowy frame główny
+                    start.zrob();
                 }
             }
         });
