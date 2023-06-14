@@ -103,18 +103,20 @@ public class User {
         session.getTransaction().commit();
         System.out.println("Dodano użytkownika o ID: " + user.getId());
     }
-     public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isCoach, String name, String surname, Integer birthYear){
-            Session session = sessionFactory.getCurrentSession();
-            session.beginTransaction();
+    public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isCoach, String name, String surname, Integer birthYear) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
 
-            User user = new User(login, haslo, email, isCoach);
-            if(!isCoach)
-            {
-                Athlete athlete = new Athlete(name, surname, birthYear);
-                session.save(athlete);
-            }
-            session.save(user);
-            session.getTransaction().commit();
-            System.out.println("Dodano użytkownika o ID: " + user.getId());
+        User user = new User(login, haslo, email, isCoach);
+        session.save(user);
+
+        if (!isCoach) {
+            Athlete athlete = new Athlete(user.getId(), name, surname, birthYear);
+            session.save(athlete);
         }
+
+        session.getTransaction().commit();
+        System.out.println("Dodano użytkownika o ID: " + user.getId());
+    }
+
     }

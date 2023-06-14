@@ -1,19 +1,16 @@
 package example.app.dbSettings;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 @Entity
-@Table(name = "athletes")
+@Table(name = "athlete")
 public class Athlete {
-//    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
     @Column(name="uid")
     private Integer uid;
 
@@ -29,7 +26,8 @@ public class Athlete {
     public Athlete() {
     }
 
-    public Athlete(String name, String surname, Integer birthYear) {
+    public Athlete(Integer uid, String name, String surname, Integer birthYear) {
+        this.uid = uid;
         this.name = name;
         this.surname = surname;
         this.birthYear = birthYear;
