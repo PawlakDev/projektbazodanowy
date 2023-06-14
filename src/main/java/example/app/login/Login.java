@@ -286,6 +286,7 @@ public class Login extends JFrame {
                                             ShowAthletes showAthletes = new ShowAthletes(sessionFactory, jFrame, currentUser);
                                         }
                                         System.out.println("Pokaż statystyki");
+                                        ShowStats showStats = new ShowStats(sessionFactory, jFrame, currentUser);
                                     }
                                 });
 
