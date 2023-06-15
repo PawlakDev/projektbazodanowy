@@ -54,6 +54,7 @@ public class CreatingNewTraining {
         return ButtonPanel4;
     }
 
+
     public void zrob(){
         ButtonPanel3.setEnabled(false);
         ButtonPanel3.setVisible(false);
@@ -77,7 +78,7 @@ public class CreatingNewTraining {
         button[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addTrainingDescriptions opis = new addTrainingDescriptions(ButtonPanel4);
+                addTrainingDescriptions opis = new addTrainingDescriptions(ButtonPanel4,jLayeredPane,wellcomeMsgLabel,wellcomeMsgPanel);
 
                 opis.zrob();
 

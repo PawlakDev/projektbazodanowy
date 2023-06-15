@@ -20,6 +20,5 @@
         <!-- Mapowanie klas -->
         <mapping class="example.app.dbSettings.User"/>
         <mapping class="example.app.dbSettings.Workouts"/>
-        <mapping class="example.app.dbSettings.Athlete"/>
     </session-factory>
 </hibernate-configuration>
