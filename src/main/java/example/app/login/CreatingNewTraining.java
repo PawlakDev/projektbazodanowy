@@ -34,6 +34,26 @@ public class CreatingNewTraining {
         this.jLayeredPane = jLayeredPane;
     }
 
+    public CreatingNewTraining(){
+
+    }
+
+    public JLayeredPane getjLayeredPane() {
+        return jLayeredPane;
+    }
+
+    public JLabel getWellcomeMsgLabel() {
+        return wellcomeMsgLabel;
+    }
+
+    public JPanel getWellcomeMsgPanel() {
+        return wellcomeMsgPanel;
+    }
+
+    public JPanel getButtonPanel4() {
+        return ButtonPanel4;
+    }
+
     public void zrob(){
         ButtonPanel3.setEnabled(false);
         ButtonPanel3.setVisible(false);
@@ -57,38 +77,11 @@ public class CreatingNewTraining {
         button[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ButtonPanel4.setVisible(false);
-                ButtonPanel4.setEnabled(false);
+                addTrainingDescriptions opis = new addTrainingDescriptions(ButtonPanel4);
 
-                WpisTekstLabel = new JLabel();
-                WpisTekstPanel = new JPanel();
-                WpisTekstPanel.setOpaque(false);
-                WpisTekstPanel.setBounds(50,120,300,190);
+                opis.zrob();
 
-                jLayeredPane.add(WpisTekstPanel, JLayeredPane.PALETTE_LAYER); //
-
-                WelcomeMsgSettings welcomeMsgSettings1 = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wpisz Opis", 120, 310 );
-
-                jTextArea = new JTextArea();
-                jTextArea.setPreferredSize(new Dimension(300, 180));
-                jTextArea.setFont(new Font("MV Boli", 0, 32));
-                jTextArea.setForeground(new Color(0, 0, 0, 128));
-                jTextArea.setBorder(new LineBorder(Color.BLACK));
-
-                WpisTekstPanel.add(jTextArea);
-
-                JPanel ButtonPanelApply = new JPanel();
-
-                JButton buttonApply = new JButton();
-                Button1Settings buttonApplySettings = new Button1Settings(buttonApply, ButtonPanelApply, 370, 230, 130, 70, true, "Zatwierdz");
-
-
-                buttonApply.setVisible(true);
-                buttonApply.setEnabled(true);
-
-                ButtonPanelApply.add(buttonApply);
-                jLayeredPane.add(buttonApply, JLayeredPane.PALETTE_LAYER); //
-
+                /*
                 //Sprowadzam date z serwera sql
                 Session session = null;
 
@@ -132,7 +125,7 @@ public class CreatingNewTraining {
 
                 session2.getTransaction().commit();
                 System.out.println("Dodano trening o ID: " + workouts.getId());
-
+                */
             }
         });
 
