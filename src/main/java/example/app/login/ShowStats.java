@@ -60,15 +60,27 @@ public class ShowStats extends JFrame{
         buttonWykres2.setVisible(false);
         buttonBest.setVisible(false);
 
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//
-//        if (e.getSource() == ) {
-//        }
-//        }
 
         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
         List<Workouts> workouts = repository.getWorkoutsByUserId(currentUser.getId());
+
+        buttonWykres1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                KilometerChart kilometerChart = new KilometerChart(sessionFactory, to, currentUser, workouts);
+            }
+        });
+
+        buttonWykres1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                MinutesChart timeChart = new MinutesChart(sessionFactory, to, currentUser, workouts);
+            }
+        });
+
+        buttonBest.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //Bests bests = new Bests(sessionFactory, to, currentUser, workouts);
+            }
+        });
 
         // button cofania
         JButton buttonBack = new JButton();
