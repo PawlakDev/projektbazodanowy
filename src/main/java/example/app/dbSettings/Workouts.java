@@ -32,7 +32,7 @@ public class Workouts {
     private int timeworkout;
 
     @Column(name = "discription")
-    String discription;
+    String description;
 
     public Workouts() {
     }
@@ -45,7 +45,7 @@ public class Workouts {
         this.workouttype = workouttype;
         this.timeworkout = timeworkout;
         this.kilometers = km;
-        this.discription = "";
+        this.description = "";
     }
 
     public Workouts(int idU, String date, String type, int time) {
@@ -53,7 +53,7 @@ public class Workouts {
         this.date = date;
         this.workouttype = workouttype;
         this.timeworkout = timeworkout;
-        this.discription = "";
+        this.description = "";
     }
 
     public int getId() {

@@ -156,7 +156,7 @@ public class ShowTrainingsAll extends JFrame {
         buttonBack.setBackground(new Color(200, 230, 255));
         buttonBack.setVisible(true);
         buttonBack.setLayout(null);
-        buttonBack.setBounds(70, 300, 100, 50);
+        buttonBack.setBounds(60, 300, 100, 50);
         buttonBack.setText("Wstecz");
         buttonBack.setFocusable(false);
         buttonBack.setBorder(BorderFactory.createCompoundBorder(
@@ -176,7 +176,7 @@ public class ShowTrainingsAll extends JFrame {
                 headlinePanel.setVisible(false);
                 buttonSort.setVisible(false);
                 sortTypePanel2.setVisible(false);
-                sortTypePanel1.setVisible(true);
+                sortTypePanel1.setVisible(false);
             }
         });
 
