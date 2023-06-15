@@ -134,6 +134,8 @@ public class ShowStats extends JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 buttonBack.setVisible(false);
+                chartTimePanel.setVisible(false);
+                chartKilometersPanel.setVisible(false);
                 getBackgroundImagePanel().setVisible(true);
                 getButtonPanel().setVisible(true);
                 getjLayeredPane().setVisible(true);
