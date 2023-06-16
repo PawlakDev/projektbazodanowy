@@ -34,6 +34,11 @@ import static example.app.Start.*;
 
 public class ShowStats extends JFrame{
 
+
+
+    private static JButton buttonBest;
+    private static JButton buttonWykres1;
+    private static JButton buttonWykres2;
     public ShowStats(SessionFactory sessionFactory, JFrame to, User currentUser)
     {
         // stare panele uniewidoczniam
@@ -48,39 +53,17 @@ public class ShowStats extends JFrame{
         LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel,headlinePanel, "Twoje statystyki");
 
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 10, 10)); // Using GridLayout with 3 rows, 1 column, and spacing between components
-        JButton buttonWykres1 = new JButton();
-        JButton buttonWykres2 = new JButton();
-        JButton buttonBest = new JButton();
+        buttonWykres1 = new JButton();
+        buttonWykres2 = new JButton();
+        buttonBest = new JButton();
 
         Button2Settings button1Settings = new Button2Settings(buttonWykres1, buttonPanel, 40, 130, 130, 100, "Kilometry");
         Button2Settings button2Settings = new Button2Settings(buttonWykres2, buttonPanel, 180, 130, 130, 100, "Czas");
         Button2Settings button3Settings = new Button2Settings(buttonBest, buttonPanel, 330, 130, 130, 100, "Najlepsze");
 
-        buttonWykres1.setVisible(false);
-        buttonWykres2.setVisible(false);
-        buttonBest.setVisible(false);
-
-
-        WorkoutRepository repository = new WorkoutRepository(sessionFactory);
-        List<Workouts> workouts = repository.getWorkoutsByUserId(currentUser.getId());
-
-        buttonWykres1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                KilometerChart kilometerChart = new KilometerChart(sessionFactory, to, currentUser, workouts);
-            }
-        });
-
-        buttonWykres1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                MinutesChart timeChart = new MinutesChart(sessionFactory, to, currentUser, workouts);
-            }
-        });
-
-        buttonBest.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //Bests bests = new Bests(sessionFactory, to, currentUser, workouts);
-            }
-        });
+        buttonWykres1.setVisible(true);
+        buttonWykres2.setVisible(true);
+        buttonBest.setVisible(true);
 
         // button cofania
         JButton buttonBack = new JButton();
@@ -95,6 +78,41 @@ public class ShowStats extends JFrame{
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         buttonBack.setFont(new Font("Arial", Font.BOLD, 14));
+
+        WorkoutRepository repository = new WorkoutRepository(sessionFactory);
+        List<Workouts> workouts = repository.getWorkoutsByUserId(currentUser.getId());
+
+        buttonWykres1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonWykres1.setVisible(false);
+                buttonWykres2.setVisible(false);
+                buttonBest.setVisible(false);
+                buttonBack.setVisible(false);
+                KilometerChart kilometerChart = new KilometerChart(sessionFactory, to, currentUser, workouts);
+            }
+        });
+
+        buttonWykres2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buttonWykres1.setVisible(false);
+                buttonWykres2.setVisible(false);
+                buttonBest.setVisible(false);
+                buttonBack.setVisible(false);
+                MinutesChart timeChart = new MinutesChart(sessionFactory, to, currentUser, workouts);
+            }
+        });
+
+
+        buttonBest.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {buttonWykres1.setVisible(false);
+                buttonWykres1.setVisible(false);
+                buttonWykres2.setVisible(false);
+                buttonBest.setVisible(false);
+                buttonBack.setVisible(false);
+                Bests bests = new Bests(sessionFactory, to, currentUser, workouts);
+            }
+        });
+
 
         buttonBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -116,6 +134,17 @@ public class ShowStats extends JFrame{
         to.add(buttonWykres1);
         to.add(buttonWykres2);
         to.add(buttonBest);
+        to.add(buttonPanel);
 
+    }
+    public static JButton getButtonWykres1() {
+        return buttonWykres1;
+    }
+
+    public static JButton getButtonBest() {
+        return buttonBest;
+    }
+    public static JButton getButtonWykres2() {
+        return buttonWykres2;
     }
 }

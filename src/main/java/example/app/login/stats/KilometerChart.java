@@ -11,11 +11,16 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
+
+import static example.app.login.ShowStats.*;
 
 public class KilometerChart extends JFrame {
     public KilometerChart(SessionFactory sessionFactory, JFrame to, User currentUser, List<Workouts> workouts)
@@ -60,6 +65,33 @@ public class KilometerChart extends JFrame {
         chartKilometersPanel.setVisible(true);
         chartKilometersPanel.setBounds(60, 120, 320, 200);
         chartKilometersPanel.setOpaque(false);
+
+        // button cofania
+        JButton buttonBack = new JButton();
+        buttonBack.setBackground(new Color(200, 230, 255));
+        buttonBack.setVisible(true);
+        buttonBack.setLayout(null);
+        buttonBack.setBounds(70, 300, 100, 50);
+        buttonBack.setText("Wstecz");
+        buttonBack.setFocusable(false);
+        buttonBack.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        buttonBack.setFont(new Font("Arial", Font.BOLD, 14));
+
+        buttonBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                buttonBack.setVisible(false);
+                getButtonWykres1().setVisible(true);
+                getButtonWykres2().setVisible(true);
+                getButtonBest().setVisible(true);
+                chartKilometersPanel.setVisible(false);
+            }
+        });
+
         to.add(chartKilometersPanel);
+        to.add(buttonBack);
     }
 }
