@@ -110,7 +110,7 @@ public class ShowStats extends JFrame{
                 buttonWykres2.setVisible(false);
                 buttonBest.setVisible(false);
                 getBackgroundImagePanel().setVisible(true);
-                getButtonPanel().setVisible(true);
+                getButtonPanel().setVisible(false);
                 getjLayeredPane().setVisible(true);
                 getBackgroundImagePanel().setVisible(true);
                 headlinePanel.setVisible(false);

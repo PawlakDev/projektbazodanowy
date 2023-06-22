@@ -281,11 +281,11 @@ public class Login extends JFrame {
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
                                         if (currentUser.getIscoach()) {
-                                            System.out.println("Pokaż zawodników");
                                             ShowAthletes showAthletes = new ShowAthletes(sessionFactory, jFrame, currentUser);
                                         }
-                                        System.out.println("Pokaż statystyki");
-                                        ShowStats showStats = new ShowStats(sessionFactory, jFrame, currentUser);
+                                        else {
+                                            ShowStats showStats = new ShowStats(sessionFactory, jFrame, currentUser);
+                                        }
                                     }
                                 });
 
