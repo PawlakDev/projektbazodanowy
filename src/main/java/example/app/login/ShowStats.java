@@ -22,6 +22,12 @@ public class ShowStats extends JFrame{
     private static JButton buttonBest;
     private static JButton buttonWykres1;
     private static JButton buttonWykres2;
+
+    public static JButton getButtonBack() {
+        return buttonBack;
+    }
+
+    private static JButton buttonBack;
     public ShowStats(SessionFactory sessionFactory, JFrame to, User currentUser)
     {
         // stare panele uniewidoczniam
@@ -40,6 +46,7 @@ public class ShowStats extends JFrame{
         buttonWykres2 = new JButton();
         buttonBest = new JButton();
 
+
         Button2Settings button1Settings = new Button2Settings(buttonWykres1, buttonPanel, 40, 130, 130, 100, "Kilometry");
         Button2Settings button2Settings = new Button2Settings(buttonWykres2, buttonPanel, 180, 130, 130, 100, "Czas");
         Button2Settings button3Settings = new Button2Settings(buttonBest, buttonPanel, 330, 130, 130, 100, "Najlepsze");
@@ -49,7 +56,7 @@ public class ShowStats extends JFrame{
         buttonBest.setVisible(true);
 
         // button cofania
-        JButton buttonBack = new JButton();
+        buttonBack = new JButton();
         buttonBack.setBackground(new Color(200, 230, 255));
         buttonBack.setVisible(true);
         buttonBack.setLayout(null);
@@ -111,13 +118,12 @@ public class ShowStats extends JFrame{
 
         //obecne elementy dodaje do frema
         to.add(buttonBack);
-        to.add(headlinePanel);
         to.add(buttonWykres1);
         to.add(buttonWykres2);
         to.add(buttonBest);
         to.add(buttonBack);
         to.add(buttonPanel);
-
+        to.add(headlinePanel);
     }
     public static JButton getButtonWykres1() {
         return buttonWykres1;

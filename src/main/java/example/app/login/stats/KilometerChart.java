@@ -30,7 +30,7 @@ public class KilometerChart extends JFrame {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
             LocalDate weekStart = currentDate.minusWeeks(i).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             LocalDate weekEnd = currentDate.minusWeeks(i).with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
@@ -63,7 +63,7 @@ public class KilometerChart extends JFrame {
         // Tworzenie panelu wykresu i dodanie do niego wykresu
         ChartPanel chartKilometersPanel = new ChartPanel(chartKilometers);
         chartKilometersPanel.setVisible(true);
-        chartKilometersPanel.setBounds(60, 120, 320, 200);
+        chartKilometersPanel.setBounds(80, 100, 320, 210);
         chartKilometersPanel.setOpaque(false);
 
         // button cofania
@@ -83,6 +83,7 @@ public class KilometerChart extends JFrame {
         buttonBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                getButtonBack().setVisible(true);
                 buttonBack.setVisible(false);
                 getButtonWykres1().setVisible(true);
                 getButtonWykres2().setVisible(true);

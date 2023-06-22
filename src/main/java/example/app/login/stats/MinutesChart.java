@@ -15,6 +15,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import static example.app.Start.*;
@@ -26,8 +30,21 @@ public class MinutesChart extends JFrame {
     {
         // pobieram moje dane z tabel czas
         DefaultCategoryDataset datasetTime = new DefaultCategoryDataset();
-        for (Workouts workout : workouts) {
-            datasetTime.addValue(workout.getTimeworkout(), "Training", workout.getDate());
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        for (int i = 0; i < 5; i++) {
+            LocalDate weekStart = currentDate.minusWeeks(i).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate weekEnd = currentDate.minusWeeks(i).with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+
+            int sumMinutes = workouts.stream()
+                    .filter(workout -> {
+                        LocalDate workoutDate = LocalDate.parse(workout.getDate(), formatter);
+                        return !workoutDate.isBefore(weekStart) && !workoutDate.isAfter(weekEnd);
+                    })
+                    .mapToInt(Workouts::getTimeworkout)
+                    .sum();
+
+            datasetTime.addValue(sumMinutes, "Training", weekStart.format(formatter));
         }
 
         // Konwersja na CategoryDataset
@@ -35,9 +52,9 @@ public class MinutesChart extends JFrame {
 
         // Tworzenie wykresu
         JFreeChart chartTime = ChartFactory.createBarChart(
-                "Ilość minut w dany dzień",     // Tytuł wykresu
-                "Dzień",                     // Etykieta osi X
-                "Ilosc minut",     // Etykieta osi Y
+                "Minuty w dany tydzień",     // Tytuł wykresu
+                "Tydzień",                     // Etykieta osi X
+                "Suma minut",     // Etykieta osi Y
                 datasetTime,           // Zestaw danych
                 PlotOrientation.VERTICAL,  // Orientacja wykresu
                 false,                      // Wyświetlanie legendy
@@ -48,7 +65,7 @@ public class MinutesChart extends JFrame {
         // Tworzenie panelu wykresu i dodanie do niego wykresu
         ChartPanel chartTimePanel = new ChartPanel(chartTime);
         chartTimePanel.setVisible(true);
-        chartTimePanel.setBounds(60, 120, 320, 200);
+        chartTimePanel.setBounds(80, 100, 300, 190);
         chartTimePanel.setOpaque(false);
 
         // button cofania
@@ -68,6 +85,7 @@ public class MinutesChart extends JFrame {
         buttonBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+                getButtonBack().setVisible(true);
                 buttonBack.setVisible(false);
                 getButtonWykres1().setVisible(true);
                 getButtonWykres2().setVisible(true);
@@ -75,7 +93,7 @@ public class MinutesChart extends JFrame {
                 chartTimePanel.setVisible(false);
             }
         });
-        
+
         to.add(chartTimePanel);
         to.add(buttonBack);
 
