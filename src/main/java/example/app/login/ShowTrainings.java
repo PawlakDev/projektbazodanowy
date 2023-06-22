@@ -69,6 +69,7 @@ public class ShowTrainings extends JFrame {
         scrollPane.setVisible(true);
 
         JComboBox sortType1 = new JComboBox<>();
+
         sortType1.addItem("Kilometry");
         sortType1.addItem("Time");
         sortType1.addItem("Date");
@@ -80,6 +81,9 @@ public class ShowTrainings extends JFrame {
 
         //Panel do sortowania
         JPanel sortTypePanel1 = new JPanel();
+        sortTypePanel1.setVisible(true);
+        sortTypePanel1.setEnabled(true);
+
         sortTypePanel1.setOpaque(false);
         sortTypePanel1.setBounds(160, 300, 70, 40);
         sortTypePanel1.setVisible(true);
@@ -238,6 +242,15 @@ public class ShowTrainings extends JFrame {
                 buttonSort.setVisible(false);
                 sortTypePanel2.setVisible(false);
                 sortTypePanel1.setVisible(true);
+
+                sortTypePanel1.setVisible(false);
+                sortTypePanel1.setEnabled(false);
+
+                buttonSelect.setVisible(false);
+                buttonSelect.setEnabled(false);
+
+                buttonDelete.setVisible(false);
+                buttonDelete.setEnabled(false);
             }
         });
         to.add(buttonSelect);
