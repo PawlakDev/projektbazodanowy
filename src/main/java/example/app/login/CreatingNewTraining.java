@@ -2,6 +2,7 @@ package example.app.login;
 
 import example.app.InfoFrames.WelcomeMsgSettings;
 import example.app.buttons.Button1Settings;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
@@ -70,7 +71,7 @@ public class CreatingNewTraining {
         button[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addTrainingDescriptions opis = new addTrainingDescriptions(ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel);
+                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel);
 
                 opis.zrob();
 

@@ -6,30 +6,31 @@ import jakarta.persistence.*;
 @Table(name = "workouts")
 public class Workouts {
 
-    @Column(name = "discription")
-    String description;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "idU")
+    @Column(name = "idu")
     private int idUser;
     @Column(name = "date")
     private String date;
     @Column(name = "type")
     private String workouttype;
     @Column(name = "km")
-    private Integer kilometers;
+    private int kilometers;
     @Column(name = "time")
     private int timeworkout;
+    @Column(name = "description")
+    String description;
 
     public Workouts() {
     }
 
 
-    public Workouts(int idU, String date, String type, int km, int time) {
+    public Workouts(int idU, String date, String type, int km, int time, String opis) {
         this.idUser = idUser;
         this.date = date;
-        this.workouttype = workouttype;
+        this.workouttype = type;
         this.timeworkout = timeworkout;
         this.kilometers = km;
         this.description = "";
@@ -41,6 +42,15 @@ public class Workouts {
         this.workouttype = workouttype;
         this.timeworkout = timeworkout;
         this.description = "";
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {
@@ -79,7 +89,7 @@ public class Workouts {
         return kilometers;
     }
 
-    public void setKilometers(int kilometers) {
+    public void setKilometers(Integer kilometers) {
         this.kilometers = kilometers;
     }
 
@@ -90,6 +100,7 @@ public class Workouts {
     public void setTimeworkout(int timeworkout) {
         this.timeworkout = timeworkout;
     }
+
 
     @Override
     public String toString() {
