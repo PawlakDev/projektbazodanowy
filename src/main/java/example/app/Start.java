@@ -1,35 +1,23 @@
 package example.app;
 
-import example.app.InfoFrames.WelcomeMsgSettings;
 import example.app.buttons.Button1Settings;
 import example.app.buttons.Button2Settings;
-import example.app.dbSettings.User;
 import example.app.login.Login;
-import example.app.login.NewTraining;
-//import example.app.login.ShowTrainings;
 import example.app.register.Rejestracja;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class Start extends JFrame implements ActionListener {
     public static Object session; //?
     public static JButton jButton;
     public static JButton ButtonBack;
     static boolean change = false;
-    JLabel label,welcomeMsgLabel;
-    JButton[] button = new JButton[7];
     static JFrame jFrame;
-
     static JLayeredPane jLayeredPane;
-
     /*
      *  Buttons:
      *  0 - Zaloguj
@@ -41,22 +29,34 @@ public class Start extends JFrame implements ActionListener {
      *
      */
     static JPanel ButtonPanel;
-
-
-
     static JPanel BackgroundImagePanel;
+    JLabel label, welcomeMsgLabel;
+    JButton[] button = new JButton[7];
     JPanel WelcomeMsgPanel;
 
     SessionFactory sessionFactory;
 
-    public Start(){
+    public Start() {
 
     }
+
     public Start(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-    public void zrob(){
+    public static JPanel getButtonPanel() {
+        return ButtonPanel;
+    }
+
+    public static JPanel getBackgroundImagePanel() {
+        return BackgroundImagePanel;
+    }
+
+    public static JLayeredPane getjLayeredPane() {
+        return jLayeredPane;
+    }
+
+    public void zrob() {
 
         stworzButtony();
 
@@ -66,7 +66,7 @@ public class Start extends JFrame implements ActionListener {
 
         stworzJlayeredpane();
 
-        for(int i=0;i<3;i++){
+        for (int i = 0; i < 3; i++) {
             button[i].setVisible(true);
             button[i].setEnabled(true);
             button[i].setRolloverEnabled(false);
@@ -105,7 +105,7 @@ public class Start extends JFrame implements ActionListener {
         BackgroundImagePanel.add(label);
     }
 
-    private void stworzJframe(){
+    private void stworzJframe() {
         //JFrame
         jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,7 +121,8 @@ public class Start extends JFrame implements ActionListener {
         jFrame.add(ButtonPanel);
         jFrame.add(BackgroundImagePanel);
     }
-    private void stworzButtony(){
+
+    private void stworzButtony() {
         //Tworzenie panelu
         ButtonPanel = new JPanel();
         //Ustawianie jego wielkosci
@@ -147,17 +148,6 @@ public class Start extends JFrame implements ActionListener {
         button[2].addActionListener(this);
         Button2Settings button3Settings = new Button2Settings(button[2], ButtonPanel, 20, 240, 130, 100, "Wyjdz");
     }
-    public static JPanel getButtonPanel() {
-        return ButtonPanel;
-    }
-
-    public static JPanel getBackgroundImagePanel() {
-        return BackgroundImagePanel;
-    }
-
-    public static JLayeredPane getjLayeredPane() {
-        return jLayeredPane;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -167,7 +157,7 @@ public class Start extends JFrame implements ActionListener {
 
             JButton jButton = new JButton();
             JButton ButtonBack = new JButton();
-            Login login = new Login(jFrame, jButton, ButtonBack, button,sessionFactory,BackgroundImagePanel,ButtonPanel,WelcomeMsgPanel,welcomeMsgLabel);
+            Login login = new Login(jFrame, jButton, ButtonBack, button, sessionFactory, BackgroundImagePanel, ButtonPanel, WelcomeMsgPanel, welcomeMsgLabel);
             login.zrob();
             jButton.addActionListener(this);
             ButtonBack.addActionListener(this);
@@ -196,7 +186,7 @@ public class Start extends JFrame implements ActionListener {
 
         //wyjscie
         if (e.getSource() == button[2]) {
-            if (change == false) {
+            if (!change) {
                 System.exit(0);
             }
         }

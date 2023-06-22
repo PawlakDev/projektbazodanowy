@@ -12,20 +12,21 @@ import java.awt.event.ActionListener;
 public class addTrainingDescriptions {
 
     JLabel WpisTekstLabel;
-    JPanel WpisTekstPanel,ButtonPanel4;
+    JPanel WpisTekstPanel, ButtonPanel4;
     JTextArea jTextArea;
 
     JLayeredPane jLayeredPane;
     JLabel wellcomeMsgLabel;
     JPanel wellcomeMsgPanel;
-    public addTrainingDescriptions(JPanel ButtonPanel4, JLayeredPane jLayeredPane, JLabel wellcomeMsgLabel, JPanel wellcomeMsgPanel){
+
+    public addTrainingDescriptions(JPanel ButtonPanel4, JLayeredPane jLayeredPane, JLabel wellcomeMsgLabel, JPanel wellcomeMsgPanel) {
         this.ButtonPanel4 = ButtonPanel4;
         this.jLayeredPane = jLayeredPane;
         this.wellcomeMsgLabel = wellcomeMsgLabel;
         this.wellcomeMsgPanel = wellcomeMsgPanel;
     }
 
-    void zrob(){
+    void zrob() {
         CreatingNewTraining creatingNewTraining = new CreatingNewTraining();
 
         ButtonPanel4.setVisible(false);
@@ -34,11 +35,11 @@ public class addTrainingDescriptions {
         WpisTekstLabel = new JLabel();
         WpisTekstPanel = new JPanel();
         WpisTekstPanel.setOpaque(false);
-        WpisTekstPanel.setBounds(50,120,300,190);
+        WpisTekstPanel.setBounds(50, 120, 300, 190);
 
         jLayeredPane.add(WpisTekstPanel, JLayeredPane.PALETTE_LAYER); //
 
-        WelcomeMsgSettings welcomeMsgSettings1 = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wpisz Opis", 120, 310 );
+        WelcomeMsgSettings welcomeMsgSettings1 = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wpisz Opis", 120, 310);
 
         jTextArea = new JTextArea();
         jTextArea.setPreferredSize(new Dimension(300, 180));
@@ -59,7 +60,7 @@ public class addTrainingDescriptions {
                 String opis = jTextArea.getText();
 
                 jTextArea.setText("");
-                WelcomeMsgSettings welcomeMsgSettings2 = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wpisz ilosc km", 120, 310 );
+                WelcomeMsgSettings welcomeMsgSettings2 = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wpisz ilosc km", 120, 310);
 
                 buttonApply.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -90,12 +91,10 @@ public class addTrainingDescriptions {
                 buttonApply.setVisible(false);
                 buttonApply.setEnabled(false);
 
-                WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wybierz typ treningu", 70,380);
+                WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wybierz typ treningu", 70, 380);
             }
         });
         Button1Settings buttonBackSettings = new Button1Settings(buttonBack, ButtonPanelApply, 370, 150, 130, 70, true, "Cofnij");
-
-
 
 
         buttonApply.setVisible(true);

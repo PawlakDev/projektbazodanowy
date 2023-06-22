@@ -33,9 +33,6 @@ public class Rejestracja extends JFrame {
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
 
-
-
-
     public Rejestracja(SessionFactory sessionFactory, JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
 
 

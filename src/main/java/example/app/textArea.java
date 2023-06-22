@@ -2,13 +2,13 @@ package example.app;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
 import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
-public class textArea extends JTextArea{
-    private String textHolder;
+public class textArea extends JTextArea {
+    private final String textHolder;
 
-    private String name;
+    private final String name;
 
 
     public textArea(String name, String text) {

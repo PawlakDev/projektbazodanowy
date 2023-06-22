@@ -1,8 +1,8 @@
 package example.app.register;
 
-import example.app.login.LoginInfoFrameSettings;
 import example.app.Start;
 import example.app.ToggleButtonSettings;
+import example.app.login.LoginInfoFrameSettings;
 import org.hibernate.SessionFactory;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -14,19 +14,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Calendar;
+
 import static example.app.dbSettings.User.addUser;
 
 //w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
-public class RejestracjaData extends JFrame{
+public class RejestracjaData extends JFrame {
     JLabel labelTytul;
     JPanel Email, Name, Surname;
     boolean coach;
     JTextArea email, name, surname;
-    private JLayeredPane GraphicFrame;
     JComboBox<Integer> birthYear;
+    private final JLayeredPane GraphicFrame;
 
     // na gettery zamienic musze i bedzie ()
-    RejestracjaData(SessionFactory sessionFactory, JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack, JButton next, JTextArea textLogin, JPasswordField password){
+    RejestracjaData(SessionFactory sessionFactory, JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack, JButton next, JTextArea textLogin, JPasswordField password) {
 
         System.out.println("rejestracja2");
         //Wylaczam stare panele
@@ -37,17 +38,17 @@ public class RejestracjaData extends JFrame{
 
         //ustawiam label tytulowy
         labelTytul = new JLabel();
-        LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul,panelTytul, "Uzupelnij dane");
+        LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul, panelTytul, "Uzupelnij dane");
 
         // panel na pole tekstowe email
         Email = new JPanel();
         Email.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
         Email.setBounds(-40, 20, 400, 120); // Ustaw wymiary i pozycję
         Email.setVisible(true);
-        
+
         // pole tekstowe na email
         email = new JTextArea("email", 1, 20);
-        email.setPreferredSize(new Dimension(10,12));
+        email.setPreferredSize(new Dimension(10, 12));
         email.setFont(new Font("MV Boli", 0, 16));
         email.setBorder(new LineBorder(Color.BLACK));
         email.addFocusListener(new FocusAdapter() {
@@ -76,7 +77,7 @@ public class RejestracjaData extends JFrame{
 
         // pole tekstowe na imie
         name = new JTextArea("imie", 1, 20);
-        name.setPreferredSize(new Dimension(10,12));
+        name.setPreferredSize(new Dimension(10, 12));
         name.setFont(new Font("MV Boli", 0, 16));
         name.setBorder(new LineBorder(Color.BLACK));
         name.addFocusListener(new FocusAdapter() {
@@ -105,7 +106,7 @@ public class RejestracjaData extends JFrame{
 
         // pole tekstowe na nazwisko
         surname = new JTextArea("nazwisko", 1, 20);
-        surname.setPreferredSize(new Dimension(10,12));
+        surname.setPreferredSize(new Dimension(10, 12));
         surname.setFont(new Font("MV Boli", 0, 16));
         surname.setBorder(new LineBorder(Color.BLACK));
         surname.addFocusListener(new FocusAdapter() {
@@ -125,10 +126,10 @@ public class RejestracjaData extends JFrame{
                 }
             }
         });
-        
+
         // ToggleButton do zaznaczania czy zawodnik czy trener
         JToggleButton changeFunct = new JToggleButton("zawodnik");
-        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(changeFunct,   310,25,70,40);
+        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(changeFunct, 310, 25, 70, 40);
         changeFunct.setFont(new Font("Arial", Font.BOLD, 10));
 
         changeFunct.setBorder(BorderFactory.createCompoundBorder(
@@ -153,7 +154,7 @@ public class RejestracjaData extends JFrame{
 
         birthYear = new JComboBox<>();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int year = currentYear-8; year >= 1945; year--) {
+        for (int year = currentYear - 8; year >= 1945; year--) {
             birthYear.addItem(year);
         }
         birthYear.setSelectedItem(2000);
@@ -201,11 +202,9 @@ public class RejestracjaData extends JFrame{
                 System.out.println(name.getText() + " " + surname.getText() + " " + email.getText() + " " + changeFunct.isSelected() + " " + birthYear.getSelectedItem());
 
                 // sprawdzam czy dane sa uzupelnione
-                if (name.getText().equals("imie") || name.getText().equals("") || surname.getText().equals("") || surname.getText().equals("nazwisko") || email.getText().equals("") || surname.getText().equals("email"))
-                {
+                if (name.getText().equals("imie") || name.getText().equals("") || surname.getText().equals("") || surname.getText().equals("nazwisko") || email.getText().equals("") || surname.getText().equals("email")) {
                     labelTytul.setVisible(false); // to nic nie zmiania ale niech zostanie
-                }
-                else { // idk czy jakis wyjatkow nie trzeba? + szyfrowanie haseł!
+                } else { // idk czy jakis wyjatkow nie trzeba? + szyfrowanie haseł!
                     Integer birthYearValue = Integer.parseInt(birthYear.getSelectedItem().toString());
                     addUser(sessionFactory, textLogin.getText(), hashedPassword, email.getText(), coach, name.getText(), surname.getText(), birthYearValue);
 

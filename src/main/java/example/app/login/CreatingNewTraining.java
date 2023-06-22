@@ -2,39 +2,31 @@ package example.app.login;
 
 import example.app.InfoFrames.WelcomeMsgSettings;
 import example.app.buttons.Button1Settings;
-import example.app.dbSettings.Workouts;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
-import java.util.Date;
 
 public class CreatingNewTraining {
-    private JPanel ButtonPanel4, wellcomeMsgPanel,WpisTekstPanel,ButtonPanel3,BackgroundImagePanel;
-    private JLabel wellcomeMsgLabel,WpisTekstLabel;
-    private JButton[] button = new JButton[6]; // wartosc do zmiany
+    JLayeredPane jLayeredPane;
+    JFrame to;
+    JTextArea jTextArea;
+    private JPanel ButtonPanel4, wellcomeMsgPanel, WpisTekstPanel, ButtonPanel3, BackgroundImagePanel;
+    private JLabel wellcomeMsgLabel, WpisTekstLabel;
+    private final JButton[] button = new JButton[6]; // wartosc do zmiany
     private SessionFactory sessionFactory;
 
-    JLayeredPane jLayeredPane;
-
-    JFrame to;
-
-
-    JTextArea jTextArea;
     public CreatingNewTraining(SessionFactory sessionFactory, JPanel ButtonPanel3, JPanel BackgroundImagePanel, JFrame to, JLayeredPane jLayeredPane) {
         this.sessionFactory = sessionFactory;
         this.ButtonPanel3 = ButtonPanel3;
         this.BackgroundImagePanel = BackgroundImagePanel;
-        this.to=to;
+        this.to = to;
         this.jLayeredPane = jLayeredPane;
     }
 
-    public CreatingNewTraining(){
+    public CreatingNewTraining() {
 
     }
 
@@ -55,7 +47,7 @@ public class CreatingNewTraining {
     }
 
 
-    public void zrob(){
+    public void zrob() {
         ButtonPanel3.setEnabled(false);
         ButtonPanel3.setVisible(false);
 
@@ -69,7 +61,7 @@ public class CreatingNewTraining {
         wellcomeMsgPanel = new JPanel();
         wellcomeMsgLabel = new JLabel();
 
-        WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wybierz typ treningu", 70,380);
+        WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wybierz typ treningu", 70, 380);
 
         jLayeredPane.add(wellcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
         jLayeredPane.add(ButtonPanel4, JLayeredPane.PALETTE_LAYER); //
@@ -78,7 +70,7 @@ public class CreatingNewTraining {
         button[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addTrainingDescriptions opis = new addTrainingDescriptions(ButtonPanel4,jLayeredPane,wellcomeMsgLabel,wellcomeMsgPanel);
+                addTrainingDescriptions opis = new addTrainingDescriptions(ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel);
 
                 opis.zrob();
 

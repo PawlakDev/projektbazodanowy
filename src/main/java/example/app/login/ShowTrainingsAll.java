@@ -1,13 +1,13 @@
 package example.app.login;//package example;
 
 //import example.InfoFrames.LoginInfoFrameSettings;
+
 import example.app.WorkoutRepository;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,12 +27,13 @@ public class ShowTrainingsAll extends JFrame {
     JScrollPane scrollPane;
 
     JButton buttonBack;
+
     public ShowTrainingsAll(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) {
         System.out.println("show all trainings view");
 
         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
         List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
-        
+
         // dane do tabeli przchowuja dane o treningacj
         Object[][] tableData = new Object[userWorkouts.size()][];
         for (int i = 0; i < userWorkouts.size(); i++) {
@@ -54,8 +55,8 @@ public class ShowTrainingsAll extends JFrame {
 
         // ustawienia tabeli
         table.setRowHeight(30);
-        table.setFont(new Font("Arial", Font.PLAIN, 14)); 
-        
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+
         // wylaczam stare widoki
         oldButtonPanel.setVisible(false);
         oldButtonPanel.setEnabled(false);
@@ -65,15 +66,14 @@ public class ShowTrainingsAll extends JFrame {
         headlineLabel = new JLabel();
         headlinePanel = new JPanel();
         headlinePanel.setBackground(Color.white);
-        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel,headlinePanel, "Twoje treningi");
+        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel, headlinePanel, "Twoje treningi");
 
         // Tworzenie panelu przewijania
         scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(60,90,415,190);
+        scrollPane.setBounds(60, 90, 415, 190);
         scrollPane.setVisible(true);
-
 
 
         JComboBox sortType1 = new JComboBox<>();
@@ -188,6 +188,7 @@ public class ShowTrainingsAll extends JFrame {
         to.add(scrollPane);
 
     }
+
     private static class MyTableModel extends javax.swing.table.DefaultTableModel {
         public MyTableModel(Object[][] tableData, Object[] columnNames) {
             super(tableData, columnNames);

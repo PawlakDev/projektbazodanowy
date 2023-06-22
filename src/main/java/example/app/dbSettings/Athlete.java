@@ -1,8 +1,6 @@
 package example.app.dbSettings;
 
 import jakarta.persistence.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 @Entity
 @Table(name = "athlete")
@@ -11,7 +9,7 @@ public class Athlete {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name="uid")
+    @Column(name = "uid")
     private Integer uid;
 
     @Column(name = "name")
@@ -32,12 +30,15 @@ public class Athlete {
         this.surname = surname;
         this.birthYear = birthYear;
     }
+
     public String getName() {
         return name;
     }
+
     public String getSurname() {
         return surname;
     }
+
     public Integer getBirthyear() {
         return birthYear;
     }

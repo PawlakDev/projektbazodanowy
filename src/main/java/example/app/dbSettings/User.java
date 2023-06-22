@@ -3,11 +3,6 @@ package example.app.dbSettings;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 
 @Entity
 @Table(name = "users")
@@ -48,7 +43,32 @@ public class User {
         this.isCoach = isCoach;
     }
 
+    //wyzwalacz co to
+    public static void addUser(SessionFactory sessionFactory, String login, String haslo) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
 
+        User user = new User(login, haslo);
+        session.save(user);
+        session.getTransaction().commit();
+        System.out.println("Dodano użytkownika o ID: " + user.getId());
+    }
+
+    public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isCoach, String name, String surname, Integer birthYear) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+
+        User user = new User(login, haslo, email, isCoach);
+        session.save(user);
+
+        if (!isCoach) {
+            Athlete athlete = new Athlete(user.getId(), name, surname, birthYear);
+            session.save(athlete);
+        }
+
+        session.getTransaction().commit();
+        System.out.println("Dodano użytkownika o ID: " + user.getId());
+    }
 
     public int getId() {
         return id;
@@ -74,12 +94,12 @@ public class User {
         return password;
     }
 
-    public boolean getIscoach() {
-        return isCoach;
-    }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean getIscoach() {
+        return isCoach;
     }
 
     @Override
@@ -93,30 +113,4 @@ public class User {
                 '}';
     }
 
-    //wyzwalacz co to
-    public static void addUser(SessionFactory sessionFactory, String login, String haslo) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-
-        User user = new User(login, haslo);
-        session.save(user);
-        session.getTransaction().commit();
-        System.out.println("Dodano użytkownika o ID: " + user.getId());
-    }
-    public static void addUser(SessionFactory sessionFactory, String login, String haslo, String email, boolean isCoach, String name, String surname, Integer birthYear) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-
-        User user = new User(login, haslo, email, isCoach);
-        session.save(user);
-
-        if (!isCoach) {
-            Athlete athlete = new Athlete(user.getId(), name, surname, birthYear);
-            session.save(athlete);
-        }
-
-        session.getTransaction().commit();
-        System.out.println("Dodano użytkownika o ID: " + user.getId());
-    }
-
-    }
+}

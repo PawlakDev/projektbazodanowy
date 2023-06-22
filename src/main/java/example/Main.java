@@ -31,9 +31,9 @@ public class Main {
 
         start.zrob();
 
-        if(debugMode == 0) {
+        if (debugMode == 1) {
 
-        Scanner scanner = new Scanner(System.in);
+            Scanner scanner = new Scanner(System.in);
 
             int choice;
             do {

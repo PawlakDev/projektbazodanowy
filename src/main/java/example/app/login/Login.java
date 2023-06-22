@@ -21,43 +21,42 @@ import java.awt.event.FocusEvent;
 import java.util.List;
 
 public class Login extends JFrame {
-    private JLabel label2;
-    private JPanel panel3, frameBackground , panel5, Login, Password;
-    private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
     JTextArea textLogin;
+    JPanel BackgroundImagePanel, ButtonPanel, WelcomeMsgPanel;
+    JFrame jFrame;
+    JButton jButton, buttonBack;
+    JButton[] button;
+    SessionFactory sessionFactory;
+    JLabel welcomeMsgLabel;
+    private JLabel label2;
+    private JPanel panel3, frameBackground, panel5, Login, Password;
+    private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
     private JPasswordField textArea2; //haslo
     private JLayeredPane GraphicFrame;
 
-    JPanel BackgroundImagePanel,ButtonPanel,WelcomeMsgPanel;
-    JFrame jFrame ;
-    JButton jButton,buttonBack;
-    JButton[] button ;
-    SessionFactory sessionFactory;
-    JLabel welcomeMsgLabel;
 
-
-    public Login(JFrame jFrame, JButton jButton, JButton ButtonBack, JButton button[], SessionFactory session, JPanel BackgroundImagePanel,
-                 JPanel ButtonPanel, JPanel WelcomeMsgPanel , JLabel welcomeMsgLabel){
+    public Login(JFrame jFrame, JButton jButton, JButton ButtonBack, JButton[] button, SessionFactory session, JPanel BackgroundImagePanel,
+                 JPanel ButtonPanel, JPanel WelcomeMsgPanel, JLabel welcomeMsgLabel) {
         this.jFrame = jFrame;
         this.jButton = jButton;
         this.buttonBack = ButtonBack;
         this.button = button;
-        this.sessionFactory=session;
+        this.sessionFactory = session;
         this.BackgroundImagePanel = BackgroundImagePanel;
         this.ButtonPanel = ButtonPanel;
         this.WelcomeMsgPanel = WelcomeMsgPanel;
         this.welcomeMsgLabel = welcomeMsgLabel;
     }
 
-    public void zrob(){
+    public void zrob() {
 
         Start start = new Start();
 
         //Wylaczam stare panele
-        start.getButtonPanel().setEnabled(false);
-        start.getButtonPanel().setVisible(false);
-        start.getBackgroundImagePanel().setEnabled(false);
-        start.getBackgroundImagePanel().setVisible(false);
+        Start.getButtonPanel().setEnabled(false);
+        Start.getButtonPanel().setVisible(false);
+        Start.getBackgroundImagePanel().setEnabled(false);
+        Start.getBackgroundImagePanel().setVisible(false);
 
 
         //label
@@ -66,7 +65,7 @@ public class Login extends JFrame {
         //panel3 to jest to Zaloguj sie na gorze
         panel3 = new JPanel();
         panel3.setBackground(Color.white);
-        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(label2,panel3, "Zaloguj sie");
+        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(label2, panel3, "Zaloguj sie");
 
         //panel4
         frameBackground = new JPanel() {
@@ -88,7 +87,7 @@ public class Login extends JFrame {
         //panel5
         panel5 = new JPanel();
         panel5.setBackground(Color.white);
-        panel5.setBounds(60,270,400,80); //135
+        panel5.setBounds(60, 270, 400, 80); //135
         panel5.setVisible(true);
         panel5.setLayout(null);
 
@@ -120,7 +119,7 @@ public class Login extends JFrame {
         //textLogin = new JtextArea("login", "login");
         textLogin = new JTextArea("login");
 
-        textLogin.setPreferredSize(new Dimension(210,40));
+        textLogin.setPreferredSize(new Dimension(210, 40));
         textLogin.setBounds(20, 60, 230, 50); // Ustawia współrzędne i rozmiar
         textLogin.setFont(new Font("MV Boli", 0, 32));
         textLogin.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
@@ -148,7 +147,7 @@ public class Login extends JFrame {
         textArea2 = new JPasswordField();
 
         textArea2.setText("haslo");//to powinno sprawiać, że wyświetla ajpierw haslo
-        textArea2.setPreferredSize(new Dimension(210,40));
+        textArea2.setPreferredSize(new Dimension(210, 40));
         textArea2.setBounds(20, 60, 210, 40); // Ustawia współrzędne i rozmiar
         textArea2.setFont(new Font("MV Boli", 0, 32));
         textArea2.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
@@ -156,11 +155,12 @@ public class Login extends JFrame {
         textArea2.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                if(textArea2.getText().equals("")) {
+                if (textArea2.getText().equals("")) {
                     textArea2.setText("haslo");
                     textArea2.setForeground(new Color(0, 0, 0, 128)); // Ustawienie przezroczystości tekstu (128 - półprzezroczysty)
                 }
             }
+
             @Override
             public void focusGained(FocusEvent e) {
                 if (textArea2.getText().equals("haslo")) {
@@ -172,7 +172,7 @@ public class Login extends JFrame {
 
         //button pokaz / ukryj haslo
         JToggleButton showPsw = new JToggleButton("pokaz haslo");
-        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(showPsw,180,20,100,50);
+        ToggleButtonSettings ToggleButtonSettings = new ToggleButtonSettings(showPsw, 180, 20, 100, 50);
         showPsw.setFont(new Font("Arial", Font.BOLD, 14));
 
         showPsw.setBorder(BorderFactory.createCompoundBorder(
@@ -220,7 +220,7 @@ public class Login extends JFrame {
                     char[] passwordChars = textArea2.getPassword();
                     String passwordString = new String(passwordChars);
 
-                    String text2 = new String(passwordString);
+                    String text2 = passwordString;
                     System.out.println(text);
                     List<User> users = session.createQuery("from User", User.class).getResultList();
                     for (User user : users) {
@@ -260,7 +260,7 @@ public class Login extends JFrame {
                                         // kod, który ma zostać wykonany po kliknięciu przycisku "Nowy trening"
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
-                                        NewTraining newTraining = new NewTraining(ButtonPanel,WelcomeMsgPanel, jFrame,sessionFactory, BackgroundImagePanel, start.getjLayeredPane());
+                                        NewTraining newTraining = new NewTraining(ButtonPanel, WelcomeMsgPanel, jFrame, sessionFactory, BackgroundImagePanel, Start.getjLayeredPane());
                                     }
                                 });
                                 Button1Settings button1Settings = new Button1Settings(button[3], ButtonPanel, 20, 20, 130, 100, true, "Nowy trening");
@@ -270,7 +270,7 @@ public class Login extends JFrame {
                                 // tzn nie wiem gdzie zrobvić wyswioetlanie zawodników wiec chwiolowo robie tu
                                 button[4] = new JButton();
                                 Button2Settings button2Settings = new Button2Settings(button[4], ButtonPanel, 20, 130, 130, 100, "Pokaż statystyki");
-                                if(currentUser.getIscoach())
+                                if (currentUser.getIscoach())
                                     button[4].setText("Pokaż zawodników");
 
                                 button[4].addActionListener(this);
@@ -280,8 +280,7 @@ public class Login extends JFrame {
                                         // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż statystyki"
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
-                                        if(currentUser.getIscoach())
-                                        {
+                                        if (currentUser.getIscoach()) {
                                             System.out.println("Pokaż zawodników");
                                             ShowAthletes showAthletes = new ShowAthletes(sessionFactory, jFrame, currentUser);
                                         }
@@ -298,14 +297,14 @@ public class Login extends JFrame {
                                         // kod, który ma zostać wykonany po kliknięciu przycisku "pokaż treningi"
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
-                                        ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel,currentUser );
+                                        ShowTrainings showTrainings = new ShowTrainings(sessionFactory, jFrame, ButtonPanel, currentUser);
                                     }
                                 });
                                 Button2Settings button3Settings = new Button2Settings(button[5], ButtonPanel, 20, 240, 130, 100, "Pokaż treningi");
 
 
                                 //Panel
-                                WelcomeMsgPanel = new JPanel(){
+                                WelcomeMsgPanel = new JPanel() {
                                     @Override
                                     protected void paintComponent(Graphics g) {
                                         // Ustaw kolor tła na przezroczysty
@@ -317,9 +316,9 @@ public class Login extends JFrame {
 
                                 welcomeMsgLabel = new JLabel();
 
-                                WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel,WelcomeMsgPanel,  "Witaj " + user.getUsername(),180, 330 );
+                                WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(welcomeMsgLabel, WelcomeMsgPanel, "Witaj " + user.getUsername(), 180, 330);
 
-                                start.getjLayeredPane().add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
+                                Start.getjLayeredPane().add(WelcomeMsgPanel, JLayeredPane.PALETTE_LAYER); //
 
                                 jFrame.remove(BackgroundImagePanel);
                                 jFrame.remove(ButtonPanel);
@@ -389,13 +388,14 @@ public class Login extends JFrame {
         return textLogin.getText();
     }
 
-    public JTextArea getTextArea3(){
+    public JTextArea getTextArea3() {
         return textArea3;
     }
 
-    public JTextArea getTextArea4(){
+    public JTextArea getTextArea4() {
         return textArea4;
     }
+
     public JLabel getLabel2() {
         return label2;
     }
@@ -411,6 +411,7 @@ public class Login extends JFrame {
     public JPanel getPanel5() {
         return panel5;
     }
+
     public String getTextArea2() {
         char[] passwordChars = textArea2.getPassword();
         String passwordString = new String(passwordChars);

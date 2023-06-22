@@ -9,21 +9,6 @@ import example.app.login.stats.Bests;
 import org.hibernate.SessionFactory;
 import example.app.WorkoutRepository;
 
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Calendar;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.TextStyle;
-import java.util.Locale;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,8 +18,6 @@ import java.util.List;
 import static example.app.Start.*;
 
 public class ShowStats extends JFrame{
-
-
 
     private static JButton buttonBest;
     private static JButton buttonWykres1;
@@ -102,7 +85,6 @@ public class ShowStats extends JFrame{
             }
         });
 
-
         buttonBest.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {buttonWykres1.setVisible(false);
                 buttonWykres1.setVisible(false);
@@ -112,7 +94,6 @@ public class ShowStats extends JFrame{
                 Bests bests = new Bests(sessionFactory, to, currentUser, workouts);
             }
         });
-
 
         buttonBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -134,6 +115,7 @@ public class ShowStats extends JFrame{
         to.add(buttonWykres1);
         to.add(buttonWykres2);
         to.add(buttonBest);
+        to.add(buttonBack);
         to.add(buttonPanel);
 
     }

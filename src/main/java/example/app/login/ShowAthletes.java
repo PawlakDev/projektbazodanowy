@@ -1,24 +1,23 @@
 package example.app.login;
+
+import example.app.AthletesRepository;
+import example.app.dbSettings.Athlete;
+import example.app.dbSettings.User;
+import org.hibernate.SessionFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import example.app.AthletesRepository;
-import example.app.dbSettings.User;
-import example.app.dbSettings.Athlete;
-import org.hibernate.SessionFactory;
-
-import static example.app.Start.getBackgroundImagePanel;
-import static example.app.Start.getButtonPanel;
-import static example.app.Start.getjLayeredPane;
+import static example.app.Start.*;
 
 // filtrowanie tu dodam
 // po kliknieciu wyswietlam treningi zawodnika i jego email
 
-public class ShowAthletes extends JFrame{
-    public ShowAthletes(SessionFactory sessionFactory, JFrame to, User currentUser){
+public class ShowAthletes extends JFrame {
+    public ShowAthletes(SessionFactory sessionFactory, JFrame to, User currentUser) {
         AthletesRepository repository = new AthletesRepository(sessionFactory);
         List<Athlete> athletesList = repository.getAllAthletes();
 
@@ -48,14 +47,14 @@ public class ShowAthletes extends JFrame{
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(60,90,415,190);
+        scrollPane.setBounds(60, 90, 415, 190);
         scrollPane.setVisible(true);
 
         // ustawiam headline
         JLabel headlineLabel = new JLabel();
         JPanel headlinePanel = new JPanel();
         headlinePanel.setBackground(Color.white);
-        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel,headlinePanel, "Wszyscy zawodnicy");
+        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel, headlinePanel, "Wszyscy zawodnicy");
 
         // stare panele uniewidoczniam
         getBackgroundImagePanel().setVisible(false);

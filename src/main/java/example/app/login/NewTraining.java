@@ -1,7 +1,6 @@
 package example.app.login;
 
 import example.app.buttons.Button1Settings;
-import example.app.login.CreatingNewTraining;
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
@@ -14,17 +13,17 @@ public class NewTraining extends JFrame {
     JPanel ButtonPanel2, ButtonPanel3; // 2 zeby nie mylic
     JButton[] button = new JButton[6];
     /*
-    * Buttons:
-    * 0 - Wczytaj z garmina
-    * 1 - Wpisz recznie
-    * 2 - Cofnij
-    *  3 - Aktualna data
-    *  4 - Wpisz recznie
-    *  5 - Cofnij
+     * Buttons:
+     * 0 - Wczytaj z garmina
+     * 1 - Wpisz recznie
+     * 2 - Cofnij
+     *  3 - Aktualna data
+     *  4 - Wpisz recznie
+     *  5 - Cofnij
      */
     SessionFactory sessionFactory;
 
-    public NewTraining(JPanel panel, JPanel panel2, JFrame to, SessionFactory sessionFactory,JPanel BackgroundImagePanel, JLayeredPane jLayeredPane) {
+    public NewTraining(JPanel panel, JPanel panel2, JFrame to, SessionFactory sessionFactory, JPanel BackgroundImagePanel, JLayeredPane jLayeredPane) {
 
         this.sessionFactory = sessionFactory;
 

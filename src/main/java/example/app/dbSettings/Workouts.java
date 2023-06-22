@@ -1,42 +1,29 @@
 package example.app.dbSettings;
 
 import jakarta.persistence.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
-import java.util.Scanner;
-
-//import javax.persistence.*;
 
 @Entity
 @Table(name = "workouts")
 public class Workouts {
 
+    @Column(name = "discription")
+    String description;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(name = "idU")
     private int idUser;
-
     @Column(name = "date")
     private String date;
-
     @Column(name = "type")
     private String workouttype;
-
     @Column(name = "km")
     private Integer kilometers;
-
     @Column(name = "time")
     private int timeworkout;
 
-    @Column(name = "discription")
-    String description;
-
     public Workouts() {
     }
-
 
 
     public Workouts(int idU, String date, String type, int km, int time) {

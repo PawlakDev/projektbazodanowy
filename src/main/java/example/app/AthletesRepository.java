@@ -1,7 +1,6 @@
 package example.app;
 
 import example.app.dbSettings.Athlete;
-import example.app.dbSettings.Workouts;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,7 +8,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class AthletesRepository {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public AthletesRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

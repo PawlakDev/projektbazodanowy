@@ -4,10 +4,11 @@ import example.app.dbSettings.Workouts;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 import java.util.List;
 
 public class WorkoutRepository {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public WorkoutRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

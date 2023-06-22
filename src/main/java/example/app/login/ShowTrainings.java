@@ -1,13 +1,10 @@
 package example.app.login;//package example;
 
-//import example.InfoFrames.LoginInfoFrameSettings;
 import example.app.WorkoutRepository;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
 import org.hibernate.SessionFactory;
-
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,39 +14,36 @@ import java.util.List;
 
 import static example.app.Start.getBackgroundImagePanel;
 
-//import static example.Start.getBackgroundImagePanel;
-
 public class ShowTrainings extends JFrame {
-
     JLabel headlineLabel;
     JPanel headlinePanel;
     JTable table;
     JScrollPane scrollPane;
-
     JButton buttonBack;
     public ShowTrainings(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) {
 
         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
         List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
 
-        // dane do tabeli przchowuja dane o treningacj
-        Object[][] tableData = new Object[userWorkouts.size()][];
+        // dane do tabeli przchowuja dane o treningach
+        final Object[][][] tableData = {new Object[userWorkouts.size()][]};
         for (int i = 0; i < userWorkouts.size(); i++) {
             Workouts workout = userWorkouts.get(i);
             Object[] rowData = {
+                    workout.getId(),
                     workout.getDate(),
                     workout.getWorkouttype(),
                     workout.getKilometers(),
                     workout.getTimeworkout()
             };
-            tableData[i] = rowData;
+            tableData[0][i] = rowData;
         }
 
         // nazwy kolumn
-        String[] columnNames = {"Date", "Workout Type", "Kilometers", "Time (mins)"};
+        String[] columnNames = {"ID", "Date", "Workout Type", "Kilometers", "Time (mins)"};
 
         // tworze z tego tabele
-        table = new JTable(tableData, columnNames);
+        table = new JTable(tableData[0], columnNames);
 
         // ustawienia tabeli
         table.setRowHeight(30);
@@ -74,12 +68,14 @@ public class ShowTrainings extends JFrame {
         scrollPane.setVisible(true);
 
         JComboBox sortType1 = new JComboBox<>();
-        sortType1.addItem("nazwa");
-        sortType1.addItem("data");
-        sortType1.setSelectedItem("data");
+        sortType1.addItem("Kilometry");
+        sortType1.addItem("Time");
+        sortType1.addItem("Date");
+        sortType1.setSelectedItem("Date");
 
         JLabel sortTypeLabel1 = new JLabel("Sortuj po:");
-        sortTypeLabel1.setFont(new Font("Arial", Font.BOLD, 15));
+        sortType1.setBounds(160, 250, 100, 30);
+        sortType1.setFont(new Font("Arial", Font.PLAIN, 12));
 
         //Panel do sortowania
         JPanel sortTypePanel1 = new JPanel();
@@ -96,7 +92,8 @@ public class ShowTrainings extends JFrame {
         sortType2.setSelectedItem("malejąco");
 
         JLabel sortTypeLabel2 = new JLabel("Sortuj:");
-        sortTypeLabel2.setFont(new Font("Arial", Font.BOLD, 15));
+        sortType2.setBounds(300, 250, 100, 30);
+        sortType2.setFont(new Font("Arial", Font.PLAIN, 12));
 
         //Panel do roku
         JPanel sortTypePanel2 = new JPanel();
@@ -112,7 +109,8 @@ public class ShowTrainings extends JFrame {
         buttonSort.setBackground(new Color(200, 230, 255));
         buttonSort.setVisible(true);
         buttonSort.setLayout(null);
-        buttonSort.setBounds(350, 310, 50, 40);
+        buttonSort.setBounds(350, 300, 100, 40);
+        buttonSort.setFont(new Font("Arial", Font.BOLD, 12));
         buttonSort.setText("Sortuj");
         buttonSort.setFocusable(false);
         buttonSort.setBorder(BorderFactory.createCompoundBorder(
@@ -126,7 +124,8 @@ public class ShowTrainings extends JFrame {
         buttonSelect.setBackground(new Color(200, 230, 255));
         buttonSelect.setVisible(true);
         buttonSelect.setLayout(null);
-        buttonSelect.setBounds(450, 310, 50, 40);
+        buttonSelect.setBounds(450, 300, 80, 40);
+        buttonSelect.setFont(new Font("Arial", Font.BOLD, 12));
         buttonSelect.setText("Wybierz");
         buttonSelect.setFocusable(false);
         buttonSelect.setBorder(BorderFactory.createCompoundBorder(
@@ -141,40 +140,48 @@ public class ShowTrainings extends JFrame {
                 String sortType = sortType1.getSelectedItem().toString();
                 boolean ascending = sortType2.getSelectedItem().toString().equals("rosnąco");
 
-                if (sortType.equals("nazwa")) {
-                    Arrays.sort(tableData, Comparator.comparing(row -> row[1].toString()));
-                } else if (sortType.equals("data")) {
-                    Arrays.sort(tableData, Comparator.comparing(row -> row[0].toString()));
+                if (sortType.equals("Kilometry")) {
+                    Arrays.sort(tableData[0], Comparator.comparing(row -> Double.parseDouble(row[3].toString())));
+                } else if (sortType.equals("Time")) {
+                    Arrays.sort(tableData[0], Comparator.comparing(row -> Integer.parseInt(row[4].toString())));
+                } else if (sortType.equals("Date")) {
+                    Arrays.sort(tableData[0], Comparator.comparing(row -> row[1].toString()));
                 }
 
                 if (!ascending) {
-                    // jesli malejace
-                    for (int i = 0; i < tableData.length / 2; i++) {
-                        Object[] temp = tableData[i];
-                        tableData[i] = tableData[tableData.length - 1 - i];
-                        tableData[tableData.length - 1 - i] = temp;
+                    // jeśli malejące
+                    Object[][] reversedTableData = new Object[tableData[0].length][];
+                    for (int i = 0; i < tableData[0].length; i++) {
+                        reversedTableData[i] = tableData[0][tableData[0].length - 1 - i];
                     }
+                    tableData[0] = reversedTableData;
                 }
 
-                // odwiezam
-                table.setModel(new MyTableModel(tableData, columnNames));
+                // odświeżam
+                table.setModel(new MyTableModel(tableData[0], columnNames));
             }
         });
 
         buttonSelect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    Object selectedId = table.getValueAt(selectedRow, 0);
+                    // Tutaj możesz wykorzystać odczytane ID wpisu
+                    System.out.println("Wybrano ID wpisu: " + selectedId);
+                }
             }
         });
+
 
         buttonBack = new JButton();
         // next - Cofnij
         buttonBack.setBackground(new Color(200, 230, 255));
         buttonBack.setVisible(true);
         buttonBack.setLayout(null);
-        buttonBack.setBounds(50, 300, 100, 50);
+        buttonBack.setBounds(50, 300, 100, 40);
+        buttonBack.setFont(new Font("Arial", Font.BOLD, 12));
         buttonBack.setText("Wstecz");
         buttonBack.setFocusable(false);
         buttonBack.setBorder(BorderFactory.createCompoundBorder(

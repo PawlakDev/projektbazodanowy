@@ -2,7 +2,6 @@ package example.app.InfoFrames;
 
 import javax.swing.*;
 import java.awt.*;
-
 public class WelcomeMsgSettings extends JFrame {
     public WelcomeMsgSettings(JLabel label, JPanel panel, String text,int x ,int width) {
 
