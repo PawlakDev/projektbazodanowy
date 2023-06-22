@@ -3,6 +3,7 @@ package example.app.login;//package example;
 import example.app.WorkoutRepository;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
+import example.app.login.stats.EditTraining;
 import org.hibernate.SessionFactory;
 import javax.swing.*;
 import java.awt.*;
@@ -124,7 +125,7 @@ public class ShowTrainings extends JFrame {
         buttonSelect.setBackground(new Color(200, 230, 255));
         buttonSelect.setVisible(true);
         buttonSelect.setLayout(null);
-        buttonSelect.setBounds(450, 300, 80, 40);
+        buttonSelect.setBounds(450, 280, 80, 40);
         buttonSelect.setFont(new Font("Arial", Font.BOLD, 12));
         buttonSelect.setText("Wybierz");
         buttonSelect.setFocusable(false);
@@ -132,7 +133,18 @@ public class ShowTrainings extends JFrame {
                 BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
                 BorderFactory.createEmptyBorder(1, 1, 1, 1)
         ));
-        buttonSelect.setFont(new Font("Arial", Font.BOLD, 10));
+        JButton buttonDelete = new JButton();
+        buttonDelete.setBackground(new Color(200, 230, 255));
+        buttonDelete.setVisible(true);
+        buttonDelete.setLayout(null);
+        buttonDelete.setBounds(450, 320, 80, 40);
+        buttonDelete.setFont(new Font("Arial", Font.BOLD, 12));
+        buttonDelete.setText("Usuń");
+        buttonDelete.setFocusable(false);
+        buttonDelete.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)
+        ));
 
         // sortowanie wedlug tego co wybiore
         buttonSort.addActionListener(new ActionListener() {
@@ -169,11 +181,35 @@ public class ShowTrainings extends JFrame {
                 if (selectedRow != -1) {
                     Object selectedId = table.getValueAt(selectedRow, 0);
                     // Tutaj możesz wykorzystać odczytane ID wpisu
+                    EditTraining editTraining = new EditTraining(sessionFactory, to, currentUser, userWorkouts, selectedId);
+                    buttonSelect.setVisible(false);
+                    buttonDelete.setVisible(false);
+                    buttonSort.setVisible(false);
+                    sortTypePanel1.setVisible(false);
+                    sortTypePanel2.setVisible(false);
                     System.out.println("Wybrano ID wpisu: " + selectedId);
                 }
             }
         });
+        buttonDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    Object selectedId = table.getValueAt(selectedRow, 0);
+                    int confirmDialog = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz usunąć ten wpis?", "Potwierdź usunięcie", JOptionPane.YES_NO_OPTION);
+                    if (confirmDialog == JOptionPane.YES_OPTION) {
+                        // Usunięcie wpisu z bazy danych
+                        WorkoutRepository repository = new WorkoutRepository(sessionFactory);
+                        repository.deleteWorkoutById((Long) selectedId);
 
+                        // Odświeżenie tabeli
+                        userWorkouts.remove(selectedRow);
+                        JOptionPane.showMessageDialog(null, "Wpis został pomyślnie usunięty.", "Usunięcie wpisu", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+        });
 
         buttonBack = new JButton();
         // next - Cofnij
@@ -211,6 +247,7 @@ public class ShowTrainings extends JFrame {
         to.add(headlinePanel);
         to.add(buttonBack);
         to.add(scrollPane);
+        to.add(buttonDelete);
 
     }
     private static class MyTableModel extends javax.swing.table.DefaultTableModel {

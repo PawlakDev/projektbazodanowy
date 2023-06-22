@@ -33,4 +33,24 @@ public class WorkoutRepository {
             session.close();
         }
     }
+
+    public void deleteWorkoutById(Long workoutId) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            Workouts workout = session.get(Workouts.class, workoutId);
+            if (workout != null) {
+                session.delete(workout);
+                transaction.commit();
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }
