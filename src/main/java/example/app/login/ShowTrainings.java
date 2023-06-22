@@ -184,14 +184,15 @@ public class ShowTrainings extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     Object selectedId = table.getValueAt(selectedRow, 0);
+                    int SelectedId = Integer.parseInt(selectedId.toString());
                     // Tutaj możesz wykorzystać odczytane ID wpisu
-                    EditTraining editTraining = new EditTraining(sessionFactory, to, currentUser, userWorkouts, selectedId);
+                    System.out.println("Wybrano ID wpisu: " + selectedId);
+                    EditTraining editTraining = new EditTraining(sessionFactory, to, currentUser, userWorkouts, SelectedId);
                     buttonSelect.setVisible(false);
                     buttonDelete.setVisible(false);
                     buttonSort.setVisible(false);
                     sortTypePanel1.setVisible(false);
                     sortTypePanel2.setVisible(false);
-                    System.out.println("Wybrano ID wpisu: " + selectedId);
                 }
             }
         });
