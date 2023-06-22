@@ -25,13 +25,15 @@ public class addTrainingDescriptions {
     JLayeredPane jLayeredPane;
     JLabel wellcomeMsgLabel;
     JPanel wellcomeMsgPanel;
+    String type;
     SessionFactory sessionFactory;
-    public addTrainingDescriptions(SessionFactory session, JPanel ButtonPanel4, JLayeredPane jLayeredPane, JLabel wellcomeMsgLabel, JPanel wellcomeMsgPanel){
+    public addTrainingDescriptions(SessionFactory session, JPanel ButtonPanel4, JLayeredPane jLayeredPane, JLabel wellcomeMsgLabel, JPanel wellcomeMsgPanel, String typ){
         this.ButtonPanel4 = ButtonPanel4;
         this.jLayeredPane = jLayeredPane;
         this.wellcomeMsgLabel = wellcomeMsgLabel;
         this.wellcomeMsgPanel = wellcomeMsgPanel;
         this.sessionFactory = session;
+        this.type = typ;
     }
 
     void zrob(){
@@ -86,8 +88,8 @@ public class addTrainingDescriptions {
                 buttonApply2.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String km = jTextArea.getText();
-                        if(!(km.matches("-?\\d+(\\.\\d+)?"))) {
+                        String Km = jTextArea.getText();
+                        if(!(Km.matches("-?\\d+(\\.\\d+)?"))) {
                             wellcomeMsgLabel.setText("Wpisany tekst nie jest liczbą");
                         } else {
                             jTextArea.setText("");
@@ -106,7 +108,7 @@ public class addTrainingDescriptions {
                                     buttonApply3.setVisible(false);
 
 
-                                    String czas = jTextArea.getText();
+                                    String Czas = jTextArea.getText();
 
                                     //
 
@@ -138,11 +140,10 @@ public class addTrainingDescriptions {
 
                                     //System.out.println("Dzisiaj jest " + day + "." + month + "." + year );
 
-                                    int idU = 1;
-                                    String date = Day + Month + Year;
-                                    String type = "Bieg";
-                                    int km = 4;
-                                    int time = 2;
+                                    int idU = 25;
+                                    String date = Year + "-" + Month + "-"+ Day ;
+                                    int km = Integer.parseInt(Km);
+                                    int time = Integer.parseInt(Czas);
 
                                     Session session2 = sessionFactory.getCurrentSession();
                                     session2.beginTransaction();
@@ -154,6 +155,28 @@ public class addTrainingDescriptions {
                                     System.out.println("Dodano trening o ID: " + workouts.getId());
 
                                     //
+                                    ButtonPanel4.setVisible(true);
+                                    ButtonPanel4.setEnabled(true);
+
+                                    WpisTekstPanel.setVisible(false);
+                                    WpisTekstPanel.setEnabled(false);
+
+                                    jTextArea.setEnabled(false);
+                                    jTextArea.setVisible(false);
+
+                                    buttonBack.setVisible(false);
+                                    buttonBack.setEnabled(false);
+
+                                    buttonApply.setVisible(false);
+                                    buttonApply.setEnabled(false);
+
+                                    buttonApply2.setEnabled(false);
+                                    buttonApply2.setVisible(false);
+
+                                    buttonApply3.setEnabled(false);
+                                    buttonApply3.setVisible(false);
+
+                                    WelcomeMsgSettings welcomeMsgSettings = new WelcomeMsgSettings(wellcomeMsgLabel, wellcomeMsgPanel, "Wybierz typ treningu", 70,380);
                                 }
                             });
                         }

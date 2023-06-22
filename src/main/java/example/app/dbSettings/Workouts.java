@@ -28,12 +28,12 @@ public class Workouts {
 
 
     public Workouts(int idU, String date, String type, int km, int time, String opis) {
-        this.idUser = idUser;
+        this.idUser = idU;
         this.date = date;
         this.workouttype = type;
-        this.timeworkout = timeworkout;
+        this.timeworkout = time;
         this.kilometers = km;
-        this.description = "";
+        this.description = opis;
     }
 
     public Workouts(int idU, String date, String type, int time) {
