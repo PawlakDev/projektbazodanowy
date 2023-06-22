@@ -10,6 +10,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import java.util.Locale;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.List;
 
 import static example.app.login.ShowStats.*;
@@ -28,9 +30,10 @@ public class KilometerChart extends JFrame {
         // pobieram moje dane z tabel do kilometrów
         DefaultCategoryDataset datasetKilometers = new DefaultCategoryDataset();
         LocalDate currentDate = LocalDate.now();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 5; i++) {
             LocalDate weekStart = currentDate.minusWeeks(i).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             LocalDate weekEnd = currentDate.minusWeeks(i).with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
 
@@ -42,7 +45,8 @@ public class KilometerChart extends JFrame {
                     .mapToInt(Workouts::getKilometers)
                     .sum();
 
-            datasetKilometers.addValue(sumKilometers, "Training", weekStart.format(formatter));
+            int weekNumber = weekStart.get(weekFields.weekOfWeekBasedYear());
+            datasetKilometers.addValue(sumKilometers, "Training", String.valueOf(weekNumber));
         }
 
         // Konwersja na CategoryDataset
@@ -51,8 +55,8 @@ public class KilometerChart extends JFrame {
         // Tworzenie wykresu
         JFreeChart chartKilometers = ChartFactory.createBarChart(
                 "Kilometry w dany tydzień",     // Tytuł wykresu
-                "tydzień",                     // Etykieta osi X
-                "suma kilometrów",     // Etykieta osi Y
+                "Numer tygodnia w roku",                     // Etykieta osi X
+                "Suma kilometrów",     // Etykieta osi Y
                 categoryDataset,           // Zestaw danych
                 PlotOrientation.VERTICAL,  // Orientacja wykresu
                 false,                      // Wyświetlanie legendy
@@ -63,7 +67,7 @@ public class KilometerChart extends JFrame {
         // Tworzenie panelu wykresu i dodanie do niego wykresu
         ChartPanel chartKilometersPanel = new ChartPanel(chartKilometers);
         chartKilometersPanel.setVisible(true);
-        chartKilometersPanel.setBounds(80, 100, 320, 210);
+        chartKilometersPanel.setBounds(80, 100, 330, 190);
         chartKilometersPanel.setOpaque(false);
 
         // button cofania

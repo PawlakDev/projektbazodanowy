@@ -19,7 +19,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 
 import static example.app.Start.*;
 import static example.app.Start.getBackgroundImagePanel;
@@ -31,6 +33,7 @@ public class MinutesChart extends JFrame {
         // pobieram moje dane z tabel czas
         DefaultCategoryDataset datasetTime = new DefaultCategoryDataset();
         LocalDate currentDate = LocalDate.now();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (int i = 0; i < 5; i++) {
             LocalDate weekStart = currentDate.minusWeeks(i).with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
@@ -44,7 +47,8 @@ public class MinutesChart extends JFrame {
                     .mapToInt(Workouts::getTimeworkout)
                     .sum();
 
-            datasetTime.addValue(sumMinutes, "Training", weekStart.format(formatter));
+            int weekNumber = weekStart.get(weekFields.weekOfWeekBasedYear());
+            datasetTime.addValue(sumMinutes, "Training", String.valueOf(weekNumber));
         }
 
         // Konwersja na CategoryDataset
@@ -53,7 +57,7 @@ public class MinutesChart extends JFrame {
         // Tworzenie wykresu
         JFreeChart chartTime = ChartFactory.createBarChart(
                 "Minuty w dany tydzień",     // Tytuł wykresu
-                "Tydzień",                     // Etykieta osi X
+                "Numer tygodnia w roku",                     // Etykieta osi X
                 "Suma minut",     // Etykieta osi Y
                 datasetTime,           // Zestaw danych
                 PlotOrientation.VERTICAL,  // Orientacja wykresu
@@ -65,7 +69,7 @@ public class MinutesChart extends JFrame {
         // Tworzenie panelu wykresu i dodanie do niego wykresu
         ChartPanel chartTimePanel = new ChartPanel(chartTime);
         chartTimePanel.setVisible(true);
-        chartTimePanel.setBounds(80, 100, 300, 190);
+        chartTimePanel.setBounds(80, 100, 330, 190);
         chartTimePanel.setOpaque(false);
 
         // button cofania
