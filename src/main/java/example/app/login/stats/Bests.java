@@ -23,23 +23,49 @@ public class Bests extends JFrame {
         // Wyświetlanie statystyk
         JPanel statsPanel = new JPanel();
         statsPanel.setLayout(new GridLayout(3, 1));
-        statsPanel.setBounds(80, 100, 300, 150);
+        statsPanel.setBounds(60, 120, 415, 190);
         statsPanel.setBackground(Color.white);
+        statsPanel.setOpaque(false);
 
         // Trening z największą liczbą kilometrów
         Workouts longestDistanceWorkout = getLongestDistanceWorkout(workouts);
-        JLabel longestDistanceLabel = new JLabel("Najdłuższy trening: " + longestDistanceWorkout.getKilometers() + " km");
+        JLabel longestDistanceLabel = new JLabel("<html> Najdłuższy trening: " + longestDistanceWorkout.getKilometers() + " km </html");
+        longestDistanceLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
         statsPanel.add(longestDistanceLabel);
 
         // Najdłuższy trening (czas)
         Workouts longestDurationWorkout = getLongestDurationWorkout(workouts);
-        JLabel longestDurationLabel = new JLabel("Najdłuższy trening: " + longestDurationWorkout.getTimeworkout() + " minut");
+        JLabel longestDurationLabel = new JLabel("<html> Najdłuższy trening: " + longestDurationWorkout.getTimeworkout() + "</html");
+        longestDurationLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
         statsPanel.add(longestDurationLabel);
 
         // Najczęściej wykonywany typ treningu
         String mostFrequentType = getMostFrequentWorkoutType(workouts);
-        JLabel mostFrequentTypeLabel = new JLabel("Najczęstszy typ treningu: " + mostFrequentType);
+        String mostFrequentTypeText = "<html> Najczęstszy typ treningu: " + mostFrequentType + "</html";
+        JLabel mostFrequentTypeLabel = new JLabel(mostFrequentTypeText);
+        mostFrequentTypeLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
         statsPanel.add(mostFrequentTypeLabel);
+
+        // Najszybszy bieg
+        Workouts fastestRun = getFastestRun(workouts);
+        double speed = fastestRun.getKilometers() / (fastestRun.getTimeworkout() / 60.0);
+        speed = Math.round(speed * 100.0) / 100.0;
+        String fastestRunText = "<html>Najszybszy bieg: " + fastestRun.getDate() + ":<br>" + speed + " km/h</html>";
+        JLabel fastestRunLabel = new JLabel(fastestRunText);
+        fastestRunLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        statsPanel.add(fastestRunLabel);
 
         // button cofania
         JButton buttonBack = new JButton();
@@ -98,4 +124,20 @@ public class Bests extends JFrame {
 
         return mostFrequentType;
     }
+    private Workouts getFastestRun(List<Workouts> workouts) {
+        Workouts fastestRun = null;
+        double maxSpeed = Double.MIN_VALUE;
+
+        for (Workouts workout : workouts) {
+            double speed = workout.getKilometers() / (workout.getTimeworkout() / 60.0); // Obliczenie średniej prędkości (kilometry na godzinę)
+
+            if (speed > maxSpeed) {
+                maxSpeed = speed;
+                fastestRun = workout;
+            }
+        }
+
+        return fastestRun;
+    }
+
 }
