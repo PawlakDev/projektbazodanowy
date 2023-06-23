@@ -57,18 +57,6 @@ public class Workouts {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
     public String getDate() {
         return date;
     }

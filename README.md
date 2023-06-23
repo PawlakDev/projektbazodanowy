@@ -1,19 +1,22 @@
 # Dzienniczek treningowy
-### Projekt implementuje dzienniczek treningowy dla sportowców, w którym można kontrolować odbyte treningi. *in progress*
+### Projekt implementuje dzienniczek treningowy dla sportowców, w którym można kontrolować odbyte treningi.
 
-## Podstawowe funkcjonalności
-Użytkownik po logowaniu lub rejestracji ma możliwość dodania nowego treningu, modyfikowanie odbytego treningu, usuwanie treningu z bazy oraz wyświetlanie treningów.
-Po wybraniu opcji dodawania nowego treningu należy wybrać odpowiedni typ treningu (np. bieg, siłownia), a następnie wypełnic opis treningu (np. kilometry, czas trwania).
-Można wyświetlać wszystkie treningi, wyświetlać trening po wyniku wyszukiwania (po danych polach np. wszystkie treningi typu bieg).
-
-## Dodatkowe funkcjonalności
-* Użytkownik zalogowany jako trener ma dostęp do danych użytkowników zapisanych jako zawodnik, istnieje również wyszukiwarka ze względu na pola użytkownika (zawodnika)
-* Wyświetlanie danych w arkuszu excel
-* Łączenie się i ściąganie danych z zegarków Garmin
-* Statystyki (wykresy, zsumowane dane itp) z treningów
+## Funkcjonalności
+**Rejestracja** składa się z dwóch okien. Na pierwszym oknie użytkownik wybiera login i hasło. Podczas nieprawidłowego loginu lub hasła wyświetla się komunikat. (przy próbie dodania loginu, który już znajduje się w bazie lub gdy np hasło = "haslo"). 
+W kolejnym oknie użytkownik uzupełnia swój email, imie, nazwisko, rokm urodzenia oraz wybiera opcje zawodnik/trener. </br>
+**Logowanie** składa się z dwóch pól tekstowych: login, hasło. </br></br>
+Użytkownik po logowaniu lub rejestracji ma możliwość dodania nowego treningu, wyświetlenie wszystkich odbytych treningów oraz wyświetlenie statystyk (dla zawodników) lub wyświetlenie informacji o zawodnikach (dla trenerów)</br>
+Po wybraniu opcji **dodawania nowego treningu** należy wybrać odpowiedni typ treningu (bieg, siłownia, gry zespołowe itp), a następnie wypełnić opis treningu (kilometry, czas trwania, opis). </br>
+Po wybraniu opcji **wyświetlania treningów** listują się wszystkie treningi odbyte przez użytkownika z możliwością **sortowania treningów, usuwania i modyfikacji poszczególnych treningów** oraz **wyświetlania ich opisu**. </br>
+Użytkownik zalogowany jako zawodnik ma możliwość wyboru opcji **wyświetlania statystyk** z odbytych treningów. Statystyki składają się z wykresu zliczającego sume odbytych kilometrów w tydzień dla 5 ostatnich tygodniach, podobnie suma minut spędzonych na treningi oraz wyświetlanie najlepszych treningów: najszybszy bieg, najwiecej kilometrów podczas treningu, najdłuższy trening, najczęstrzy typ treningu. </br>
+Użytkownik zalogowany jako trener ma możliwość **wyświetlenia listy zawodników** wraz z ich imieniem, nazwiskiem, emailem i rokiem urodzenia.
 
 ## Technologie
 * Java
 * PostgreSQL
 * Hibernate
 * Swing
+
+### Pomysły
+* dodać Garmin API
+* ulepszyć panel trenera

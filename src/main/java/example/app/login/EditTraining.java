@@ -1,41 +1,13 @@
-package example.app.login.stats;
+package example.app.login;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
 
-import example.app.login.LoginInfoFrameSettings;
-import example.app.login.ShowTrainings;
 import org.hibernate.SessionFactory;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import example.app.WorkoutRepository;
-import example.app.dbSettings.User;
-import example.app.dbSettings.Workouts;
-import example.app.login.stats.EditTraining;
-import org.hibernate.SessionFactory;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-
-import static example.app.Start.getBackgroundImagePanel;
-import static example.app.login.ShowTrainings.*;
 
 //musze dokończyć
 

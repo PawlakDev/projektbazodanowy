@@ -13,10 +13,8 @@ import java.util.List;
 
 import static example.app.Start.*;
 
-// filtrowanie tu dodam
-// po kliknieciu wyswietlam treningi zawodnika i jego email
-
 public class ShowAthletes extends JFrame {
+    //email tu dodam
     public ShowAthletes(SessionFactory sessionFactory, JFrame to, User currentUser) {
         AthletesRepository repository = new AthletesRepository(sessionFactory);
         List<Athlete> athletesList = repository.getAllAthletes();

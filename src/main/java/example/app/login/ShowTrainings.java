@@ -3,7 +3,6 @@ package example.app.login;//package example;
 import example.app.WorkoutRepository;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
-import example.app.login.stats.EditTraining;
 import org.hibernate.SessionFactory;
 import javax.swing.*;
 import java.awt.*;

@@ -3,13 +3,14 @@ package example.app.InfoFrames;
 import javax.swing.*;
 import java.awt.*;
 public class WelcomeMsgSettings extends JFrame {
+    // klasa pomocnicza do ustawienia Headline
     public WelcomeMsgSettings(JLabel label, JPanel panel, String text,int x ,int width) {
 
 
         label.setText(text);
         label.setForeground(Color.black);
         label.setFont(new Font("MV Boli", Font.PLAIN, 32));
-        label.setBackground(new Color(197, 219, 233)); // to dziala ? - tak jeżeli setOpaque jest na true
+        label.setBackground(new Color(197, 219, 233));
         label.setOpaque(true);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createCompoundBorder(

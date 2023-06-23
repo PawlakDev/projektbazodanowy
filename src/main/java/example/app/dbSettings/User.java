@@ -43,7 +43,6 @@ public class User {
         this.isCoach = isCoach;
     }
 
-    //wyzwalacz co to
     public static void addUser(SessionFactory sessionFactory, String login, String haslo) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();

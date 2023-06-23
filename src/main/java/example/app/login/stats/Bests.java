@@ -13,21 +13,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static example.app.Start.*;
-import static example.app.Start.getBackgroundImagePanel;
 import static example.app.login.ShowStats.*;
 
 public class Bests extends JFrame {
+
+    // zobaczyc czy moge usunac sessionfactory i currentuser
     public Bests(SessionFactory sessionFactory, JFrame to, User currentUser, List<Workouts> workouts) {
 
-        // Wyświetlanie statystyk
+        // wyświetlanie statystyk
         JPanel statsPanel = new JPanel();
         statsPanel.setLayout(new GridLayout(3, 1));
         statsPanel.setBounds(60, 120, 415, 190);
         statsPanel.setBackground(Color.white);
         statsPanel.setOpaque(false);
 
-        // Trening z największą liczbą kilometrów
+        // trening z największą liczbą kilometrów
         Workouts longestDistanceWorkout = getLongestDistanceWorkout(workouts);
         JLabel longestDistanceLabel = new JLabel("<html> Najdłuższy trening: " + longestDistanceWorkout.getKilometers() + " km </html");
         longestDistanceLabel.setBorder(BorderFactory.createCompoundBorder(
@@ -36,7 +36,7 @@ public class Bests extends JFrame {
         ));
         statsPanel.add(longestDistanceLabel);
 
-        // Najdłuższy trening (czas)
+        // najdłuższy trening
         Workouts longestDurationWorkout = getLongestDurationWorkout(workouts);
         JLabel longestDurationLabel = new JLabel("<html> Najdłuższy trening: " + longestDurationWorkout.getTimeworkout() + "</html");
         longestDurationLabel.setBorder(BorderFactory.createCompoundBorder(
@@ -45,7 +45,7 @@ public class Bests extends JFrame {
         ));
         statsPanel.add(longestDurationLabel);
 
-        // Najczęściej wykonywany typ treningu
+        // najczęszy typ treningu
         String mostFrequentType = getMostFrequentWorkoutType(workouts);
         String mostFrequentTypeText = "<html> Najczęstszy typ treningu: " + mostFrequentType + "</html";
         JLabel mostFrequentTypeLabel = new JLabel(mostFrequentTypeText);
@@ -55,7 +55,7 @@ public class Bests extends JFrame {
         ));
         statsPanel.add(mostFrequentTypeLabel);
 
-        // Najszybszy bieg
+        // najszybszy bieg
         Workouts fastestRun = getFastestRun(workouts);
         double speed = fastestRun.getKilometers() / (fastestRun.getTimeworkout() / 60.0);
         speed = Math.round(speed * 100.0) / 100.0;
@@ -136,8 +136,6 @@ public class Bests extends JFrame {
                 fastestRun = workout;
             }
         }
-
         return fastestRun;
     }
-
 }
