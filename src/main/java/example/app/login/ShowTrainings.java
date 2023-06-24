@@ -5,6 +5,7 @@ import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
 import org.hibernate.SessionFactory;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -200,16 +201,26 @@ public class ShowTrainings extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
-                    Object selectedId = table.getValueAt(selectedRow, 0);
+                    Integer selectedId = (Integer)table.getValueAt(selectedRow, 0);
                     int confirmDialog = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz usunąć ten wpis?", "Potwierdź usunięcie", JOptionPane.YES_NO_OPTION);
                     if (confirmDialog == JOptionPane.YES_OPTION) {
                         // Usunięcie wpisu z bazy danych
                         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
-                        repository.deleteWorkoutById((Long) selectedId);
+                        repository.deleteWorkoutById(Long.valueOf(selectedId));
 
                         // Odświeżenie tabeli
                         userWorkouts.remove(selectedRow);
                         JOptionPane.showMessageDialog(null, "Wpis został pomyślnie usunięty.", "Usunięcie wpisu", JOptionPane.INFORMATION_MESSAGE);
+
+                        //usuniecie z tableData wpisu o zaznaczonym id
+                        for (int i = 0; i < tableData[0].length; i++) {
+                            if (tableData[0][i][0].equals(selectedId)) {
+                                tableData[0][i] = null;
+                                break;
+                            }
+                        }
+                        //odsiwezenie tabeli
+                        table.setModel(new MyTableModel(tableData[0], columnNames));
                     }
                 }
             }
@@ -263,6 +274,7 @@ public class ShowTrainings extends JFrame {
         to.add(buttonDelete);
 
     }
+
     private static class MyTableModel extends javax.swing.table.DefaultTableModel {
         public MyTableModel(Object[][] tableData, Object[] columnNames) {
             super(tableData, columnNames);
