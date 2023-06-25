@@ -22,8 +22,9 @@ public class Main {
         return sessionFactory;
     }
 
+
     public static void main(String[] args) {
-        final int debugMode = 1;//final to stala
+        final int debugMode = 0;//final to stala
 
         //Ustawienia hibernate
         SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();

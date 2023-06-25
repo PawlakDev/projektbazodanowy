@@ -28,6 +28,7 @@ public class Login extends JFrame {
     JButton[] button;
     SessionFactory sessionFactory;
     JLabel welcomeMsgLabel;
+    private static int id;
     private JLabel label2;
     private JPanel panel3, frameBackground, panel5, Login, Password;
     private JTextArea textArea3, textArea4; // textArea2, 1 - login, 4 - funkcja
@@ -46,6 +47,9 @@ public class Login extends JFrame {
         this.ButtonPanel = ButtonPanel;
         this.WelcomeMsgPanel = WelcomeMsgPanel;
         this.welcomeMsgLabel = welcomeMsgLabel;
+    }
+
+    public Login(){
     }
 
     public void zrob() {
@@ -228,6 +232,8 @@ public class Login extends JFrame {
 
                             boolean passwordMatches = BCrypt.checkpw(text2, user.getPassword());
                             if (passwordMatches) {
+
+                                id = user.getId();
                                 session.getTransaction().commit();
 
                                 User currentUser = user;
@@ -428,5 +434,9 @@ public class Login extends JFrame {
 
     public JPanel getPassword() {
         return Password;
+    }
+
+    public int getId() {
+        return id;
     }
 }
