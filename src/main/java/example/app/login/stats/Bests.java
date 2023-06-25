@@ -26,7 +26,7 @@ public class Bests extends JFrame {
 
         // trening z największą liczbą kilometrów
         Workouts longestDistanceWorkout = getLongestDistanceWorkout(workouts);
-        JLabel longestDistanceLabel = new JLabel("<html> Najdłuższy trening: " + longestDistanceWorkout.getKilometers() + " km </html");
+        JLabel longestDistanceLabel = new JLabel("<html> Najdłuższy dystans na treningu: " + longestDistanceWorkout.getKilometers() + " km </html");
         longestDistanceLabel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(100, 150, 200), 2),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)
