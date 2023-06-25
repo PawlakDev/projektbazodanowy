@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import static example.app.Start.ButtonPanel;
+import static example.app.Start.jFrame;
+
 public class EditTraining extends JFrame {
     private JLabel headlineLabel;
     private JPanel headlinePanel;
@@ -18,7 +21,6 @@ public class EditTraining extends JFrame {
     private JScrollPane scrollPane;
     private JButton buttonBack;
     private JButton buttonSave;
-
     private SessionFactory sessionFactory;
     private User currentUser;
     private Workouts selectedWorkout;
@@ -34,7 +36,7 @@ public class EditTraining extends JFrame {
         LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel, headlinePanel, "Edytuj trening");
 
         // Create a panel to hold the input components for editing
-        JPanel editPanel = new JPanel(new GridLayout(5, 2));
+        JPanel editPanel = new JPanel(new GridLayout(6, 2));
         editPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel idLabel = new JLabel("ID:");
@@ -63,6 +65,12 @@ public class EditTraining extends JFrame {
         editPanel.add(timeLabel);
         editPanel.add(timeField);
 
+        JLabel opisLabel = new JLabel("Opis:");
+        JTextField OpisField = new JTextField(String.valueOf(selectedWorkout.getDescription()));
+        editPanel.add(opisLabel);
+        editPanel.add(OpisField);
+
+
         buttonSave = new JButton("Zatwierdź");
         buttonSave.addActionListener(new ActionListener() {
             @Override
@@ -72,6 +80,7 @@ public class EditTraining extends JFrame {
                 selectedWorkout.setWorkouttype(workoutTypeField.getText());
                 selectedWorkout.setKilometers((int) Double.parseDouble(kilometersField.getText()));
                 selectedWorkout.setTimeworkout(Integer.parseInt(timeField.getText()));
+                selectedWorkout.setDescription(OpisField.getText());
 
                 // Save the changes to the database
                 WorkoutRepository repository = new WorkoutRepository(sessionFactory);
@@ -87,6 +96,11 @@ public class EditTraining extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Close the EditTraining window
+                Window parentWindow = SwingUtilities.getWindowAncestor(EditTraining.this);
+                if (parentWindow instanceof ShowTrainings) {
+                    ShowTrainings showTrainings = (ShowTrainings) parentWindow;
+                    showTrainings.refreshTableData();
+                }
                 dispose();
             }
         });

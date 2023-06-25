@@ -1,5 +1,6 @@
 package example.app.login;//package example;
 
+import com.microsoft.schemas.vml.CTBackground;
 import example.app.WorkoutRepository;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
@@ -13,15 +14,20 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import static example.Main.sessionFactory;
 import static example.app.Start.getBackgroundImagePanel;
 
 public class ShowTrainings extends JFrame {
+    String[] columnNames = {"ID", "Date", "Workout Type", "Kilometers", "Time (mins)"}; // nazwy kolumn
     JLabel headlineLabel;
     JPanel headlinePanel;
     JTable table;
     JScrollPane scrollPane;
     JButton buttonBack;
+    private static User currentUser;
+
     public ShowTrainings(SessionFactory sessionFactory, JFrame to, JPanel oldButtonPanel, User currentUser) {
+        this.currentUser = currentUser;
 
         WorkoutRepository repository = new WorkoutRepository(sessionFactory);
         List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
@@ -39,9 +45,6 @@ public class ShowTrainings extends JFrame {
             };
             tableData[0][i] = rowData;
         }
-
-        // nazwy kolumn
-        String[] columnNames = {"ID", "Date", "Workout Type", "Kilometers", "Time (mins)"};
 
         // tworze z tego tabele
         table = new JTable(tableData[0], columnNames);
@@ -272,7 +275,27 @@ public class ShowTrainings extends JFrame {
         to.add(buttonDelete);
 
     }
+    public void refreshTableData() {
 
+        WorkoutRepository repository = new WorkoutRepository(sessionFactory);
+        List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
+
+        // Dane do tabeli przechowują dane o treningach
+        final Object[][][] tableData = {new Object[userWorkouts.size()][]};
+        for (int i = 0; i < userWorkouts.size(); i++) {
+            Workouts workout = userWorkouts.get(i);
+            Object[] rowData = {
+                    workout.getId(),
+                    workout.getDate(),
+                    workout.getWorkouttype(),
+                    workout.getKilometers(),
+                    workout.getTimeworkout()
+            };
+            tableData[0][i] = rowData;
+        }
+        // Odświeżanie danych tabeli
+        table.setModel(new MyTableModel(tableData[0], columnNames));
+    }
     private static class MyTableModel extends javax.swing.table.DefaultTableModel {
         public MyTableModel(Object[][] tableData, Object[] columnNames) {
             super(tableData, columnNames);

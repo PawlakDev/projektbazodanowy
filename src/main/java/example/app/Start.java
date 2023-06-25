@@ -16,7 +16,7 @@ public class Start extends JFrame implements ActionListener {
     public static JButton jButton;
     public static JButton ButtonBack;
     static boolean change = false;
-    static JFrame jFrame;
+    public static  JFrame jFrame;
     static JLayeredPane jLayeredPane;
     /*
      *  Buttons:
@@ -28,7 +28,7 @@ public class Start extends JFrame implements ActionListener {
      *  5 - Wyswietl treningi
      *
      */
-    static JPanel ButtonPanel;
+    public static JPanel ButtonPanel;
     static JPanel BackgroundImagePanel;
     JLabel label, welcomeMsgLabel;
     JButton[] button = new JButton[7];
