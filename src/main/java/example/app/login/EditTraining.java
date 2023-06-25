@@ -1,77 +1,113 @@
 package example.app.login;
+
+import example.app.WorkoutRepository;
 import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
-
 import org.hibernate.SessionFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
-import example.app.WorkoutRepository;
-
-//musze dokończyć
 
 public class EditTraining extends JFrame {
-    JLabel headlineLabel;
-    JPanel headlinePanel;
-    JTable table;
-    JScrollPane scrollPane;
-    JButton buttonBack;
+    private JLabel headlineLabel;
+    private JPanel headlinePanel;
+    private JTable table;
+    private JScrollPane scrollPane;
+    private JButton buttonBack;
+    private JButton buttonSave;
 
-    public EditTraining(SessionFactory sessionFactory, JFrame to, User currentUser, List<Workouts> workouts, int workoutId) {
-        WorkoutRepository repository = new WorkoutRepository(sessionFactory);
-        List<Workouts> userWorkouts = repository.getWorkoutsByUserId(currentUser.getId());
+    private SessionFactory sessionFactory;
+    private User currentUser;
+    private Workouts selectedWorkout;
 
-        // dane do tabeli przchowuja dane o treningach
-        final Object[][][] tableData = {new Object[userWorkouts.size()][]};
+    public EditTraining(SessionFactory sessionFactory, User currentUser, Workouts selectedWorkout) {
+        this.sessionFactory = sessionFactory;
+        this.currentUser = currentUser;
+        this.selectedWorkout = selectedWorkout;
 
-        for (int i = 0; i < userWorkouts.size(); i++) {
-            Workouts workout = userWorkouts.get(i);
-            if (workout.getId() == workoutId) {
-                Object[] rowData = {
-                        workout.getId(),
-                        workout.getDate(),
-                        workout.getWorkouttype(),
-                        workout.getKilometers(),
-                        workout.getTimeworkout(),
-                        workout.getDescription()
-                };
-                tableData[0][1] = rowData;
-            }
-        }
-        // nazwy kolumn
-        String[] columnNames = {"ID", "Date", "Workout Type", "Kilometers", "Time (mins)", "Opis"};
-
-        // tworze z tego tabele
-        table = new JTable(tableData[0], columnNames);
-
-        // ustawienia tabeli
-        table.setRowHeight(30);
-        table.setFont(new Font("Arial", Font.PLAIN, 14));
-//        table.setModel(new ShowTrainings.MyTableModel(tableData[0], columnNames));
-
-
-        // ustawiam headline
         headlineLabel = new JLabel();
         headlinePanel = new JPanel();
         headlinePanel.setBackground(Color.white);
-        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel,headlinePanel, "Twoje treningi");
+        LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(headlineLabel, headlinePanel, "Edytuj trening");
 
-        // Tworzenie panelu przewijania
-        scrollPane = new JScrollPane(table);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(60,90,415,190);
-        scrollPane.setVisible(true);
-    }
-    private static class MyTableModel extends javax.swing.table.DefaultTableModel {
-        public MyTableModel(Object[][] tableData, Object[] columnNames) {
-            super(tableData, columnNames);
-        }
+        // Create a panel to hold the input components for editing
+        JPanel editPanel = new JPanel(new GridLayout(5, 2));
+        editPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return true;
-        }
+        JLabel idLabel = new JLabel("ID:");
+        JTextField idField = new JTextField(String.valueOf(selectedWorkout.getId()));
+        idField.setEditable(false);
+        editPanel.add(idLabel);
+        editPanel.add(idField);
+
+        JLabel dateLabel = new JLabel("Data:");
+        JTextField dateField = new JTextField(selectedWorkout.getDate());
+        editPanel.add(dateLabel);
+        editPanel.add(dateField);
+
+        JLabel workoutTypeLabel = new JLabel("Typ treningu:");
+        JTextField workoutTypeField = new JTextField(selectedWorkout.getWorkouttype());
+        editPanel.add(workoutTypeLabel);
+        editPanel.add(workoutTypeField);
+
+        JLabel kilometersLabel = new JLabel("Kilometry:");
+        JTextField kilometersField = new JTextField(String.valueOf(selectedWorkout.getKilometers()));
+        editPanel.add(kilometersLabel);
+        editPanel.add(kilometersField);
+
+        JLabel timeLabel = new JLabel("Czas (minuty):");
+        JTextField timeField = new JTextField(String.valueOf(selectedWorkout.getTimeworkout()));
+        editPanel.add(timeLabel);
+        editPanel.add(timeField);
+
+        buttonSave = new JButton("Zatwierdź");
+        buttonSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Update the selected workout with the new values
+                selectedWorkout.setDate(dateField.getText());
+                selectedWorkout.setWorkouttype(workoutTypeField.getText());
+                selectedWorkout.setKilometers((int) Double.parseDouble(kilometersField.getText()));
+                selectedWorkout.setTimeworkout(Integer.parseInt(timeField.getText()));
+
+                // Save the changes to the database
+                WorkoutRepository repository = new WorkoutRepository(sessionFactory);
+                repository.updateWorkout(selectedWorkout);
+
+                // Show a message dialog to inform the user
+                JOptionPane.showMessageDialog(null, "Zmiany zostały zapisane.", "Zapisano zmiany", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        buttonBack = new JButton("Cofnij");
+        buttonBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Close the EditTraining window
+                dispose();
+            }
+        });
+
+        // Create a panel to hold the buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(buttonSave);
+        buttonPanel.add(buttonBack);
+
+        // Create a panel to hold the edit panel and button panel
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(editPanel, BorderLayout.CENTER);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Set up the JFrame
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setPreferredSize(new Dimension(400, 300));
+        setContentPane(mainPanel);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 }
+

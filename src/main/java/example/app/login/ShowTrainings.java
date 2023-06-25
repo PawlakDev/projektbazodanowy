@@ -185,14 +185,11 @@ public class ShowTrainings extends JFrame {
                 if (selectedRow != -1) {
                     Object selectedId = table.getValueAt(selectedRow, 0);
                     int SelectedId = Integer.parseInt(selectedId.toString());
+
                     // Tutaj możesz wykorzystać odczytane ID wpisu
                     System.out.println("Wybrano ID wpisu: " + selectedId);
-                    EditTraining editTraining = new EditTraining(sessionFactory, to, currentUser, userWorkouts, SelectedId);
-                    buttonSelect.setVisible(false);
-                    buttonDelete.setVisible(false);
-                    buttonSort.setVisible(false);
-                    sortTypePanel1.setVisible(false);
-                    sortTypePanel2.setVisible(false);
+                    EditTraining editTraining = new EditTraining(sessionFactory, currentUser, userWorkouts.get(selectedRow));
+
                 }
             }
         });
@@ -242,6 +239,7 @@ public class ShowTrainings extends JFrame {
         buttonBack.setFont(new Font("Arial", Font.BOLD, 14));
 
         buttonBack.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
 
                 oldButtonPanel.setVisible(true);

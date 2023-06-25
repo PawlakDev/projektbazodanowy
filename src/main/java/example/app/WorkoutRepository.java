@@ -53,4 +53,22 @@ public class WorkoutRepository {
             session.close();
         }
     }
+
+    public void updateWorkout(Workouts selectedWorkout) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(selectedWorkout);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+
+        } finally {
+            session.close();
+        }
+    }
 }
