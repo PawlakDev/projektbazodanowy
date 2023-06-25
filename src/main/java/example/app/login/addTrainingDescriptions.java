@@ -140,7 +140,11 @@ public class addTrainingDescriptions {
 
                                     //System.out.println("Dzisiaj jest " + day + "." + month + "." + year );
 
-                                    int idU = 25;
+                                    Login login = new Login() ;
+                                    int idU = login.getId();
+
+                                    System.out.println(idU);
+
                                     String date = Year + "-" + Month + "-"+ Day ;
                                     int km = Integer.parseInt(Km);
                                     int time = Integer.parseInt(Czas);
