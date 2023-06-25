@@ -78,7 +78,7 @@ public class ShowStats extends JFrame{
                 buttonWykres2.setVisible(false);
                 buttonBest.setVisible(false);
                 buttonBack.setVisible(false);
-                KilometerChart kilometerChart = new KilometerChart(sessionFactory, to, currentUser, workouts);
+                KilometerChart kilometerChart = new KilometerChart(to, workouts);
             }
         });
 
@@ -88,7 +88,7 @@ public class ShowStats extends JFrame{
                 buttonWykres2.setVisible(false);
                 buttonBest.setVisible(false);
                 buttonBack.setVisible(false);
-                MinutesChart timeChart = new MinutesChart(sessionFactory, to, currentUser, workouts);
+                MinutesChart timeChart = new MinutesChart(to, workouts);
             }
         });
 
@@ -98,7 +98,7 @@ public class ShowStats extends JFrame{
                 buttonWykres2.setVisible(false);
                 buttonBest.setVisible(false);
                 buttonBack.setVisible(false);
-                Bests bests = new Bests(sessionFactory, to, currentUser, workouts);
+                Bests bests = new Bests(to, workouts);
             }
         });
 

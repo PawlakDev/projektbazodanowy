@@ -20,36 +20,41 @@ import java.util.List;
 
 public class Rejestracja extends JFrame {
     JLabel labelTytul;
-    JPanel panelTytul;
+
+    static JPanel panelTytul;
     JPanel DownButtonPanel;
 
-    JPanel frameBackground;
+    static JPanel frameBackground;
     JPanel panel5;
-    JPanel Login;
-    JPanel Password;
-    JTextArea textLogin;
 
-    JButton next, ButtonBack;
+    static JPanel Login;
+
+    static JPanel Password;
+
+    static JTextArea textLogin;
+
+    static JButton next;
+
+    static JButton ButtonBack;
     private JPasswordField password;
     private JLayeredPane GraphicFrame;
 
     public Rejestracja(SessionFactory sessionFactory, JFrame to, JPanel ButtonPanel, JPanel BackgroundImagePanel){
 
-
-        System.out.println("rejestracja");
         this.DownButtonPanel = new JPanel();
+
         //Wylaczam stare panele
         ButtonPanel.setEnabled(false);
         BackgroundImagePanel.setEnabled(false);
         ButtonPanel.setVisible(false);
         BackgroundImagePanel.setVisible(false);
 
+        // nowy headline panel
         labelTytul = new JLabel();
         panelTytul = new JPanel();
         panelTytul.setBackground(Color.white);
         LoginInfoFrameSettings loginInfoFrameSettings = new LoginInfoFrameSettings(labelTytul,panelTytul, "Zarejestruj sie");
 
-        //panel4
         frameBackground = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -59,32 +64,28 @@ public class Rejestracja extends JFrame {
             }
         };
 
-        //zaczelam robic PanelSettings dla czytelnosci, ale nie wiem jeszcze czy sie przyda
         frameBackground.setBackground(new Color(200, 230, 255));
         frameBackground.setBounds(0, 0, 400, 160);
         frameBackground.setOpaque(false);
         frameBackground.setBorder(new LineBorder(new Color(100, 150, 200), 2, true));
         frameBackground.setVisible(true);
 
-        //panel5
         panel5 = new JPanel();
         panel5.setBackground(Color.white);
-        panel5.setBounds(60,270,400,80); //135
+        panel5.setBounds(60,270,400,80);
         panel5.setVisible(true);
         panel5.setLayout(null);
 
-
-        //Panel "signup" jest odpowiedzialny za poprawne wyswietlanie pola tekstowego do logowania (jest w nim textArea "textlogin") !
-
+        // login panel
         Login = new JPanel();
-        Login.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Login.setBounds(0, 20, 400, 120); // Ustaw wymiary i pozycję
+        Login.setOpaque(false);
+        Login.setBounds(0, 20, 400, 120);
         Login.setVisible(true);
 
-        //Panel "password" jest odpowiedzialny za poprawne wyswietlanie pola tekstowego do logowania
+        // panel password
         Password = new JPanel();
-        Password.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Password.setBounds(0, 80, 400, 120); // Ustaw wymiary i pozycję
+        Password.setOpaque(false);
+        Password.setBounds(0, 80, 400, 120);
         Password.setVisible(true);
 
         // Tworzenie układu warstwowego i dodawanie paneli
@@ -220,7 +221,7 @@ public class Rejestracja extends JFrame {
         ));
         next.setFont(new Font("Arial", Font.BOLD, 14));
 
-        final boolean[] ok = {true}; // zmienna pomocnicza "tyczasowa" bo nie wiem jaki warunek dac do else if
+        final boolean[] ok = {true};
         next.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // tu sprawdzam czy login i haslo zostalo uzupelnione
@@ -253,14 +254,14 @@ public class Rejestracja extends JFrame {
                             session.close();
                         }
                     }
-                    // poprawne dane do loginu i hasla - przechodze do kolejnego okna
+                    // poprawne dane do loginu i hasla
                     if (ok[0] == true) {
                         labelTytul.setVisible(false);
                         showPsw.setVisible(false);
                         showPsw.setEnabled(false);
 
-                        // Getterów pouzywać
-                        RejestracjaData rejestracjaData = new RejestracjaData(sessionFactory, to, panelTytul, Login, Password, frameBackground, ButtonBack, next, textLogin, password);
+                        //przechodze do kolejnego okna
+                        RejestracjaData rejestracjaData = new RejestracjaData(sessionFactory, to, password);
                     }
                 }
             }
@@ -275,7 +276,6 @@ public class Rejestracja extends JFrame {
         GraphicFrame.add(Password, JLayeredPane.PALETTE_LAYER);
         to.add(GraphicFrame);
 
-        //panel5 to buttony zaloguj i pokaz haslo
         panel5.add(ButtonBack);
         panel5.add(showPsw);
         panel5.add(next);
@@ -285,46 +285,34 @@ public class Rejestracja extends JFrame {
         to.add(panel5);
     }
 
-    public String getTextLogin() {
-        return textLogin.getText();
-    }
-
-    public JPanel getFrameBackground() {
-        return frameBackground;
-    }
-
     public JPanel getPanel5() {
         return panel5;
-    }
-    public String getpassword() {
-        char[] passwordChars = password.getPassword();
-        String passwordString = new String(passwordChars);
-        return passwordString;
     }
 
     public JLayeredPane getGraphicFrame() {
         return GraphicFrame;
     }
 
-    public JPanel getLogin() {
+    public static JPanel getPanelTytul() {
+        return panelTytul;
+    }
+
+    public static JPanel getLogin() {
         return Login;
     }
 
-    public JLabel getLabelTytul() {
-        return labelTytul;
-    }
-    public void setFrameBackground(JPanel frameBackground) {
-        this.frameBackground = frameBackground;
+    public static JButton getNext(){
+        return next;
     }
 
-    public String getPassword()
-    {
-        char[] passwordChars = password.getPassword();
-        String passwordString = new String(passwordChars);
-        return passwordString;
+    public static JPanel getFrameBackground() {
+        return frameBackground;
     }
-    public JButton getNext() {
-        return next;
+    public static JButton getButtonBack() {
+        return ButtonBack;
+    }
+    public static JPanel getPassword() {
+        return Password;
     }
 }
 

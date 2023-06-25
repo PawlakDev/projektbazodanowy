@@ -1,8 +1,6 @@
 package example.app.login.stats;
 
-import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
-import org.hibernate.SessionFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,8 +15,7 @@ import static example.app.login.ShowStats.*;
 
 public class Bests extends JFrame {
 
-    // zobaczyc czy moge usunac sessionfactory i currentuser
-    public Bests(SessionFactory sessionFactory, JFrame to, User currentUser, List<Workouts> workouts) {
+    public Bests(JFrame to, List<Workouts> workouts) {
 
         // wyświetlanie statystyk
         JPanel statsPanel = new JPanel();

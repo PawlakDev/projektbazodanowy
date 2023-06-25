@@ -1,9 +1,6 @@
 package example.app.login.stats;
-import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
-import example.app.login.ShowStats;
 
-import org.hibernate.SessionFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -23,12 +20,10 @@ import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
 
-import static example.app.Start.*;
-import static example.app.Start.getBackgroundImagePanel;
 import static example.app.login.ShowStats.*;
 
 public class MinutesChart extends JFrame {
-    public MinutesChart(SessionFactory sessionFactory, JFrame to, User currentUser, List<Workouts> workouts)
+    public MinutesChart(JFrame to, List<Workouts> workouts)
     {
         // pobieram moje dane z tabel czas
         DefaultCategoryDataset datasetTime = new DefaultCategoryDataset();
@@ -51,10 +46,9 @@ public class MinutesChart extends JFrame {
             datasetTime.addValue(sumMinutes, "Training", String.valueOf(weekNumber));
         }
 
-        // Konwersja na CategoryDataset
         CategoryDataset categoryDataset2 = datasetTime;
 
-        // Tworzenie wykresu
+        // tworze wykres
         JFreeChart chartTime = ChartFactory.createBarChart(
                 "Minuty w dany tydzień",     // Tytuł wykresu
                 "Numer tygodnia w roku",                     // Etykieta osi X

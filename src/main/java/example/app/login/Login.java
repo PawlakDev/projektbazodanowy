@@ -281,7 +281,7 @@ public class Login extends JFrame {
                                         WelcomeMsgPanel.setVisible(false);
                                         WelcomeMsgPanel.setEnabled(false);
                                         if (currentUser.getIscoach()) {
-                                            ShowAthletes showAthletes = new ShowAthletes(sessionFactory, jFrame, currentUser);
+                                            ShowAthletes showAthletes = new ShowAthletes(sessionFactory, jFrame);
                                         }
                                         else {
                                             ShowStats showStats = new ShowStats(sessionFactory, jFrame, currentUser);

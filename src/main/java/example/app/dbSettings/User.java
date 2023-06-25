@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import static example.app.Start.session;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -67,6 +69,33 @@ public class User {
 
         session.getTransaction().commit();
         System.out.println("Dodano użytkownika o ID: " + user.getId());
+    }
+
+    // zwraca email po id
+    public static String getEmailById(SessionFactory sessionFactory, Integer id) {
+        Session session = null;
+        String email = null;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+
+            Query query = session.createQuery("SELECT u.email FROM User u WHERE u.id = :id");
+            query.setParameter("id", id);
+            email = (String) query.getSingleResult();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return email;
     }
 
     public int getId() {

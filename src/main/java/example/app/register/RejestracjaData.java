@@ -16,8 +16,8 @@ import java.awt.event.FocusEvent;
 import java.util.Calendar;
 
 import static example.app.dbSettings.User.addUser;
+import static example.app.register.Rejestracja.*;
 
-//w tej klasie ma byc to co po nacisnieciu next w rejestracni, beda tu dalsze dane do uzupelnienia
 public class RejestracjaData extends JFrame {
     JLabel labelTytul;
     JPanel Email, Name, Surname;
@@ -26,24 +26,22 @@ public class RejestracjaData extends JFrame {
     JComboBox<Integer> birthYear;
     private final JLayeredPane GraphicFrame;
 
-    // na gettery zamienic musze i bedzie ()
-    RejestracjaData(SessionFactory sessionFactory, JFrame to, JPanel panelTytul, JPanel Login, JPanel Password, JPanel frameBackground, JButton ButtonBack, JButton next, JTextArea textLogin, JPasswordField password) {
+    RejestracjaData(SessionFactory sessionFactory, JFrame to, JPasswordField password) {
 
-        System.out.println("rejestracja2");
         //Wylaczam stare panele
-        Login.setVisible(false);
-        Login.setVisible(false);
-        Password.setVisible(false);
-        Password.setVisible(false);
+        getLogin().setVisible(false);
+        getLogin().setVisible(false);
+        getPassword().setVisible(false);
+        getPassword().setVisible(false);
 
         //ustawiam label tytulowy
         labelTytul = new JLabel();
-        LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul, panelTytul, "Uzupelnij dane");
+        LoginInfoFrameSettings wpisywanieTekstu = new LoginInfoFrameSettings(labelTytul, getPanelTytul(), "Uzupelnij dane");
 
         // panel na pole tekstowe email
         Email = new JPanel();
-        Email.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Email.setBounds(-40, 20, 400, 120); // Ustaw wymiary i pozycję
+        Email.setOpaque(false);
+        Email.setBounds(-40, 20, 400, 120);
         Email.setVisible(true);
 
         // pole tekstowe na email
@@ -64,15 +62,15 @@ public class RejestracjaData extends JFrame {
             public void focusGained(FocusEvent e) {
                 if (email.getText().equals("email")) {
                     email.setText("");
-                    email.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu
+                    email.setForeground(new Color(0, 0, 0, 255));
                 }
             }
         });
 
         // panel na pole tekstowe imie
         Name = new JPanel();
-        Name.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Name.setBounds(-40, 55, 400, 120); // Ustaw wymiary i pozycję
+        Name.setOpaque(false);
+        Name.setBounds(-40, 55, 400, 120);
         Name.setVisible(true);
 
         // pole tekstowe na imie
@@ -93,15 +91,15 @@ public class RejestracjaData extends JFrame {
             public void focusGained(FocusEvent e) {
                 if (name.getText().equals("imie")) {
                     name.setText("");
-                    name.setForeground(new Color(0, 0, 0, 255)); // Ustawienie przezroczystości tekstu
+                    name.setForeground(new Color(0, 0, 0, 255));
                 }
             }
         });
 
-        // panel na pole tekstowe imie
+        // panel na pole tekstowe nazwisko
         Surname = new JPanel();
-        Surname.setOpaque(false); // Ta obcja sluzy do ustawienia przezroczystego tla (niegenerowanie tla)
-        Surname.setBounds(-40, 90, 400, 120); // Ustaw wymiary i pozycję
+        Surname.setOpaque(false);
+        Surname.setBounds(-40, 90, 400, 120);
         Surname.setVisible(true);
 
         // pole tekstowe na nazwisko
@@ -172,6 +170,7 @@ public class RejestracjaData extends JFrame {
         birthYearPanel.add(birthYear, BorderLayout.CENTER);
 
         //button cofania updated
+        ButtonBack = getButtonBack();
         ButtonBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == ButtonBack) {
@@ -192,7 +191,8 @@ public class RejestracjaData extends JFrame {
             }
         });
 
-        // zapisz wszystko
+        // przechodze dalej
+        next = getNext();
         next.setText("Rejestruj");
 
         // Szyfrowanie hasła
@@ -203,8 +203,8 @@ public class RejestracjaData extends JFrame {
 
                 // sprawdzam czy dane sa uzupelnione
                 if (name.getText().equals("imie") || name.getText().equals("") || surname.getText().equals("") || surname.getText().equals("nazwisko") || email.getText().equals("") || surname.getText().equals("email")) {
-                    labelTytul.setVisible(false); // to nic nie zmiania ale niech zostanie
-                } else { // idk czy jakis wyjatkow nie trzeba? + szyfrowanie haseł!
+                    labelTytul.setVisible(false);
+                } else {
                     Integer birthYearValue = Integer.parseInt(birthYear.getSelectedItem().toString());
                     addUser(sessionFactory, textLogin.getText(), hashedPassword, email.getText(), coach, name.getText(), surname.getText(), birthYearValue);
 
@@ -215,18 +215,16 @@ public class RejestracjaData extends JFrame {
             }
         });
 
-
         birthYearPanel.add(birthYear);
         Email.add(email);
         Name.add(name);
         Surname.add(surname);
 
-        //panelTytul.setVisible(true);
         labelTytul.setVisible(true);
 
         GraphicFrame = new JLayeredPane();
         GraphicFrame.setBounds(60, 105, 400, 540);
-        GraphicFrame.add(frameBackground, JLayeredPane.DEFAULT_LAYER);
+        GraphicFrame.add(getFrameBackground(), JLayeredPane.DEFAULT_LAYER);
         GraphicFrame.add(Email, JLayeredPane.PALETTE_LAYER);
         GraphicFrame.add(Name, JLayeredPane.PALETTE_LAYER);
         GraphicFrame.add(Surname, JLayeredPane.PALETTE_LAYER);

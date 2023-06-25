@@ -1,8 +1,6 @@
 package example.app.login.stats;
-import example.app.dbSettings.User;
 import example.app.dbSettings.Workouts;
 
-import org.hibernate.SessionFactory;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -25,7 +23,7 @@ import java.util.List;
 import static example.app.login.ShowStats.*;
 
 public class KilometerChart extends JFrame {
-    public KilometerChart(SessionFactory sessionFactory, JFrame to, User currentUser, List<Workouts> workouts)
+    public KilometerChart(JFrame to, List<Workouts> workouts)
     {
         // pobieram moje dane z tabel do kilometrów
         DefaultCategoryDataset datasetKilometers = new DefaultCategoryDataset();

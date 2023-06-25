@@ -9,6 +9,7 @@ public class Athlete {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "uid")
     private Integer uid;
 
@@ -41,5 +42,8 @@ public class Athlete {
 
     public Integer getBirthyear() {
         return birthYear;
+    }
+    public Integer getUid() {
+        return uid;
     }
 }

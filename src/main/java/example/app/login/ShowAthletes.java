@@ -12,10 +12,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import static example.app.Start.*;
+import static example.app.dbSettings.User.getEmailById;
 
 public class ShowAthletes extends JFrame {
     //email tu dodam
-    public ShowAthletes(SessionFactory sessionFactory, JFrame to, User currentUser) {
+    public ShowAthletes(SessionFactory sessionFactory, JFrame to) {
         AthletesRepository repository = new AthletesRepository(sessionFactory);
         List<Athlete> athletesList = repository.getAllAthletes();
 
@@ -27,12 +28,13 @@ public class ShowAthletes extends JFrame {
                     athlete.getName(),
                     athlete.getSurname(),
                     athlete.getBirthyear(),
+                    getEmailById(sessionFactory, athlete.getUid())
             };
             tableData[i] = rowData;
         }
 
         // nazwy kolumn
-        String[] columnNames = {"Name", "Surname", "Birth year"};
+        String[] columnNames = {"Name", "Surname", "Birth year", "email"};
 
         // tworze z tego tabele
         JTable table = new JTable(tableData, columnNames);
