@@ -54,7 +54,7 @@ class CreatingNewTrainingTest {
         button[3].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreatingNewTraining creatingNewTraining = new CreatingNewTraining(session, ButtonPanel3, BackgroundImagePanel, frame, jLayeredPane);
+                CreatingNewTraining creatingNewTraining = new CreatingNewTraining(session, ButtonPanel3, BackgroundImagePanel, frame, jLayeredPane,"0","0","0");
 
             }
         });
@@ -96,7 +96,7 @@ class CreatingNewTrainingTest {
         frame.add(ButtonPanel3);
         ////////////////////////////////////////////////////////////////////////////////////
 
-        CreatingNewTraining creatingNewTraining = new CreatingNewTraining(session,ButtonPanel3,BackgroundImagePanel,frame,jLayeredPane);
+        CreatingNewTraining creatingNewTraining = new CreatingNewTraining(session,ButtonPanel3,BackgroundImagePanel,frame,jLayeredPane,"0","0","0");
         creatingNewTraining.zrob();
 
 

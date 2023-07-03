@@ -225,7 +225,7 @@ public class Login extends JFrame {
                     String passwordString = new String(passwordChars);
 
                     String text2 = passwordString;
-                    System.out.println(text);
+                    //System.out.println(text);
                     List<User> users = session.createQuery("from User", User.class).getResultList();
                     for (User user : users) {
                         if (user.getUsername().equals(text)) {

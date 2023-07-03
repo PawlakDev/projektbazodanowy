@@ -27,13 +27,17 @@ public class addTrainingDescriptions {
     JPanel wellcomeMsgPanel;
     String type;
     SessionFactory sessionFactory;
-    public addTrainingDescriptions(SessionFactory session, JPanel ButtonPanel4, JLayeredPane jLayeredPane, JLabel wellcomeMsgLabel, JPanel wellcomeMsgPanel, String typ){
+    private String dzien, miesiac, rok;
+    public addTrainingDescriptions(SessionFactory session, JPanel ButtonPanel4, JLayeredPane jLayeredPane, JLabel wellcomeMsgLabel, JPanel wellcomeMsgPanel, String typ, String dzien, String miesiac, String rok){
         this.ButtonPanel4 = ButtonPanel4;
         this.jLayeredPane = jLayeredPane;
         this.wellcomeMsgLabel = wellcomeMsgLabel;
         this.wellcomeMsgPanel = wellcomeMsgPanel;
         this.sessionFactory = session;
         this.type = typ;
+        this.dzien = dzien;
+        this.miesiac = miesiac;
+        this.rok = rok;
     }
 
     void zrob(){
@@ -112,51 +116,76 @@ public class addTrainingDescriptions {
 
                                     //
 
-                                    //Sprowadzam date z serwera sql
-                                    Session session = null;
+                                    if(dzien.equals("0") && miesiac.equals("0") && rok.equals("0")){
+                                        //Sprowadzam date z serwera sql
+                                        Session session = null;
 
-                                    session = sessionFactory.openSession();
-                                    Date currentDate = (Date) session.createNativeQuery("SELECT current_timestamp").getSingleResult();
-                                    session.close();
-                                    //
+                                        session = sessionFactory.openSession();
+                                        Date currentDate = (Date) session.createNativeQuery("SELECT current_timestamp").getSingleResult();
+                                        session.close();
+                                        //
 
-                                    // Convert Date to Calendar
-                                    Calendar calendar = Calendar.getInstance();
-                                    calendar.setTime(currentDate);
+                                        // Convert Date to Calendar
+                                        Calendar calendar = Calendar.getInstance();
+                                        calendar.setTime(currentDate);
 
-                                    //Format %02d oznacza, że chcemy wyświetlić liczbę jako łańcuch znaków,
-                                    // z wiodącym zerem, jeśli liczba zajmuje mniej niż 2 cyfry.
+                                        //Format %02d oznacza, że chcemy wyświetlić liczbę jako łańcuch znaków,
+                                        // z wiodącym zerem, jeśli liczba zajmuje mniej niż 2 cyfry.
 
-                                    // Extract day, month, year, hour, and minute
-                                    int day = calendar.get(Calendar.DAY_OF_MONTH);
-                                    String Day = String.format("%02d", day);
+                                        // Extract day, month, year, hour, and minute
+                                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+                                        String Day = String.format("%02d", day);
 
-                                    int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based, add 1 for human-readable format
-                                    String Month = String.format("%02d", month);
+                                        int month = calendar.get(Calendar.MONTH) + 1; // Months are 0-based, add 1 for human-readable format
+                                        String Month = String.format("%02d", month);
 
-                                    int year = calendar.get(Calendar.YEAR);
-                                    String Year = Integer.toString(year);
+                                        int year = calendar.get(Calendar.YEAR);
+                                        String Year = Integer.toString(year);
+
+                                        //System.out.println("Dzisiaj jest " + day + "." + month + "." + year );
+
+                                        Login login = new Login() ;
+                                        int idU = login.getId();
+
+                                        System.out.println(idU);
+
+                                        String date = Year + "-" + Month + "-"+ Day ;
+                                        int km = Integer.parseInt(Km);
+                                        int time = Integer.parseInt(Czas);
+
+                                        Session session2 = sessionFactory.getCurrentSession();
+                                        session2.beginTransaction();
+
+                                        Workouts workouts = new Workouts(idU, date, type, km, time, opis);
+                                        session2.save(workouts);
+
+                                        session2.getTransaction().commit();
+                                        System.out.println("Dodano trening o ID: " + workouts.getId());
+
+                                    } else {
+                                        String date = dzien + "-" + miesiac + "-"+ rok ;
+                                        int km = Integer.parseInt(Km);
+                                        int time = Integer.parseInt(Czas);
+
+                                        Login login = new Login() ;
+                                        int idU = login.getId();
+
+                                        System.out.println(idU);
+
+                                        Session session3 = sessionFactory.getCurrentSession();
+                                        session3.beginTransaction();
+
+                                        Workouts workouts = new Workouts(idU, date, type, km, time, opis);
+                                        session3.save(workouts);
+
+                                        session3.getTransaction().commit();
+                                        System.out.println("Dodano trening o ID: " + workouts.getId());
+
+                                    }
 
 
-                                    //System.out.println("Dzisiaj jest " + day + "." + month + "." + year );
 
-                                    Login login = new Login() ;
-                                    int idU = login.getId();
 
-                                    System.out.println(idU);
-
-                                    String date = Year + "-" + Month + "-"+ Day ;
-                                    int km = Integer.parseInt(Km);
-                                    int time = Integer.parseInt(Czas);
-
-                                    Session session2 = sessionFactory.getCurrentSession();
-                                    session2.beginTransaction();
-
-                                    Workouts workouts = new Workouts(idU, date, type, km, time, opis);
-                                    session2.save(workouts);
-
-                                    session2.getTransaction().commit();
-                                    System.out.println("Dodano trening o ID: " + workouts.getId());
 
                                     //
                                     ButtonPanel4.setVisible(true);

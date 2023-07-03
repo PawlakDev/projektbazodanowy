@@ -18,13 +18,17 @@ public class CreatingNewTraining {
     private JLabel wellcomeMsgLabel, WpisTekstLabel;
     private final JButton[] button = new JButton[6]; // wartosc do zmiany
     private SessionFactory sessionFactory;
+    private String dzien, miesiac, rok;
 
-    public CreatingNewTraining(SessionFactory sessionFactory, JPanel ButtonPanel3, JPanel BackgroundImagePanel, JFrame to, JLayeredPane jLayeredPane) {
+    public CreatingNewTraining(SessionFactory sessionFactory, JPanel ButtonPanel3, JPanel BackgroundImagePanel, JFrame to, JLayeredPane jLayeredPane, String dzien, String miesiac, String rok) {
         this.sessionFactory = sessionFactory;
         this.ButtonPanel3 = ButtonPanel3;
         this.BackgroundImagePanel = BackgroundImagePanel;
         this.to = to;
         this.jLayeredPane = jLayeredPane;
+        this.dzien = dzien;
+        this.miesiac = miesiac;
+        this.rok = rok;
     }
 
     public CreatingNewTraining() {
@@ -72,7 +76,7 @@ public class CreatingNewTraining {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String typ = "Bieg";
-                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ);
+                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ, dzien, miesiac, rok);
 
                 opis.zrob();
 
@@ -86,7 +90,7 @@ public class CreatingNewTraining {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String typ = "Woda";
-                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ);
+                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ, dzien, miesiac, rok);
 
                 opis.zrob();
             }
@@ -98,7 +102,7 @@ public class CreatingNewTraining {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String typ = "Silownia";
-                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ);
+                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ, dzien, miesiac, rok);
 
                 opis.zrob();
             }
@@ -110,7 +114,7 @@ public class CreatingNewTraining {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String typ = "Ergo";
-                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ);
+                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ, dzien, miesiac, rok);
 
                 opis.zrob();
             }
@@ -122,7 +126,7 @@ public class CreatingNewTraining {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String typ = "Inne";
-                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ);
+                addTrainingDescriptions opis = new addTrainingDescriptions(sessionFactory,ButtonPanel4, jLayeredPane, wellcomeMsgLabel, wellcomeMsgPanel,typ, dzien, miesiac, rok);
 
                 opis.zrob();
             }

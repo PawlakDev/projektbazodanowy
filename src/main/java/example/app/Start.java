@@ -166,7 +166,7 @@ public class Start extends JFrame implements ActionListener {
             ButtonBack.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     if (e.getSource() == button[3]) {
-                        System.out.println("ELO ELOOOO");
+                        //System.out.println("dziala");
                     }
 
                     login.getPanel5().setVisible(false);
