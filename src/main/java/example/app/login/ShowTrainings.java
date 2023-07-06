@@ -220,6 +220,18 @@ public class ShowTrainings extends JFrame {
                             }
                         }
                         //odsiwezenie tabeli
+                        final Object[][][] tableData = {new Object[userWorkouts.size()][]};
+                        for (int i = 0; i < userWorkouts.size(); i++) {
+                            Workouts workout = userWorkouts.get(i);
+                            Object[] rowData = {
+                                    workout.getId(),
+                                    workout.getDate(),
+                                    workout.getWorkouttype(),
+                                    workout.getKilometers(),
+                                    workout.getTimeworkout()
+                            };
+                            tableData[0][i] = rowData;
+                        }
                         table.setModel(new MyTableModel(tableData[0], columnNames));
                     }
                 }

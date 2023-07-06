@@ -32,7 +32,7 @@ public class Main {
 
         start.zrob();
 
-        if (debugMode == 1) {
+        if (debugMode == 0) {
 
             Scanner scanner = new Scanner(System.in);
 
